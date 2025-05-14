@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: readful
+
+  jpa:
+    open-in-view: false
