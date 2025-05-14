@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
+import readful.core.domain.shared.BaseEntity
 import readful.core.domain.shared.BookId
 
 /**
@@ -24,7 +25,7 @@ class Book(
     chapters: List<BookChapter> = emptyList(),
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: BookId = BookId(),
-) {
+) : BaseEntity() {
     init {
         require(chapters.isNotEmpty()) { "책 목차는 1개 이상이어야 합니다." }
     }

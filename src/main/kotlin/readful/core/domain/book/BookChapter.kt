@@ -4,6 +4,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import readful.core.domain.shared.BaseEntity
 import readful.core.domain.shared.BookChapterId
 
 /**
@@ -17,5 +18,5 @@ class BookChapter(
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: BookChapterId = BookChapterId(),
-) {
+) : BaseEntity() {
 }
