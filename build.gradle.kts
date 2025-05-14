@@ -19,7 +19,8 @@ repositories {
     mavenCentral()
 }
 
-extra["springModulithVersion"] = "1.3.5"
+val springModulithVersion = "1.3.5"
+val kotestVersion = "5.9.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -37,12 +38,13 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.modulith:spring-modulith-starter-test")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.modulith:spring-modulith-bom:${property("springModulithVersion")}")
+        mavenBom("org.springframework.modulith:spring-modulith-bom:$springModulithVersion")
     }
 }
 
