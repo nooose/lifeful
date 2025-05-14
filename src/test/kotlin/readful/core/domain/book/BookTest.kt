@@ -1,0 +1,43 @@
+package readful.core.domain.book
+
+import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrowAny
+import io.kotest.core.spec.style.StringSpec
+
+class BookTest : StringSpec({
+
+    "책을 생성할 수 있다." {
+        shouldNotThrowAny {
+            Book(
+                isbn = "123456789012",
+                title = "테스트 책",
+                description = "테스트 설명",
+                author = "김저자",
+                publisher = "출판사",
+                chapters = listOf(
+                    BookChapter(
+                        title = "챕터1",
+                        description = "챕터1",
+                    ),
+                    BookChapter(
+                        title = "챕터2",
+                        description = "챕터2",
+                    ),
+                ),
+            )
+        }
+    }
+
+    "목차가 없으면 책을 생성할 수 없다." {
+        shouldThrowAny {
+            Book(
+                isbn = "123456789012",
+                title = "테스트 책",
+                description = "테스트 설명",
+                author = "김저자",
+                publisher = "출판사",
+                chapters = emptyList(),
+            )
+        }
+    }
+})

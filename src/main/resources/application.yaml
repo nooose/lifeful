@@ -4,3 +4,4 @@ spring:
 
   jpa:
     open-in-view: false
+    show-sql: true
