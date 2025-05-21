@@ -1,5 +1,7 @@
 package readful.core.domain.book
 
+import readful.core.domain.shared.BookId
+
 /**
  * 책 저장소
  *
@@ -8,4 +10,5 @@ package readful.core.domain.book
 interface BookRepository {
 
     fun findAll(): List<Book>
+    fun findById(id: BookId): Book?
 }
