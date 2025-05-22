@@ -3,6 +3,7 @@ package readful.core.domain.club
 import jakarta.persistence.*
 import readful.core.domain.book.Book
 import readful.core.domain.book.BookChapter
+import readful.core.domain.club.reading.ReadingStep
 import readful.core.domain.shared.BaseEntity
 import readful.core.domain.shared.ClubId
 import java.time.LocalDateTime
@@ -26,8 +27,16 @@ class Club(
     @JoinColumn(name = "book_id", nullable = false)
     lateinit var book : Book
 
+    @OneToMany(mappedBy = "club", cascade = [CascadeType.ALL], orphanRemoval = true)
+    val readingSteps: MutableList<ReadingStep> = mutableListOf()
+
     fun assignBook(book: Book){
         this.book = book;
+    }
+
+    fun addReadingStep(step: ReadingStep){
+        step.assignClub(this)
+        readingSteps.add(step)
     }
 
     companion object {
