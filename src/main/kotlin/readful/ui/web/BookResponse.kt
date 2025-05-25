@@ -9,7 +9,6 @@ internal data class BookResponse(
     val title: String,
     val author: String,
     val description: String,
-    val chapters: List<BookChapterResponse>,
 ) {
 
     companion object {
@@ -20,7 +19,6 @@ internal data class BookResponse(
                 title = domain.title,
                 author = domain.author,
                 description = domain.description,
-                chapters = domain.chapters.map { BookChapterResponse.from(it) }
             )
         }
     }
