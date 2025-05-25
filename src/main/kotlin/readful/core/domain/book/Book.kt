@@ -22,15 +22,6 @@ class Book(
     val description: String,
     val author: String,
     val publisher: String,
-    chapters: List<BookChapter> = emptyList(),
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: BookId = BookId(),
-) : BaseEntity() {
-    init {
-        require(chapters.isNotEmpty()) { "책 목차는 1개 이상이어야 합니다." }
-    }
-
-    @JoinColumn(name = "book_id", nullable = false, updatable = false)
-    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
-    val chapters: MutableList<BookChapter> = chapters.toMutableList()
-}
+) : BaseEntity()
