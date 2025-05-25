@@ -14,8 +14,9 @@ value class ReviewRating(
         require((value * 2).rem(1.0) == 0.0) { "후기 점수는 0.5 단위만 허용됩니다." }
     }
 
-    private companion object {
-        const val MIN = 0.5
-        const val MAX = 5.0
+    companion object {
+        private const val MIN = 0.5
+        private const val MAX = 5.0
+        val FIVE_STAR = ReviewRating(MAX)
     }
 }

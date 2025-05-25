@@ -15,7 +15,7 @@ import readful.core.domain.shared.ReviewerId
  */
 @Entity
 class Review(
-    val rating: ReviewRating,
+    var rating: ReviewRating,
     var comment: String?,
     val reviewerId: ReviewerId,
     val bookId: BookId,
@@ -23,8 +23,9 @@ class Review(
     val id: ReviewId = ReviewId(),
 ) : BaseEntity() {
 
-    fun edit(comment: String?, reviewerId: ReviewerId) {
+    fun edit(rating: ReviewRating, comment: String?, reviewerId: ReviewerId) {
         checkOwner(reviewerId)
+        this.rating = rating
         this.comment = comment
     }
 

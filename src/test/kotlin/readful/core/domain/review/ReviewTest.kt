@@ -11,7 +11,7 @@ class ReviewTest : StringSpec({
         val reviewerId = ReviewerId(1L)
 
         val review = Review(
-            rating = ReviewRating(5.0),
+            rating = ReviewRating.FIVE_STAR,
             comment = "후기 내용",
             reviewerId = reviewerId,
             bookId = BookId(1L),
@@ -20,7 +20,11 @@ class ReviewTest : StringSpec({
         val otherReviewer = ReviewerId(2L)
 
         shouldThrow<ReviewerMismatchException> {
-            review.edit("후기 내용", otherReviewer)
+            review.edit(
+                rating = ReviewRating.FIVE_STAR,
+                comment = "후기 내용",
+                otherReviewer,
+            )
         }
     }
 })

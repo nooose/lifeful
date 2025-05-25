@@ -1,5 +1,6 @@
 package readful.core.application.review
 
+import readful.core.domain.review.ReviewRating
 import readful.core.domain.shared.ReviewId
 import readful.core.domain.shared.ReviewerId
 
@@ -13,7 +14,13 @@ interface ModifyReview {
      * 후기 코멘트를 수정한다.
      * @param reviewId 후기 식별자
      * @param reviewerId 후기 작성자
+     * @param rating 후기 평점
      * @param comment 후기 내용
      */
-    fun edit(reviewId: ReviewId, reviewerId: ReviewerId, comment: String?)
+    fun edit(
+        reviewId: ReviewId,
+        reviewerId: ReviewerId,
+        rating: ReviewRating,
+        comment: String?,
+    )
 }

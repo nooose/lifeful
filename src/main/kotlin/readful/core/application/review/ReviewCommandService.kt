@@ -2,10 +2,7 @@ package readful.core.application.review
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import readful.core.domain.review.Review
-import readful.core.domain.review.ReviewDuplicateException
-import readful.core.domain.review.ReviewNotFoundException
-import readful.core.domain.review.ReviewRepository
+import readful.core.domain.review.*
 import readful.core.domain.shared.ReviewId
 import readful.core.domain.shared.ReviewerId
 
@@ -35,10 +32,15 @@ class ReviewCommandService(
     override fun edit(
         reviewId: ReviewId,
         reviewerId: ReviewerId,
+        rating: ReviewRating,
         comment: String?
     ) {
         val review = reviewRepository.findBy(reviewId)
             ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
-        review.edit(comment, reviewerId)
+        review.edit(
+            rating = rating,
+            comment = comment,
+            reviewerId = reviewerId,
+        )
     }
 }

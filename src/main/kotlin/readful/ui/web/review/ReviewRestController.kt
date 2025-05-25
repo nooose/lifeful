@@ -58,6 +58,7 @@ class ReviewRestController(
         modifyReview.edit(
             reviewId = reviewId,
             reviewerId = ReviewerId(currentMemberId()),
+            rating = request.rating,
             comment = request.comment,
         )
     }
