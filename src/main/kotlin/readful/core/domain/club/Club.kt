@@ -23,6 +23,10 @@ class Club(
     }
 
     fun requestJoin(memberId: Int) {
+        check(!isMemberAlreadyJoined(memberId)) {
+            "이미 요청 중이거나 참여 중인 멤버입니다."
+        }
+
         val pendingMember = ClubMember.pending(clubId = this.id, memberId = memberId)
         this.members.add(pendingMember)
     }
@@ -55,5 +59,9 @@ class Club(
     private fun getMember(memberId: Int): ClubMember {
         return this.members.firstOrNull { it.memberId == memberId }
             ?: throw IllegalStateException("참가자($memberId)를 찾을 수 없습니다.")
+    }
+
+    private fun isMemberAlreadyJoined(memberId: Int): Boolean {
+        return this.members.any { it.memberId == memberId  && it.state != ClubMemberState.REJECTED}
     }
 }

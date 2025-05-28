@@ -1,6 +1,7 @@
 package readful.core.domain.club
 
 import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -57,6 +58,18 @@ class ClubTest : StringSpec({
 
         val member = club.members.first { it.memberId == 2 }
         member.state shouldBe ClubMemberState.PENDING
+    }
+
+    "중복 참여 요청 시, 예외가 발생한다. " {
+        val club = Club("제목", "설명", 3, hostId = 1)
+
+        club.requestJoin(memberId = 1)
+
+        val exception = shouldThrow<IllegalStateException> {
+            club.requestJoin(memberId = 1)
+        }
+
+        exception.message shouldBe "이미 요청 중이거나 참여 중인 멤버입니다."
     }
 
     "호스트가 참여 요청을 거부하면, 멤버의 상태는 REJECTED 가 된다." {
