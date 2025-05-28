@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import readful.core.application.club.command.ClubCommandService
 import readful.core.application.club.query.ClubQueryService
-import readful.core.domain.book.BookChapter
 import readful.core.domain.book.BookRepository
-import readful.core.domain.club.reading.ReadingStep
-import readful.core.domain.club.reading.StepPeriod
 import readful.core.domain.shared.BookId
 import readful.core.domain.shared.ClubId
 import java.net.URI
@@ -30,30 +27,10 @@ class ClubRestController(
         val book = bookRepository.findById(BookId(request.bookId))
             ?: return ResponseEntity.badRequest().build()
 
-        val steps = request.steps.map { step ->
-            val chapters = mutableListOf<BookChapter>()
-
-            for (chapterId in step.chapterIds) {
-                val chapter = book.chapters.find { chapter -> chapter.id.value == chapterId }
-                if (chapter != null) {
-                    chapters.add(chapter)
-                }
-            }
-
-            ReadingStep.create(
-                stepOrder = step.stepOrder,
-                stepPeriod = StepPeriod(step.startDate, step.endDate),
-                chapters = chapters
-            )
-        }
-
         val club = clubCommandService.createClub(
             title = request.title,
             description = request.description,
             memberCount = request.memberCount,
-            startAt = request.startAt,
-            book = book,
-            steps = steps
         )
 
         return ResponseEntity
