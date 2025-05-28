@@ -21,6 +21,7 @@ repositories {
 
 val springModulithVersion = "1.3.5"
 val kotestVersion = "5.9.0"
+val kotestSpringExtVersion = "1.0.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -37,9 +38,12 @@ dependencies {
     runtimeOnly("org.springframework.modulith:spring-modulith-observability")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:${kotestSpringExtVersion}")
     testImplementation("org.springframework.modulith:spring-modulith-starter-test")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("io.projectreactor:reactor-core:3.6.5")
 }
 
 dependencyManagement {

@@ -9,5 +9,5 @@ import readful.core.domain.book.Book
  */
 interface FindBook {
 
-    fun all(): List<Book>
+    fun all(title: String): List<Book>
 }

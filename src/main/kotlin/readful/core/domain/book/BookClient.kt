@@ -13,5 +13,5 @@ interface BookClient {
      * @param title 책 제목
      * @return 책 도메인 모델, 찾지 못하면 null을 반환한다.
      */
-    fun getBook(isbn: String?, title: String?): Book?
+    fun getBook(title: String): List<Book>?
 }

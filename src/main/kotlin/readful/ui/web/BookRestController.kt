@@ -3,6 +3,7 @@ package readful.ui.web
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import readful.core.application.book.query.FindBook
 import readful.core.domain.shared.BookId
@@ -13,8 +14,8 @@ internal class BookRestController(
 ) {
 
     @GetMapping("/books")
-    fun getBooks(): List<BookResponse> {
-        val books = findBook.all()
+    fun getBooks(@RequestParam title: String): List<BookResponse> {
+        val books = findBook.all(title)
         return books.map { BookResponse.from(it) }
     }
 

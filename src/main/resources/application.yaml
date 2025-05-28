@@ -5,3 +5,13 @@ spring:
   jpa:
     open-in-view: false
     show-sql: true
+
+
+readful:
+  book:
+    naver:
+      client-id: ${NAVER_CLIENT_ID}
+      client-secret: ${NAVER_CLIENT_SECRET}
+
+    aladin:
+      client-id: ${ALADIN_API_CLIENT_ID}
