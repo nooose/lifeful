@@ -77,7 +77,18 @@ class ClubTest : StringSpec({
         club.requestJoin(memberId = 2)
         club.rejectMember(memberId = 2, hostId = 1)
 
-        val member = club.members.first { it.memberId == 2}
+        val member = club.members.first { it.memberId == 2 }
         member.state shouldBe ClubMemberState.REJECTED
+    }
+
+    "호스트는 멤버를 강퇴할 수 있다." {
+        val club = Club("제목", "설명", 3, hostId = 1)
+
+        club.requestJoin(memberId = 2)
+        club.acceptMember(memberId = 2, hostId = 1)
+
+        club.kickMember(2, 1)
+
+        club.members.any { it.memberId == 2 } shouldBe false
     }
 })

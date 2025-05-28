@@ -52,6 +52,13 @@ class Club(
         clubMember.reject()
     }
 
+    fun kickMember(memberId: Int, hostId: Int) {
+        checkHost(hostId)
+
+        val clubMember = getMember(memberId)
+        this.members.remove(clubMember)
+    }
+
     private fun checkHost(hostId: Int) {
         check(this.hostId == hostId) { "클럽 호스트만 처리할 수 있습니다." }
     }
@@ -62,6 +69,6 @@ class Club(
     }
 
     private fun isMemberAlreadyJoined(memberId: Int): Boolean {
-        return this.members.any { it.memberId == memberId  && it.state != ClubMemberState.REJECTED}
+        return this.members.any { it.memberId == memberId && it.state != ClubMemberState.REJECTED }
     }
 }
