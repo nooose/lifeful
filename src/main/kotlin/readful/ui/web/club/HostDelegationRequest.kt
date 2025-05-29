@@ -4,3 +4,4 @@ data class HostDelegationRequest(
     val memberId: Int,
     val hostId: Int
 )
+
