@@ -75,4 +75,14 @@ class ClubRestController(
         return ResponseEntity.ok().build()
     }
 
+    @PostMapping("/{clubId}/members/{memberId}/reject")
+    fun rejectMember(
+        @PathVariable clubId: Long,
+        @PathVariable memberId: Int,
+        @RequestBody request: HostRequest
+    ): ResponseEntity<Void> {
+        clubCommandService.rejectMember(ClubId(clubId), memberId, request.hostId)
+        return ResponseEntity.ok().build()
+    }
+
 }
