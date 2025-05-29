@@ -64,4 +64,15 @@ class ClubRestController(
         clubCommandService.requestJoin(ClubId(clubId), request.memberId)
         return ResponseEntity.ok().build()
     }
+
+    @PostMapping("/{clubId}/members/{memberId}/accept")
+    fun acceptMember(
+        @PathVariable clubId: Long,
+        @PathVariable memberId: Int,
+        @RequestBody request: HostRequest
+    ): ResponseEntity<Void> {
+        clubCommandService.acceptMember(ClubId(clubId), memberId, request.hostId)
+        return ResponseEntity.ok().build()
+    }
+
 }
