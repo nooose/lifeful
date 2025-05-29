@@ -85,4 +85,13 @@ class ClubRestController(
         return ResponseEntity.ok().build()
     }
 
+    @PostMapping("/{clubId}/members/{memberId}/leave")
+    fun leaveClub(
+        @PathVariable clubId: Long,
+        @PathVariable memberId: Int,
+    ): ResponseEntity<Void> {
+        clubCommandService.leaveClub(ClubId(clubId), memberId)
+        return ResponseEntity.ok().build()
+    }
+
 }
