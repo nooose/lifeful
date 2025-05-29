@@ -104,4 +104,12 @@ class ClubRestController(
         return ResponseEntity.ok().build()
     }
 
+    @PostMapping("/{clubId}/host/delegate")
+    fun delegateHost(
+        @PathVariable clubId: Long,
+        @RequestBody request: HostDelegationRequest
+    ): ResponseEntity<Void> {
+        clubCommandService.delegateHost(ClubId(clubId), request.memberId ,request.hostId)
+        return ResponseEntity.ok().build()
+    }
 }

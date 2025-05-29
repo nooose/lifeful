@@ -69,6 +69,15 @@ class ClubCommandService(
         club.kickMember(memberId, hostId)
     }
 
+    fun delegateHost(
+        clubId: ClubId,
+        memberId: Int,
+        hostId: Int
+    ) {
+        val club = getClub(clubId)
+        club.delegateHost(memberId, hostId)
+    }
+
     private fun getClub(clubId: ClubId): Club {
         return clubRepository.findById(clubId)
             ?: throw IllegalStateException("클럽을 찾을 수 없습니다.")
