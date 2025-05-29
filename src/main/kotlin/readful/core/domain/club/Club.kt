@@ -9,7 +9,7 @@ class Club(
     var title: String,
     var description: String,
     var memberMaxCount: Int,
-    val hostId: Int,
+    var hostId: Int,
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: ClubId = ClubId(),
     members: List<ClubMember> = emptyList(),
@@ -57,6 +57,23 @@ class Club(
 
         val clubMember = getMember(memberId)
         this.members.remove(clubMember)
+    }
+
+    fun delegateHost(memberId: Int, hostId: Int) {
+        checkHost(hostId)
+
+        val newHostMember = getMember(memberId)
+
+        check(newHostMember.isAccepted()) {
+            "참여중인 멤버에게만 권한을 위임할 수 있습니다."
+        }
+
+        if (this.members.none { it.memberId == hostId }) {
+            val previousHostMember = ClubMember.accepted(this.id, hostId)
+            this.members.add(previousHostMember)
+        }
+
+        this.hostId = memberId
     }
 
     fun leaveClub(memberId: Int) {

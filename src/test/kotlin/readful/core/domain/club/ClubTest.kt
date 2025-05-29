@@ -115,4 +115,40 @@ class ClubTest : StringSpec({
 
         exception.message shouldBe "참여중인 멤버만 탈퇴할 수 있습니다."
     }
+
+    "호스트가 권한을 위임하면 클럽의 hostId가 변경된다." {
+        val club = Club("제목", "설명", 3, hostId = 1)
+
+        club.requestJoin(2)
+        club.acceptMember(2,1)
+
+        club.delegateHost(2,1)
+
+        club.hostId shouldBe 2
+    }
+
+    "참여 중이 아닌 멤버에게 위임하면 예외가 발생한다." {
+        val club = Club("제목", "설명", 3, hostId = 1)
+
+        club.requestJoin(2)
+
+        val exception = shouldThrow<IllegalStateException> {
+            club.rejectMember(2,1)
+            club.delegateHost(2, 1)
+        }
+
+        exception.message shouldBe "참여중인 멤버에게만 권한을 위임할 수 있습니다."
+    }
+
+    "호스트는 멤버에게 위임하면 자동으로 members에 승인 상태로 추가된다." {
+        val club = Club("제목", "설명", 3, hostId = 1)
+
+        club.requestJoin(memberId = 2)
+        club.acceptMember(2,1)
+
+        club.delegateHost(2, 1)
+
+        val previousHost = club.members.find { it.memberId == 1 }
+        previousHost!!.state shouldBe ClubMemberState.ACCEPTED
+    }
 })

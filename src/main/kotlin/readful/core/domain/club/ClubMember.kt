@@ -41,5 +41,13 @@ class ClubMember(
                 state = ClubMemberState.PENDING
             )
         }
+
+        fun accepted(clubId: ClubId, memberId: Int): ClubMember {
+            return ClubMember(
+                clubId = clubId,
+                memberId = memberId,
+                state = ClubMemberState.ACCEPTED
+            )
+        }
     }
 }
