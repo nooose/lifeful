@@ -21,6 +21,10 @@ class ClubMember(
         this.state = ClubMemberState.ACCEPTED
     }
 
+    fun isAccepted(): Boolean {
+        return this.state == ClubMemberState.ACCEPTED
+    }
+
     fun reject() {
         check(this.state == ClubMemberState.PENDING) {
             "이미 승인되었거나 거절된 멤버는 승인할 수 없습니다."

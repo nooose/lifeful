@@ -59,6 +59,16 @@ class Club(
         this.members.remove(clubMember)
     }
 
+    fun leaveClub(memberId: Int) {
+        val member = getMember(memberId)
+
+        check(member.isAccepted()) {
+            "참여중인 멤버만 탈퇴할 수 있습니다."
+        }
+
+        this.members.remove(member)
+    }
+
     private fun checkHost(hostId: Int) {
         check(this.hostId == hostId) { "클럽 호스트만 처리할 수 있습니다." }
     }

@@ -91,4 +91,28 @@ class ClubTest : StringSpec({
 
         club.members.any { it.memberId == 2 } shouldBe false
     }
+
+    "클럽에 없는 멤버가 탈퇴하면 예외가 발생한다." {
+        val club = Club("제목", "설명", 3, hostId = 1)
+
+        club.requestJoin(memberId = 2)
+
+        val exception = shouldThrow<IllegalStateException> {
+            club.leaveClub(memberId = 3)
+        }
+
+        exception.message shouldBe "참가자(3)를 찾을 수 없습니다."
+    }
+
+    "클럽에 참여 중이 아닌 멤버가 탈퇴하면 예외가 발생한다." {
+        val club = Club("제목", "설명", 3, hostId = 1)
+
+        club.requestJoin(memberId = 2)
+
+        val exception = shouldThrow<IllegalStateException> {
+            club.leaveClub(memberId = 2)
+        }
+
+        exception.message shouldBe "참여중인 멤버만 탈퇴할 수 있습니다."
+    }
 })
