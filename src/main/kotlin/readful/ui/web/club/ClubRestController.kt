@@ -94,4 +94,14 @@ class ClubRestController(
         return ResponseEntity.ok().build()
     }
 
+    @PostMapping("/{clubId}/members/{memberId}/kick")
+    fun kickMember(
+        @PathVariable clubId: Long,
+        @PathVariable memberId: Int,
+        @RequestBody request: HostRequest
+    ): ResponseEntity<Void> {
+        clubCommandService.kickMember(ClubId(clubId), memberId, request.hostId)
+        return ResponseEntity.ok().build()
+    }
+
 }
