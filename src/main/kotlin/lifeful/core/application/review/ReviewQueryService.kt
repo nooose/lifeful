@@ -1,12 +1,12 @@
 package lifeful.core.application.review
 
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import lifeful.core.domain.review.Review
 import lifeful.core.domain.review.ReviewNotFoundException
 import lifeful.core.domain.review.ReviewRepository
 import lifeful.core.domain.shared.BookId
 import lifeful.core.domain.shared.ReviewId
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 /**
  * 후기 조회 유즈케이스의 구현체
@@ -18,8 +18,8 @@ class ReviewQueryService(
     private val reviewRepository: ReviewRepository,
 ) : FindReview {
 
-    override fun byId(reviewId: ReviewId): Review {
-        return reviewRepository.findBy(reviewId = reviewId)
+    override fun byId(bookId: BookId, reviewId: ReviewId): Review {
+        return reviewRepository.findBy(bookId = bookId, reviewId = reviewId)
             ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
     }
 

@@ -1,13 +1,20 @@
-package lifeful.ui.web
+package lifeful.ui.web.book
 
+import io.swagger.v3.oas.annotations.media.Schema
 import lifeful.core.domain.book.Book
 import lifeful.core.domain.shared.BookId
 
-internal data class BookResponse(
+@Schema(description = "책 응답")
+data class BookResponse(
+    @field:Schema(description = "책 식별자")
     val id: BookId,
+    @field:Schema(description = "ISBN")
     val isbn: String,
+    @field:Schema(description = "제목")
     val title: String,
+    @field:Schema(description = "저자")
     val author: String,
+    @field:Schema(description = "설명")
     val description: String,
 ) {
 

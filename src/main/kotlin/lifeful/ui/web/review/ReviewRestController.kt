@@ -1,7 +1,8 @@
 package lifeful.ui.web.review
 
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.Parameter
+import io.swagger.v3.oas.annotations.tags.Tag
 import lifeful.core.application.review.AddReview
 import lifeful.core.application.review.FindReview
 import lifeful.core.application.review.ModifyReview
@@ -9,8 +10,14 @@ import lifeful.core.domain.shared.BookId
 import lifeful.core.domain.shared.ReviewId
 import lifeful.core.domain.shared.ReviewerId
 import lifeful.security.currentMemberId
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 import java.net.URI
 
+@Tag(
+    name = "후기 API",
+    description = "후기 관련 API입니다.",
+)
 @RestController
 class ReviewRestController(
     private val addReview: AddReview,
@@ -18,8 +25,13 @@ class ReviewRestController(
     private val modifyReview: ModifyReview,
 ) {
 
+    @Operation(
+        summary = "후기 등록",
+        operationId = "review",
+    )
     @PostMapping("/books/{bookId}/reviews")
     fun review(
+        @Parameter(description = "책 식별자")
         @PathVariable bookId: BookId,
         @RequestBody request: ReviewAddRequest,
     ): ResponseEntity<Unit> {
@@ -34,28 +46,48 @@ class ReviewRestController(
         return ResponseEntity.created(location).build()
     }
 
+    @Operation(
+        summary = "후기 목록 조회",
+        operationId = "getReviews",
+    )
     @GetMapping("/books/{bookId}/reviews")
     fun getReviews(
+        @Parameter(description = "책 식별자")
         @PathVariable bookId: BookId,
     ): List<ReviewSummaryResponse> {
         val reviews = findReview.all(bookId = bookId)
         return reviews.map {ReviewSummaryResponse.from(it)}
     }
 
-    @GetMapping("/reviews/{reviewId}")
+    @Operation(
+        summary = "후기 상세 조회",
+        operationId = "getReview",
+    )
+    @GetMapping("/books/{bookId}/reviews/{reviewId}")
     fun getReview(
+        @Parameter(description = "책 식별자")
+        @PathVariable bookId: BookId,
+        @Parameter(description = "후기 식별자")
         @PathVariable reviewId: ReviewId,
     ): ReviewResponse {
-        val review = findReview.byId(reviewId)
+        val review = findReview.byId(bookId = bookId, reviewId = reviewId)
         return ReviewResponse.from(review)
     }
 
-    @PatchMapping("/reviews/{reviewId}")
+    @Operation(
+        summary = "후기 수정",
+        operationId = "editReview",
+    )
+    @PatchMapping("/books/{bookId}/reviews/{reviewId}")
     fun editReview(
+        @Parameter(description = "책 식별자")
+        @PathVariable bookId: BookId,
+        @Parameter(description = "후기 식별자")
         @PathVariable reviewId: ReviewId,
         @RequestBody request: ReviewEditRequest,
     ) {
         modifyReview.edit(
+            bookId = bookId,
             reviewId = reviewId,
             reviewerId = ReviewerId(currentMemberId()),
             rating = request.rating,

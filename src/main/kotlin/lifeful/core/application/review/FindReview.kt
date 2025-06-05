@@ -10,6 +10,10 @@ import lifeful.core.domain.shared.ReviewId
  */
 interface FindReview {
 
-    fun byId(reviewId: ReviewId): Review
+    fun byId(
+        bookId: BookId,
+        reviewId: ReviewId,
+    ): Review
+
     fun all(bookId: BookId): List<Review>
 }

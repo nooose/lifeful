@@ -12,7 +12,7 @@ interface ReviewRepository {
 
     fun addReview(review: Review)
 
-    fun findBy(reviewerId: ReviewerId, bookId: BookId): Review?
-    fun findBy(reviewId: ReviewId): Review?
+    fun findBy(bookId: BookId, reviewerId: ReviewerId): Review?
+    fun findBy(bookId: BookId, reviewId: ReviewId): Review?
     fun findAll(bookId: BookId): List<Review>
 }

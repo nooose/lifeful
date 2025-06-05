@@ -1,10 +1,11 @@
 package lifeful.core.application.review
 
-import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 import lifeful.core.domain.review.*
+import lifeful.core.domain.shared.BookId
 import lifeful.core.domain.shared.ReviewId
 import lifeful.core.domain.shared.ReviewerId
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 /**
  * 후기 명령 유즈케이스의 구현체
@@ -23,19 +24,20 @@ class ReviewCommandService(
     }
 
     private fun checkDuplicate(review: Review) {
-        val existsBook = reviewRepository.findBy(review.reviewerId, review.bookId)
+        val existsBook = reviewRepository.findBy(bookId = review.bookId, review.reviewerId)
         if (existsBook != null) {
             throw ReviewDuplicateException("사용자(${review.reviewerId})가 책(${review.bookId})에 이미 후기를 등록했습니다.")
         }
     }
 
     override fun edit(
+        bookId: BookId,
         reviewId: ReviewId,
         reviewerId: ReviewerId,
         rating: ReviewRating,
         comment: String?
     ) {
-        val review = reviewRepository.findBy(reviewId)
+        val review = reviewRepository.findBy(bookId, reviewId)
             ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
         review.edit(
             rating = rating,
