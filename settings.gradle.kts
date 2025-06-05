@@ -1,1 +1,1 @@
-rootProject.name = "readful"
+rootProject.name = "lifeful"

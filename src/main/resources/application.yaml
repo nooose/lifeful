@@ -1,6 +1,6 @@
 spring:
   application:
-    name: readful
+    name: lifeful
 
   jpa:
     open-in-view: false
