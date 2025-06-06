@@ -40,9 +40,8 @@ class ReviewCommandService(
         rating: ReviewRating,
         comment: String?,
     ) {
-        val review =
-            reviewRepository.findBy(bookId, reviewId)
-                ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
+        val review = reviewRepository.findBy(bookId, reviewId)
+            ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
         review.edit(
             rating = rating,
             comment = comment,

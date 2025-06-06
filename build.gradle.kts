@@ -65,6 +65,7 @@ allOpen {
 ktlint {
     android.set(false)
     outputToConsole.set(true)
+    enableExperimentalRules.set(false)
     filter {
         exclude("**/generated/**")
         include("**/kotlin/**")
