@@ -1,6 +1,10 @@
 package lifeful.core.application.review
 
-import lifeful.core.domain.review.*
+import lifeful.core.domain.review.Review
+import lifeful.core.domain.review.ReviewDuplicateException
+import lifeful.core.domain.review.ReviewNotFoundException
+import lifeful.core.domain.review.ReviewRating
+import lifeful.core.domain.review.ReviewRepository
 import lifeful.core.domain.shared.BookId
 import lifeful.core.domain.shared.ReviewId
 import lifeful.core.domain.shared.ReviewerId
@@ -16,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional
 class ReviewCommandService(
     private val reviewRepository: ReviewRepository,
 ) : AddReview, ModifyReview {
-
     override fun add(review: Review): ReviewId {
         checkDuplicate(review)
         reviewRepository.addReview(review)
@@ -35,10 +38,11 @@ class ReviewCommandService(
         reviewId: ReviewId,
         reviewerId: ReviewerId,
         rating: ReviewRating,
-        comment: String?
+        comment: String?,
     ) {
-        val review = reviewRepository.findBy(bookId, reviewId)
-            ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
+        val review =
+            reviewRepository.findBy(bookId, reviewId)
+                ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
         review.edit(
             rating = rating,
             comment = comment,

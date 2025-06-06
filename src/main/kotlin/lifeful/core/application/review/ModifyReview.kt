@@ -10,7 +10,6 @@ import lifeful.core.domain.shared.ReviewerId
  * @author hd15807@gmail.com
  */
 interface ModifyReview {
-
     /**
      * 후기 코멘트를 수정한다.
      * @param bookId 책 식별자

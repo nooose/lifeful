@@ -8,7 +8,6 @@ import lifeful.core.domain.shared.ReviewId
  * @author hd15807@gmail.com
  */
 interface AddReview {
-
     /**
      * 후기를 등록한다.
      * @param review 등록할 후기 도메인 모델

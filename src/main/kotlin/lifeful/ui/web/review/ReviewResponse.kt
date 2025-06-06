@@ -23,7 +23,6 @@ data class ReviewResponse(
     @field:Schema(description = "후기 생성 시간")
     val createdAt: LocalDateTime,
 ) {
-
     companion object {
         fun from(domain: Review): ReviewResponse {
             with(domain) {

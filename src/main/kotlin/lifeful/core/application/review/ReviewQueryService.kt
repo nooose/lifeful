@@ -17,8 +17,10 @@ import org.springframework.transaction.annotation.Transactional
 class ReviewQueryService(
     private val reviewRepository: ReviewRepository,
 ) : FindReview {
-
-    override fun byId(bookId: BookId, reviewId: ReviewId): Review {
+    override fun byId(
+        bookId: BookId,
+        reviewId: ReviewId,
+    ): Review {
         return reviewRepository.findBy(bookId = bookId, reviewId = reviewId)
             ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
     }

@@ -17,7 +17,7 @@ class ReviewRatingTest : StringSpec({
             row(0.6),
             row(1.3),
             row(4.7),
-            row(5.1)
+            row(5.1),
         ) { value ->
             shouldThrowAny {
                 ReviewRating(value)
@@ -31,7 +31,7 @@ class ReviewRatingTest : StringSpec({
             row(1.0),
             row(2.5),
             row(4.0),
-            row(5.0)
+            row(5.0),
         ) { valid ->
             shouldNotThrowAny {
                 ReviewRating(valid)

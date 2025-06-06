@@ -9,7 +9,6 @@ import lifeful.core.domain.shared.ReviewId
  * @author hd15807@gmail.com
  */
 interface FindReview {
-
     fun byId(
         bookId: BookId,
         reviewId: ReviewId,

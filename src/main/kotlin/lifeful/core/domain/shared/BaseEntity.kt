@@ -14,6 +14,7 @@ class BaseEntity() {
     @CreatedDate
     @Column(updatable = false)
     lateinit var createdAt: LocalDateTime
+
     @LastModifiedDate
     lateinit var modifiedAt: LocalDateTime
 }

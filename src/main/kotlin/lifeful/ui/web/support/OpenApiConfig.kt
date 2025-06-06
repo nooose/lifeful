@@ -11,18 +11,18 @@ import org.springframework.context.annotation.Configuration
     name = BEARER_AUTH,
     type = SecuritySchemeType.HTTP,
     scheme = "bearer",
-    bearerFormat = "JWT"
+    bearerFormat = "JWT",
 )
 @OpenAPIDefinition(
-    info = Info(
-        title = "Lifeful API",
-        description = "기록 기반 플랫폼 REST API 문서",
-        version = "v0.0.1"
-    ),
+    info =
+        Info(
+            title = "Lifeful API",
+            description = "기록 기반 플랫폼 REST API 문서",
+            version = "v0.0.1",
+        ),
 )
 @Configuration(proxyBeanMethods = false)
 class OpenApiConfig {
-
     companion object {
         const val BEARER_AUTH = "bearerAuth"
     }

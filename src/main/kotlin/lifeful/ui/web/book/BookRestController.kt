@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RestController
 )
 @RestController
 internal class BookRestController(
-    private val findBook: FindBook
+    private val findBook: FindBook,
 ) {
-
     @Operation(
         summary = "책 목록 조회",
         operationId = "getBooks",

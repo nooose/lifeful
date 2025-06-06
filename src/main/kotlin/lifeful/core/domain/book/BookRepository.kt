@@ -6,6 +6,5 @@ package lifeful.core.domain.book
  * @author hd15807@gmail.com
  */
 interface BookRepository {
-
     fun findAll(): List<Book>
 }

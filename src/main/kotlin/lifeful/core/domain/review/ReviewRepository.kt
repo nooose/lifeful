@@ -9,10 +9,17 @@ import lifeful.core.domain.shared.ReviewerId
  * @author hd15807@gmail.com
  */
 interface ReviewRepository {
-
     fun addReview(review: Review)
 
-    fun findBy(bookId: BookId, reviewerId: ReviewerId): Review?
-    fun findBy(bookId: BookId, reviewId: ReviewId): Review?
+    fun findBy(
+        bookId: BookId,
+        reviewerId: ReviewerId,
+    ): Review?
+
+    fun findBy(
+        bookId: BookId,
+        reviewId: ReviewId,
+    ): Review?
+
     fun findAll(bookId: BookId): List<Review>
 }

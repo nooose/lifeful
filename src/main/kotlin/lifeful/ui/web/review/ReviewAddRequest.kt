@@ -18,7 +18,6 @@ data class ReviewAddRequest(
     )
     val rating: ReviewRating,
 ) {
-
     fun toDomain(
         bookId: BookId,
         reviewerId: ReviewerId,

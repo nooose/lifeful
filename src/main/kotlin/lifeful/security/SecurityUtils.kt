@@ -1,6 +1,5 @@
 package lifeful.security
 
-
 /**
  * 로그인한 사용자 식별자를 가져온다.
  */

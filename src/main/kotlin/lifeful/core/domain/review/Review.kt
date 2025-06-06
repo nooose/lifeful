@@ -22,8 +22,11 @@ class Review(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: ReviewId = ReviewId(),
 ) : BaseEntity() {
-
-    fun edit(rating: ReviewRating, comment: String?, reviewerId: ReviewerId) {
+    fun edit(
+        rating: ReviewRating,
+        comment: String?,
+        reviewerId: ReviewerId,
+    ) {
         checkOwner(reviewerId)
         this.rating = rating
         this.comment = comment

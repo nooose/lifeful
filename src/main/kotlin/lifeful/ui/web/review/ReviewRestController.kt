@@ -3,6 +3,7 @@ package lifeful.ui.web.review
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import java.net.URI
 import lifeful.core.application.review.AddReview
 import lifeful.core.application.review.FindReview
 import lifeful.core.application.review.ModifyReview
@@ -11,8 +12,12 @@ import lifeful.core.domain.shared.ReviewId
 import lifeful.core.domain.shared.ReviewerId
 import lifeful.security.currentMemberId
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
-import java.net.URI
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 @Tag(
     name = "후기 API",
@@ -24,7 +29,6 @@ class ReviewRestController(
     private val findReview: FindReview,
     private val modifyReview: ModifyReview,
 ) {
-
     @Operation(
         summary = "후기 등록",
         operationId = "review",
@@ -35,10 +39,11 @@ class ReviewRestController(
         @PathVariable bookId: BookId,
         @RequestBody request: ReviewAddRequest,
     ): ResponseEntity<Unit> {
-        val review = request.toDomain(
-            bookId = bookId,
-            reviewerId = ReviewerId(currentMemberId()),
-        )
+        val review =
+            request.toDomain(
+                bookId = bookId,
+                reviewerId = ReviewerId(currentMemberId()),
+            )
 
         addReview.add(review)
 
@@ -56,7 +61,7 @@ class ReviewRestController(
         @PathVariable bookId: BookId,
     ): List<ReviewSummaryResponse> {
         val reviews = findReview.all(bookId = bookId)
-        return reviews.map {ReviewSummaryResponse.from(it)}
+        return reviews.map { ReviewSummaryResponse.from(it) }
     }
 
     @Operation(

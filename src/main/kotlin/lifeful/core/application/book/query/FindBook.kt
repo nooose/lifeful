@@ -8,6 +8,5 @@ import lifeful.core.domain.book.Book
  * @author hd15807@gmail.com
  */
 interface FindBook {
-
     fun all(): List<Book>
 }

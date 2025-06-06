@@ -10,19 +10,24 @@ import org.springframework.transaction.annotation.Transactional
 
 @Repository
 internal class ReviewRdbRepository(
-    private val jpaRepository: ReviewJpaRepository
+    private val jpaRepository: ReviewJpaRepository,
 ) : ReviewRepository {
-
     @Transactional
     override fun addReview(review: Review) {
         jpaRepository.save(review)
     }
 
-    override fun findBy(bookId: BookId, reviewerId: ReviewerId, ): Review? {
+    override fun findBy(
+        bookId: BookId,
+        reviewerId: ReviewerId,
+    ): Review? {
         return jpaRepository.findByReviewerIdAndBookId(reviewerId, bookId)
     }
 
-    override fun findBy(bookId: BookId, reviewId: ReviewId): Review? {
+    override fun findBy(
+        bookId: BookId,
+        reviewId: ReviewId,
+    ): Review? {
         return jpaRepository.findByBookIdAndId(bookId, reviewId)
     }
 

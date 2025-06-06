@@ -17,7 +17,6 @@ data class ReviewSummaryResponse(
     @field:Schema(description = "후기 작성자 식별자")
     val reviewerId: ReviewerId,
 ) {
-
     companion object {
         fun from(domain: Review): ReviewSummaryResponse {
             return ReviewSummaryResponse(
