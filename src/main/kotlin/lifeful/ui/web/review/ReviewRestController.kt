@@ -16,7 +16,7 @@ import java.net.URI
 
 @Tag(
     name = "후기 API",
-    description = "후기 관련 API입니다.",
+    description = "후기 관련 API",
 )
 @RestController
 class ReviewRestController(

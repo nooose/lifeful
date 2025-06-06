@@ -17,7 +17,6 @@ data class BookResponse(
     @field:Schema(description = "설명")
     val description: String,
 ) {
-
     companion object {
         fun from(domain: Book): BookResponse {
             return BookResponse(
