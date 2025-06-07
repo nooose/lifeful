@@ -17,12 +17,14 @@ import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @Tag(
     name = "후기 API",
     description = "후기 관련 API",
 )
+@RequestMapping("/api/v1")
 @RestController
 class ReviewRestController(
     private val addReview: AddReview,

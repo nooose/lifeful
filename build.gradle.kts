@@ -30,6 +30,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.modulith:spring-modulith-starter-core")
     implementation("org.springframework.modulith:spring-modulith-starter-jpa")
+    implementation("io.github.oshai:kotlin-logging-jvm")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
     runtimeOnly("org.springframework.modulith:spring-modulith-observability")
@@ -49,6 +50,7 @@ dependencyManagement {
 val dependencyGroups = mapOf(
     "org.springdoc" to "2.8.8",
     "io.kotest" to "5.9.0",
+    "io.github.oshai" to "7.0.7",
 )
 
 configurations.all {

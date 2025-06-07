@@ -9,6 +9,7 @@ import lifeful.ui.web.support.RequiredAuthorization
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RequiredAuthorization
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController
     name = "도서 API",
     description = "도서 관련 API",
 )
+@RequestMapping("/api/v1")
 @RestController
 internal class BookRestController(
     private val findBook: FindBook,
