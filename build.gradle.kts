@@ -56,10 +56,7 @@ subprojects {
     }
 
     dependencies {
-        runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
-        runtimeOnly("org.springframework.modulith:spring-modulith-observability")
         implementation("org.springframework.modulith:spring-modulith-starter-core")
-        implementation("org.springframework.modulith:spring-modulith-starter-jpa")
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("io.github.oshai:kotlin-logging-jvm")
 
