@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":modules:domain"))
+    implementation(project(":modules:core:domain"))
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.h2database:h2")
 }

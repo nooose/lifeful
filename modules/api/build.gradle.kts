@@ -1,6 +1,6 @@
 dependencies {
-    implementation(project(":modules:application"))
-    implementation(project(":modules:domain"))
+    implementation(project(":modules:core:application"))
+    implementation(project(":modules:core:domain"))
     implementation(project(":modules:security"))
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")

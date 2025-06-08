@@ -2,8 +2,11 @@ package lifeful.domain.review
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
-import lifeful.core.domain.shared.BookId
-import lifeful.core.domain.shared.ReviewerId
+import lifefule.domain.review.Review
+import lifefule.domain.review.ReviewRating
+import lifefule.domain.review.ReviewerMismatchException
+import lifefule.domain.shared.BookId
+import lifefule.domain.shared.ReviewerId
 
 class ReviewTest : StringSpec({
 
