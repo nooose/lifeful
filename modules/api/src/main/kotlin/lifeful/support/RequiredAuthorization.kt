@@ -1,4 +1,4 @@
-package web.support
+package lifeful.support
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement
 

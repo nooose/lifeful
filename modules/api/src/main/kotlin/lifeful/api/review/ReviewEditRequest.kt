@@ -1,4 +1,4 @@
-package web.review
+package lifeful.api.review
 
 import io.swagger.v3.oas.annotations.media.Schema
 import lifefule.review.domain.ReviewRating

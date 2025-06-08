@@ -1,4 +1,4 @@
-package web.book
+package lifeful.api.book
 
 import io.swagger.v3.oas.annotations.media.Schema
 import lifefule.book.domain.Book

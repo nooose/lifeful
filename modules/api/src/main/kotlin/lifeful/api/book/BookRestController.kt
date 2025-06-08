@@ -1,16 +1,16 @@
-package web.book
+package lifeful.api.book
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import lifeful.book.application.query.FindBook
+import lifeful.support.RequiredAuthorization
 import lifefule.shared.BookId
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import web.support.RequiredAuthorization
 
 @RequiredAuthorization
 @Tag(
