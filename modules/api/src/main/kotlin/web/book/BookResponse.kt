@@ -1,8 +1,8 @@
 package web.book
 
 import io.swagger.v3.oas.annotations.media.Schema
-import lifefule.domain.book.Book
-import lifefule.domain.shared.BookId
+import lifefule.book.domain.Book
+import lifefule.shared.BookId
 
 @Schema(description = "책 응답")
 data class BookResponse(

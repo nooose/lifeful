@@ -1,7 +1,7 @@
 package web.review
 
 import io.swagger.v3.oas.annotations.media.Schema
-import lifefule.domain.review.ReviewRating
+import lifefule.review.domain.ReviewRating
 
 @Schema(description = "후기 수정 요청")
 data class ReviewEditRequest(

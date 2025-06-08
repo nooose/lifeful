@@ -15,7 +15,7 @@ java {
 
 allprojects {
     group = "lifeful"
-    version = "0.0.1-SNAPSHOT"
+    version = "0.0.1"
 
     repositories {
         mavenCentral()
@@ -49,7 +49,7 @@ subprojects {
     }
 
     dependencyManagement {
-        val springModulithVersion = "1.3.5"
+        val springModulithVersion = "1.4.0"
         imports {
             mavenBom("org.springframework.modulith:spring-modulith-bom:$springModulithVersion")
         }
@@ -64,6 +64,7 @@ subprojects {
         testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
         testImplementation("io.kotest:kotest-runner-junit5")
         testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+        testImplementation("org.springframework.modulith:spring-modulith-starter-test")
     }
 }
 

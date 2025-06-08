@@ -2,7 +2,7 @@ package lifeful.domain.book
 
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.spec.style.StringSpec
-import lifefule.domain.book.Book
+import lifefule.book.domain.Book
 
 class BookTest : StringSpec({
 
