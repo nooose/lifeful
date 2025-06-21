@@ -18,21 +18,22 @@ data class ReviewResponse(
     val comment: String?,
     @field:Schema(description = "후기 작성자 식별자")
     val reviewerId: ReviewerId,
+    @field:Schema(description = "후기 작성자 이름")
+    val reviewerName: String,
     @field:Schema(description = "후기 생성 시간")
     val createdAt: LocalDateTime,
 ) {
     companion object {
-        fun from(domain: Review): ReviewResponse {
-            with(domain) {
-                return ReviewResponse(
-                    id = id,
-                    rating = rating,
-                    comment = comment,
-                    reviewerId = reviewerId,
-                    bookId = bookId,
-                    createdAt = createdAt,
-                )
-            }
+        fun from(review: ReviewQuery): ReviewResponse {
+            return ReviewResponse(
+                id = review.review.id,
+                rating = review.review.rating,
+                comment = review.review.comment,
+                reviewerId = review.review.reviewerId,
+                reviewerName = review.member.name,
+                bookId = review.review.bookId,
+                createdAt = review.review.createdAt,
+            )
         }
     }
 }

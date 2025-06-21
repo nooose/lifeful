@@ -60,7 +60,7 @@ subprojects {
     }
 
     dependencyManagement {
-        val springModulithVersion = "1.4.0"
+        val springModulithVersion = "1.4.1"
         imports {
             mavenBom("org.springframework.modulith:spring-modulith-bom:$springModulithVersion")
         }
@@ -93,6 +93,7 @@ configureByTypeHaving("boot") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter")
         implementation("org.springframework.modulith:spring-modulith-starter-core")
+        runtimeOnly("org.springframework.modulith:spring-modulith-runtime")
 
         testImplementation("org.springframework.modulith:spring-modulith-starter-test")
     }
@@ -101,6 +102,7 @@ configureByTypeHaving("boot") {
 configureByTypeHaving("application") {
     dependencies {
         implementation("org.springframework.modulith:spring-modulith-starter-core")
+        implementation("org.springframework.modulith:spring-modulith-events-api")
         implementation("org.springframework:spring-tx")
     }
 }

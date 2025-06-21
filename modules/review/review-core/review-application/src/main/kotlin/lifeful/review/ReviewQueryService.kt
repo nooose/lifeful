@@ -1,6 +1,8 @@
 package lifeful.review
 
+import lifeful.member.MemberFinder
 import lifeful.shared.BookId
+import lifeful.shared.MemberId
 import lifeful.shared.ReviewId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -13,13 +15,20 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class ReviewQueryService(
     private val reviewRepository: ReviewRepository,
+    private val memberFinder: MemberFinder,
 ) : FindReview {
     override fun byId(
         bookId: BookId,
         reviewId: ReviewId,
-    ): Review {
-        return reviewRepository.findBy(bookId = bookId, reviewId = reviewId)
-            ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
+    ): ReviewQuery {
+        val review = (reviewRepository.findBy(bookId = bookId, reviewId = reviewId)
+            ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다."))
+        val member = memberFinder.byId(MemberId(review.reviewerId.value))
+            ?: throw IllegalStateException("사용자($reviewId)를 찾을 수 없습니다.")
+        return ReviewQuery(
+            review = review,
+            member = member,
+        )
     }
 
     override fun all(bookId: BookId): List<Review> {
