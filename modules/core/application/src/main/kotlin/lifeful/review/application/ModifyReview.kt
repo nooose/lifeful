@@ -4,13 +4,11 @@ import lifeful.review.domain.ReviewRating
 import lifeful.shared.BookId
 import lifeful.shared.ReviewId
 import lifeful.shared.ReviewerId
-import org.springframework.modulith.NamedInterface
 
 /**
  * 후기 수정 유즈케이스
  * @author hd15807@gmail.com
  */
-@NamedInterface("modify-review")
 interface ModifyReview {
     /**
      * 후기 코멘트를 수정한다.

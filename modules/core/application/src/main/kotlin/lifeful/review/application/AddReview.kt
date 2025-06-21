@@ -2,13 +2,11 @@ package lifeful.review.application
 
 import lifeful.review.domain.Review
 import lifeful.shared.ReviewId
-import org.springframework.modulith.NamedInterface
 
 /**
  * 후기 등록 유즈케이스
  * @author hd15807@gmail.com
  */
-@NamedInterface("add-review")
 interface AddReview {
     /**
      * 후기를 등록한다.
