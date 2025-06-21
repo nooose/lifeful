@@ -9,8 +9,7 @@ import org.springframework.modulith.PackageInfo
         "shared",
         "security",
         "support",
-        "member :: member-finder",
-        "member :: member-public-model",
+        "member",
     ],
 )
 @PackageInfo
