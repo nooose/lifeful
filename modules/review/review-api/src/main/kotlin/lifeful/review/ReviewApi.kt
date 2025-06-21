@@ -5,15 +5,17 @@ import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
 import lifeful.shared.BookId
 import lifeful.shared.ReviewId
+import lifeful.support.RequiredAuthorization
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 
+@RequiredAuthorization
 @Tag(
     name = "후기 API",
     description = "후기 관련 API",
 )
-interface ReviewApi {
+internal interface ReviewApi {
     @Operation(
         summary = "후기 등록",
         operationId = "review",

@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import lifeful.shared.BookId
 
 @Schema(description = "책 응답")
-data class BookResponse(
+internal data class BookResponse(
     @field:Schema(description = "책 식별자")
     val id: BookId,
     @field:Schema(description = "ISBN")

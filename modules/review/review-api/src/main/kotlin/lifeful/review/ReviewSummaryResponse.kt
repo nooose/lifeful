@@ -5,7 +5,7 @@ import lifeful.shared.ReviewId
 import lifeful.shared.ReviewerId
 
 @Schema(description = "후기 목록 응답")
-data class ReviewSummaryResponse(
+internal data class ReviewSummaryResponse(
     @field:Schema(description = "후기 식별자")
     val id: ReviewId,
     @field:Schema(description = "평점")

@@ -17,7 +17,7 @@ import lifeful.shared.ReviewerId
  */
 @Table(name = "review")
 @Entity
-class ReviewEntity(
+internal class ReviewEntity(
     var rating: ReviewRating,
     var comment: String?,
     val reviewerId: ReviewerId,

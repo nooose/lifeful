@@ -5,7 +5,7 @@ import lifeful.shared.ReviewId
 import lifeful.shared.ReviewerId
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface ReviewJpaRepository : JpaRepository<ReviewEntity, ReviewId> {
+internal interface ReviewJpaRepository : JpaRepository<ReviewEntity, ReviewId> {
     fun findByReviewerIdAndBookId(
         reviewerId: ReviewerId,
         bookId: BookId,

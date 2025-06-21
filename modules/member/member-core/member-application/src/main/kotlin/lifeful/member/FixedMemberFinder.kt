@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional(readOnly = true)
 @Service
-class FixedMemberFinder : MemberFinder {
+internal class FixedMemberFinder : MemberFinder {
     override fun all(ids: List<MemberId>): List<MemberPublicModel> {
         return ids.map {
             MemberPublicModel(

@@ -15,7 +15,7 @@ import lifeful.shared.BookId
  */
 @Table(name = "book")
 @Entity
-class BookEntity(
+internal class BookEntity(
     val isbn: String,
     val title: String,
     val description: String,

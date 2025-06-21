@@ -8,7 +8,8 @@ import org.springframework.modulith.PackageInfo
     allowedDependencies = [
         "shared",
         "security",
-//        "member :: member-finder",
+        "support",
+        "member :: member-finder",
         "member :: member-public-model",
     ],
 )
