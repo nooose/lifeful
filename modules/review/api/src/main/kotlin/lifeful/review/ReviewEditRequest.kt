@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema
 import lifeful.review.domain.ReviewRating
 
 @Schema(description = "후기 수정 요청")
-data class ReviewEditRequest(
+internal data class ReviewEditRequest(
     @field:Schema(
         description = "평점(0.5 단위)",
         example = "0.5",

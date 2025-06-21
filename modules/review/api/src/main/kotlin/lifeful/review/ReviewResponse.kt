@@ -9,7 +9,7 @@ import lifeful.shared.ReviewId
 import lifeful.shared.ReviewerId
 
 @Schema(description = "후기 응답")
-data class ReviewResponse(
+internal data class ReviewResponse(
     @field:Schema(description = "후기 식별자")
     val id: ReviewId,
     @field:Schema(description = "책 식별자")

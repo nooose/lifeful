@@ -7,7 +7,7 @@ import lifeful.shared.BookId
 import lifeful.shared.ReviewerId
 
 @Schema(description = "후기 등록 요청")
-data class ReviewAddRequest(
+internal data class ReviewAddRequest(
     @field:Schema(description = "후기 내용")
     val comment: String?,
     @field:Schema(

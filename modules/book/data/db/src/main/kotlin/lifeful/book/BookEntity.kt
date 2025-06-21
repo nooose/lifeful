@@ -13,7 +13,7 @@ import lifeful.shared.BookId
  * @author hd15807@gmail.com
  */
 @Entity
-class BookEntity(
+internal class BookEntity(
     val isbn: String,
     val title: String,
     val description: String,

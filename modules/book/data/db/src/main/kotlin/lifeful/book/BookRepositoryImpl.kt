@@ -3,7 +3,7 @@ package lifeful.book
 import org.springframework.stereotype.Repository
 
 @Repository
-class BookRepositoryImpl(
+internal class BookRepositoryImpl(
     private val bookJpaRepository: BookJpaRepository,
 ) : BookRepository {
     override fun findAll(): List<Book> {
