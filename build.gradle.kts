@@ -74,6 +74,12 @@ kotlin {
     }
 }
 
+configureByTypeHaving("kotlin") {
+    dependencies {
+        api(project(":modules:base"))
+    }
+}
+
 configureByTypeHaving("boot") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter")
@@ -86,15 +92,16 @@ configureByTypeHaving("boot") {
 configureByTypeHaving("application") {
     dependencies {
         implementation("org.springframework.modulith:spring-modulith-starter-core")
+        implementation("org.springframework:spring-tx")
     }
 }
 
 configureByTypeHaving("api") {
     dependencies {
+        implementation(project(":modules:support:api-doc"))
         implementation("org.springframework.boot:spring-boot-starter-actuator")
         implementation("org.springframework.boot:spring-boot-starter-validation")
         implementation("org.springframework.boot:spring-boot-starter-web")
-        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
         runtimeOnly("org.springframework.modulith:spring-modulith-observability")
@@ -105,8 +112,6 @@ configureByTypeHaving("db") {
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
 
     dependencies {
-        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-        implementation("org.springframework.modulith:spring-modulith-starter-jpa")
-        runtimeOnly("com.h2database:h2")
+        implementation(project(":modules:support:jpa"))
     }
 }

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: lifeful
+
+  jpa:
+    open-in-view: false
+    show-sql: true
+
+springdoc:
+  swagger-ui:
+    doc-expansion: none

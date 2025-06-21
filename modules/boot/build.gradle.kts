@@ -1,4 +1,4 @@
 dependencies {
-    implementation(project(":modules:api"))
-    implementation(project(":modules:data:db"))
+    implementation(project(":modules:book:api"))
+    implementation(project(":modules:review:api"))
 }
