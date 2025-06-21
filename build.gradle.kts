@@ -93,7 +93,6 @@ configureByTypeHaving("boot") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter")
         implementation("org.springframework.modulith:spring-modulith-starter-core")
-        runtimeOnly("org.springframework.modulith:spring-modulith-runtime")
 
         testImplementation("org.springframework.modulith:spring-modulith-starter-test")
     }
