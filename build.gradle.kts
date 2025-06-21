@@ -34,6 +34,7 @@ subprojects {
     apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
+    apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
     val dependencyGroups = mapOf(
         "org.springdoc" to "2.8.8",

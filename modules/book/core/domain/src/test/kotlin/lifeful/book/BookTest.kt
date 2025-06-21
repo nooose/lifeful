@@ -1,8 +1,7 @@
-package lifeful.domain.book
+package lifeful.book
 
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.spec.style.StringSpec
-import lifeful.book.domain.Book
 
 class BookTest : StringSpec({
 

@@ -19,7 +19,6 @@ data class Review(
     override val modifiedAt: LocalDateTime = LocalDateTime.now(),
     val id: ReviewId = ReviewId(),
 ) : BaseModel {
-
     fun edit(
         rating: ReviewRating,
         comment: String?,

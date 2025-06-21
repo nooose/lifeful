@@ -1,6 +1,5 @@
 package lifeful.book
 
-
 /**
  * 책을 검색하는 유즈케이스이다.
  *

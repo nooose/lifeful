@@ -1,4 +1,4 @@
-package lifeful.domain.review
+package lifeful.review
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
