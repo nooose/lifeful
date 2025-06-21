@@ -7,9 +7,8 @@ tasks.named("jar") {
 }
 
 dependencies {
-    api(project(":modules:book:api"))
-    api(project(":modules:book:data:db"))
-    api(project(":modules:review:api"))
-    api(project(":modules:review:data:db"))
-    runtimeOnly("com.h2database:h2")
+    implementation(project(":modules:book:book-api"))
+    implementation(project(":modules:book:book-data:book-db"))
+    implementation(project(":modules:review:review-api"))
+    implementation(project(":modules:review:review-data:review-db"))
 }

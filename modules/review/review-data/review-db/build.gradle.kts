@@ -1,3 +1,3 @@
 dependencies {
-    implementation(project(":modules:review:core:domain"))
+    implementation(project(":modules:review:review-core:review-domain"))
 }

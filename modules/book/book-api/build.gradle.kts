@@ -1,9 +1,5 @@
-tasks.withType<Jar> {
-    archiveBaseName.set("book-api")
-}
-
 dependencies {
-    implementation(project(":modules:book:core:application"))
-    implementation(project(":modules:book:core:domain"))
+    implementation(project(":modules:book:book-core:book-application"))
+    implementation(project(":modules:book:book-core:book-domain"))
     implementation(project(":modules:security"))
 }

@@ -1,3 +1,3 @@
 dependencies {
-    implementation(project(":modules:book:core:domain"))
+    implementation(project(":modules:book:book-core:book-domain"))
 }
