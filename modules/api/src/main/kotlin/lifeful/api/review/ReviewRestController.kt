@@ -5,9 +5,9 @@ import lifeful.review.application.AddReview
 import lifeful.review.application.FindReview
 import lifeful.review.application.ModifyReview
 import lifeful.security.currentMemberId
-import lifefule.shared.BookId
-import lifefule.shared.ReviewId
-import lifefule.shared.ReviewerId
+import lifeful.shared.BookId
+import lifeful.shared.ReviewId
+import lifeful.shared.ReviewerId
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
@@ -35,9 +35,9 @@ class ReviewRestController(
                 reviewerId = ReviewerId(currentMemberId()),
             )
 
-        addReview.add(review)
+        val reviewId = addReview.add(review)
 
-        val location = URI.create("/reviews/${review.id}")
+        val location = URI.create("/books/${bookId.value}/reviews/${reviewId.value}")
         return ResponseEntity.created(location).build()
     }
 

@@ -1,10 +1,10 @@
 package lifeful.review.application
 
-import lifefule.review.domain.Review
-import lifefule.review.domain.ReviewNotFoundException
-import lifefule.review.domain.ReviewRepository
-import lifefule.shared.BookId
-import lifefule.shared.ReviewId
+import lifeful.review.domain.Review
+import lifeful.review.domain.ReviewNotFoundException
+import lifeful.review.domain.ReviewRepository
+import lifeful.shared.BookId
+import lifeful.shared.ReviewId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

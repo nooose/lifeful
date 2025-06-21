@@ -1,20 +1,22 @@
 package lifeful.review.data
 
-import lifefule.review.domain.Review
-import lifefule.review.domain.ReviewRepository
-import lifefule.shared.BookId
-import lifefule.shared.ReviewId
-import lifefule.shared.ReviewerId
+import lifeful.review.domain.Review
+import lifeful.review.domain.ReviewRepository
+import lifeful.shared.BookId
+import lifeful.shared.ReviewId
+import lifeful.shared.ReviewerId
 import org.springframework.stereotype.Repository
 import org.springframework.transaction.annotation.Transactional
 
 @Repository
-internal class ReviewRdbRepository(
+internal class ReviewRepositoryImpl(
     private val jpaRepository: ReviewJpaRepository,
 ) : ReviewRepository {
     @Transactional
-    override fun addReview(review: Review) {
-        jpaRepository.save(review)
+    override fun save(review: Review): Review {
+        val entity = ReviewEntity.from(review)
+        jpaRepository.save(entity)
+        return entity.toDomain()
     }
 
     override fun findBy(
@@ -22,6 +24,7 @@ internal class ReviewRdbRepository(
         reviewerId: ReviewerId,
     ): Review? {
         return jpaRepository.findByReviewerIdAndBookId(reviewerId, bookId)
+            ?.toDomain()
     }
 
     override fun findBy(
@@ -29,9 +32,11 @@ internal class ReviewRdbRepository(
         reviewId: ReviewId,
     ): Review? {
         return jpaRepository.findByBookIdAndId(bookId, reviewId)
+            ?.toDomain()
     }
 
     override fun findAll(bookId: BookId): List<Review> {
         return jpaRepository.findAllByBookId(bookId)
+            .map { it.toDomain() }
     }
 }

@@ -1,10 +1,10 @@
-package lifefule.shared
+package lifeful.shared
 
 /**
- * 사용자 식별자
+ * 책 식별자
  * @author hd15807@gmail.com
  */
 @JvmInline
-value class MemberId(
+value class BookId(
     val value: Long = 0,
 )

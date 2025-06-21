@@ -1,10 +1,10 @@
 package lifeful.api.review
 
 import io.swagger.v3.oas.annotations.media.Schema
-import lifefule.review.domain.Review
-import lifefule.review.domain.ReviewRating
-import lifefule.shared.BookId
-import lifefule.shared.ReviewerId
+import lifeful.review.domain.Review
+import lifeful.review.domain.ReviewRating
+import lifeful.shared.BookId
+import lifeful.shared.ReviewerId
 
 @Schema(description = "후기 등록 요청")
 data class ReviewAddRequest(

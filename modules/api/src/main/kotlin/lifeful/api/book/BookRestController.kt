@@ -1,7 +1,7 @@
 package lifeful.api.book
 
 import lifeful.book.application.query.FindBook
-import lifefule.shared.BookId
+import lifeful.shared.BookId
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping

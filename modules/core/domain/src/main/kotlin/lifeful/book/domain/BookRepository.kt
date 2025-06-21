@@ -1,4 +1,4 @@
-package lifefule.book.domain
+package lifeful.book.domain
 
 /**
  * 책 저장소

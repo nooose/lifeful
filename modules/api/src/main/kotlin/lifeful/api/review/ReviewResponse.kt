@@ -2,11 +2,11 @@ package lifeful.api.review
 
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
-import lifefule.review.domain.Review
-import lifefule.review.domain.ReviewRating
-import lifefule.shared.BookId
-import lifefule.shared.ReviewId
-import lifefule.shared.ReviewerId
+import lifeful.review.domain.Review
+import lifeful.review.domain.ReviewRating
+import lifeful.shared.BookId
+import lifeful.shared.ReviewId
+import lifeful.shared.ReviewerId
 
 @Schema(description = "후기 응답")
 data class ReviewResponse(

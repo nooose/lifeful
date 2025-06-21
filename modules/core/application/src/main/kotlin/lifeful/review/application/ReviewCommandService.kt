@@ -1,13 +1,13 @@
 package lifeful.review.application
 
-import lifefule.review.domain.Review
-import lifefule.review.domain.ReviewDuplicateException
-import lifefule.review.domain.ReviewNotFoundException
-import lifefule.review.domain.ReviewRating
-import lifefule.review.domain.ReviewRepository
-import lifefule.shared.BookId
-import lifefule.shared.ReviewId
-import lifefule.shared.ReviewerId
+import lifeful.review.domain.Review
+import lifeful.review.domain.ReviewDuplicateException
+import lifeful.review.domain.ReviewNotFoundException
+import lifeful.review.domain.ReviewRating
+import lifeful.review.domain.ReviewRepository
+import lifeful.shared.BookId
+import lifeful.shared.ReviewId
+import lifeful.shared.ReviewerId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -22,8 +22,8 @@ class ReviewCommandService(
 ) : AddReview, ModifyReview {
     override fun add(review: Review): ReviewId {
         checkDuplicate(review)
-        reviewRepository.addReview(review)
-        return review.id
+        val newReview = reviewRepository.save(review)
+        return newReview.id
     }
 
     private fun checkDuplicate(review: Review) {
@@ -42,10 +42,11 @@ class ReviewCommandService(
     ) {
         val review = reviewRepository.findBy(bookId, reviewId)
             ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
-        review.edit(
+        val editedReview = review.edit(
             rating = rating,
             comment = comment,
             reviewerId = reviewerId,
         )
+        reviewRepository.save(editedReview)
     }
 }

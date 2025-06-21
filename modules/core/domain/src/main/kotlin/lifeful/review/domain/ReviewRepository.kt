@@ -1,15 +1,15 @@
-package lifefule.review.domain
+package lifeful.review.domain
 
-import lifefule.shared.BookId
-import lifefule.shared.ReviewId
-import lifefule.shared.ReviewerId
+import lifeful.shared.BookId
+import lifeful.shared.ReviewId
+import lifeful.shared.ReviewerId
 
 /**
  * 후기 저장소
  * @author hd15807@gmail.com
  */
 interface ReviewRepository {
-    fun addReview(review: Review)
+    fun save(review: Review): Review
 
     fun findBy(
         bookId: BookId,

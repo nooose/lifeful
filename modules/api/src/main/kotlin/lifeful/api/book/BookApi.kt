@@ -3,8 +3,8 @@ package lifeful.api.book
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import lifeful.shared.BookId
 import lifeful.support.RequiredAuthorization
-import lifefule.shared.BookId
 import org.springframework.web.bind.annotation.PathVariable
 
 @RequiredAuthorization

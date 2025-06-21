@@ -1,6 +1,6 @@
 package lifeful.book.application.query
 
-import lifefule.book.domain.Book
+import lifeful.book.domain.Book
 import org.springframework.modulith.NamedInterface
 
 /**

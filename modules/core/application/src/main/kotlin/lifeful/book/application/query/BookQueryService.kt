@@ -1,7 +1,7 @@
 package lifeful.book.application.query
 
-import lifefule.book.domain.Book
-import lifefule.book.domain.BookRepository
+import lifeful.book.domain.Book
+import lifeful.book.domain.BookRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

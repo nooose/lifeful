@@ -1,8 +1,8 @@
 package lifeful.review.application
 
-import lifefule.review.domain.Review
-import lifefule.shared.BookId
-import lifefule.shared.ReviewId
+import lifeful.review.domain.Review
+import lifeful.shared.BookId
+import lifeful.shared.ReviewId
 import org.springframework.modulith.NamedInterface
 
 /**

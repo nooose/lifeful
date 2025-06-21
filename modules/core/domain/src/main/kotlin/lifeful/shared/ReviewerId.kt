@@ -1,4 +1,4 @@
-package lifefule.shared
+package lifeful.shared
 
 /**
  * 후기 등록자 식별자

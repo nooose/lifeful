@@ -1,4 +1,4 @@
-package lifefule.book.domain
+package lifeful.book.domain
 
 /**
  * 책 제공 클라이언트

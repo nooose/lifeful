@@ -1,21 +1,20 @@
 package lifeful.review.data
 
-import lifefule.review.domain.Review
-import lifefule.shared.BookId
-import lifefule.shared.ReviewId
-import lifefule.shared.ReviewerId
+import lifeful.shared.BookId
+import lifeful.shared.ReviewId
+import lifeful.shared.ReviewerId
 import org.springframework.data.jpa.repository.JpaRepository
 
-internal interface ReviewJpaRepository : JpaRepository<Review, ReviewId> {
+internal interface ReviewJpaRepository : JpaRepository<ReviewEntity, ReviewId> {
     fun findByReviewerIdAndBookId(
         reviewerId: ReviewerId,
         bookId: BookId,
-    ): Review?
+    ): ReviewEntity?
 
-    fun findAllByBookId(bookId: BookId): List<Review>
+    fun findAllByBookId(bookId: BookId): List<ReviewEntity>
 
     fun findByBookIdAndId(
         bookId: BookId,
         reviewId: ReviewId,
-    ): Review?
+    ): ReviewEntity?
 }
