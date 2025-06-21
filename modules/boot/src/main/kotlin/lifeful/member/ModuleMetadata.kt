@@ -7,6 +7,7 @@ import org.springframework.modulith.PackageInfo
     id = "member",
     allowedDependencies = [
         "shared",
+        "support",
     ],
 )
 @PackageInfo
