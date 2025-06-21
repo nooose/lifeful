@@ -1,4 +1,4 @@
-package lifeful.review.domain
+package lifeful.review
 
 /**
  * 후기 최상위 예외 클래스

@@ -1,4 +1,4 @@
-package lifeful.review.domain
+package lifeful.review
 
 import lifeful.shared.BookId
 import lifeful.shared.ReviewId

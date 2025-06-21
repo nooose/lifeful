@@ -2,14 +2,12 @@ package lifeful.review
 
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.LocalDateTime
-import lifeful.review.domain.Review
-import lifeful.review.domain.ReviewRating
 import lifeful.shared.BookId
 import lifeful.shared.ReviewId
 import lifeful.shared.ReviewerId
 
 @Schema(description = "후기 응답")
-internal data class ReviewResponse(
+data class ReviewResponse(
     @field:Schema(description = "후기 식별자")
     val id: ReviewId,
     @field:Schema(description = "책 식별자")

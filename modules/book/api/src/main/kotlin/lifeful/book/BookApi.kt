@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable
     name = "도서 API",
     description = "도서 관련 API",
 )
-internal interface BookApi {
+interface BookApi {
     @Operation(
         summary = "책 목록 조회",
         operationId = "getBooks",

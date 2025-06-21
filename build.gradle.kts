@@ -36,6 +36,14 @@ subprojects {
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
+    tasks.named("bootJar") {
+        enabled = false
+    }
+
+    tasks.named("jar") {
+        enabled = true
+    }
+
     val dependencyGroups = mapOf(
         "org.springdoc" to "2.8.8",
         "io.kotest" to "5.9.0",
@@ -77,7 +85,7 @@ kotlin {
 
 configureByTypeHaving("kotlin") {
     dependencies {
-        api(project(":modules:base"))
+        implementation(project(":modules:base"))
     }
 }
 
@@ -113,8 +121,7 @@ configureByTypeHaving("db") {
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
 
     dependencies {
-        api("org.springframework.boot:spring-boot-starter-data-jpa")
+        implementation("org.springframework.boot:spring-boot-starter-data-jpa")
         implementation("org.springframework.modulith:spring-modulith-starter-jpa")
-        runtimeOnly("com.h2database:h2")
     }
 }

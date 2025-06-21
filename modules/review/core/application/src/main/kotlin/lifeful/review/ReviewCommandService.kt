@@ -1,10 +1,5 @@
 package lifeful.review
 
-import lifeful.review.domain.Review
-import lifeful.review.domain.ReviewDuplicateException
-import lifeful.review.domain.ReviewNotFoundException
-import lifeful.review.domain.ReviewRating
-import lifeful.review.domain.ReviewRepository
 import lifeful.shared.BookId
 import lifeful.shared.ReviewId
 import lifeful.shared.ReviewerId

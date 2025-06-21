@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/api/v1")
 @RestController
-internal class ReviewRestController(
+class ReviewRestController(
     private val addReview: AddReview,
     private val findReview: FindReview,
     private val modifyReview: ModifyReview,

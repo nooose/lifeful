@@ -1,13 +1,11 @@
 package lifeful.review
 
 import io.swagger.v3.oas.annotations.media.Schema
-import lifeful.review.domain.Review
-import lifeful.review.domain.ReviewRating
 import lifeful.shared.BookId
 import lifeful.shared.ReviewerId
 
 @Schema(description = "후기 등록 요청")
-internal data class ReviewAddRequest(
+data class ReviewAddRequest(
     @field:Schema(description = "후기 내용")
     val comment: String?,
     @field:Schema(

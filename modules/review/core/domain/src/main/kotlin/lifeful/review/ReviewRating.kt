@@ -1,4 +1,4 @@
-package lifeful.review.domain
+package lifeful.review
 
 /**
  * 후기 평점 값

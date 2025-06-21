@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody
     name = "후기 API",
     description = "후기 관련 API",
 )
-internal interface ReviewApi {
+interface ReviewApi {
     @Operation(
         summary = "후기 등록",
         operationId = "review",

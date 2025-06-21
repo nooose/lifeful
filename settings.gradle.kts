@@ -1,11 +1,10 @@
 rootProject.name = "lifeful"
 
 include(
-    "modules:base",
     "modules:boot",
+    "modules:base",
     "modules:security",
     "modules:support:api-doc",
-    "modules:support:jpa",
     "modules:book:core:application",
     "modules:book:core:domain",
     "modules:book:api",

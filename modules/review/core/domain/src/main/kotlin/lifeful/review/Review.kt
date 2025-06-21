@@ -1,4 +1,4 @@
-package lifeful.review.domain
+package lifeful.review
 
 import java.time.LocalDateTime
 import lifeful.shared.BaseModel

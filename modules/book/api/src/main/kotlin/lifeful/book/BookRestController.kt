@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/api/v1")
 @RestController
-internal class BookRestController(
+class BookRestController(
     private val findBook: FindBook,
 ) : BookApi {
     @GetMapping("/books")

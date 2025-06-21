@@ -1,6 +1,5 @@
 package lifeful.review
 
-import lifeful.review.domain.ReviewRating
 import lifeful.shared.BookId
 import lifeful.shared.ReviewId
 import lifeful.shared.ReviewerId

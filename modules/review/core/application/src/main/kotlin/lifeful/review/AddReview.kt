@@ -1,6 +1,5 @@
 package lifeful.review
 
-import lifeful.review.domain.Review
 import lifeful.shared.ReviewId
 
 /**

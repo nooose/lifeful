@@ -5,8 +5,6 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import java.time.LocalDateTime
-import lifeful.review.domain.Review
-import lifeful.review.domain.ReviewRating
 import lifeful.shared.BaseModel
 import lifeful.shared.BookId
 import lifeful.shared.ReviewId
@@ -17,7 +15,7 @@ import lifeful.shared.ReviewerId
  * @author hd15807@gmail.com
  */
 @Entity
-internal class ReviewEntity(
+class ReviewEntity(
     var rating: ReviewRating,
     var comment: String?,
     val reviewerId: ReviewerId,

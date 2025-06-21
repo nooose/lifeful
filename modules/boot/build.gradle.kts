@@ -1,6 +1,15 @@
+tasks.named("bootJar") {
+    enabled = true
+}
+
+tasks.named("jar") {
+    enabled = false
+}
+
 dependencies {
-    implementation(project(":modules:book:api"))
-    implementation(project(":modules:book:data:db"))
-    implementation(project(":modules:review:api"))
-    implementation(project(":modules:review:data:db"))
+    api(project(":modules:book:api"))
+    api(project(":modules:book:data:db"))
+    api(project(":modules:review:api"))
+    api(project(":modules:review:data:db"))
+    runtimeOnly("com.h2database:h2")
 }
