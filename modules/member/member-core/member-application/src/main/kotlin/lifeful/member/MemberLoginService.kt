@@ -1,6 +1,6 @@
 package lifeful.member
 
-import java.util.*
+import java.util.Date
 import lifeful.shared.MemberId
 import org.springframework.stereotype.Service
 

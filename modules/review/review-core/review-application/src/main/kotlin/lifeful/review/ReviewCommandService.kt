@@ -24,7 +24,7 @@ class ReviewCommandService(
     private fun checkDuplicate(review: Review) {
         val existsBook = reviewRepository.findBy(bookId = review.bookId, review.reviewerId)
         if (existsBook != null) {
-            throw ReviewDuplicateException("사용자(${review.reviewerId})가 책(${review.bookId})에 이미 후기를 등록했습니다.")
+            throw DuplicateReviewException("사용자(${review.reviewerId})가 책(${review.bookId})에 이미 후기를 등록했습니다.")
         }
     }
 

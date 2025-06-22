@@ -2,7 +2,7 @@ package lifeful.security
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
-import java.util.*
+import java.util.Date
 import lifeful.member.MemberPublicModel
 import lifeful.member.MemberTokenGenerator
 import org.springframework.stereotype.Component

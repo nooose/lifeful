@@ -1,11 +1,7 @@
 package lifeful.security
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.MalformedJwtException
-import io.jsonwebtoken.UnsupportedJwtException
+import io.jsonwebtoken.*
 import io.jsonwebtoken.security.Keys
 import io.jsonwebtoken.security.SecurityException
 import org.springframework.stereotype.Component
@@ -19,7 +15,7 @@ internal class JwtValidator(
 
     /**
      * JWT 토큰을 검증하고 사용자 식별자를 반환한다.
-     * 
+     *
      * @param token JWT 문자열
      * @return 검증된 사용자 식별자
      * @throws JwtAuthenticationException 유효하지 않은 토큰일 때 예외를 던진다.
@@ -31,27 +27,27 @@ internal class JwtValidator(
     }
 
     private fun parseToken(token: String): Claims {
-        try {
-            return Jwts.parser()
+        return try {
+            Jwts.parser()
                 .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token)
                 .payload
         } catch (e: SecurityException) {
             log.warn(e) { "JWT 서명이 잘못되었습니다." }
-            throw JwtAuthenticationException("잘못된 JWT 서명입니다.", e)
+            throw JwtSignatureException("잘못된 JWT 서명입니다.", e)
         } catch (e: MalformedJwtException) {
             log.warn(e) { "JWT가 손상되었습니다." }
-            throw JwtAuthenticationException("손상된 JWT입니다.", e)
+            throw JwtValidationException("손상된 JWT입니다.", e)
         } catch (e: ExpiredJwtException) {
             log.warn(e) { "JWT가 만료되었습니다." }
-            throw JwtAuthenticationException("만료된 JWT 토큰입니다.", e)
+            throw JwtExpiredException("만료된 JWT 토큰입니다.", e)
         } catch (e: UnsupportedJwtException) {
             log.warn(e) { "지원하지 않는 JWT 토큰입니다." }
-            throw JwtAuthenticationException("지원하지 않는 JWT 토큰입니다.", e)
+            throw JwtValidationException("지원하지 않는 JWT 토큰입니다.", e)
         } catch (e: IllegalArgumentException) {
             log.warn(e) { "JWT가 비어있습니다." }
-            throw JwtAuthenticationException("JWT가 비어있습니다.", e)
+            throw JwtValidationException("JWT가 비어있습니다.", e)
         }
     }
 
@@ -66,4 +62,4 @@ internal class JwtValidator(
             throw JwtAuthenticationException("사용자 정보가 없습니다.", e)
         }
     }
-} 
+}

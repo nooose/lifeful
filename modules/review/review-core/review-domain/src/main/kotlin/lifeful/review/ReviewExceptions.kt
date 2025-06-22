@@ -1,33 +1,45 @@
 package lifeful.review
 
 /**
- * 후기 최상위 예외 클래스
- * @author hd15807@gmail.com
+ * 리뷰 모듈의 최상위 예외 클래스
  */
-open class ReviewException(
-    override val message: String,
-) : Exception(message)
+sealed class ReviewException(
+    message: String,
+    cause: Throwable? = null,
+) : RuntimeException(message, cause) {
+    override fun fillInStackTrace(): Throwable? {
+        return this
+    }
+}
 
 /**
- * 중복된 후기가 있을 때 발생할 수 있는 예외 클래스
- * @author hd15807@gmail.com
- */
-class ReviewDuplicateException(
-    override val message: String,
-) : ReviewException(message)
-
-/**
- * 후기가 존재하지 않을 때 발생할 수 있는 예외 클래스
- * @author hd15807@gmail.com
+ * 리뷰를 찾을 수 없는 예외
  */
 class ReviewNotFoundException(
-    override val message: String,
-) : ReviewException(message)
+    message: String = "리뷰를 찾을 수 없습니다.",
+    cause: Throwable? = null,
+) : ReviewException(message, cause)
 
 /**
- * 리뷰의 작성자와 요청자가 다를 때 발생할 수 있는 예외 클래스
- * @author hd15807@gmail.com
+ * 리뷰 권한 부족 예외 (다른 사용자의 리뷰 수정/삭제 시도)
  */
-class ReviewerMismatchException(
-    override val message: String,
-) : ReviewException(message)
+class ReviewAccessDeniedException(
+    message: String = "리뷰에 대한 권한이 없습니다.",
+    cause: Throwable? = null,
+) : ReviewException(message, cause)
+
+/**
+ * 중복 리뷰 생성 예외
+ */
+class DuplicateReviewException(
+    message: String = "이미 해당 책에 대한 리뷰가 존재합니다.",
+    cause: Throwable? = null,
+) : ReviewException(message, cause)
+
+/**
+ * 잘못된 리뷰 평점 예외
+ */
+class InvalidReviewRatingException(
+    message: String = "유효하지 않은 평점입니다.",
+    cause: Throwable? = null,
+) : ReviewException(message, cause)

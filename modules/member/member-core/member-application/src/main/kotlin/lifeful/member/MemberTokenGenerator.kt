@@ -1,6 +1,6 @@
 package lifeful.member
 
-import java.util.*
+import java.util.Date
 
 interface MemberTokenGenerator {
     fun generate(

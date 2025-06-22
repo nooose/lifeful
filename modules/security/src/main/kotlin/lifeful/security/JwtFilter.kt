@@ -45,7 +45,7 @@ internal class JwtFilter(
     private fun authenticateRequest(request: HttpServletRequest): Authentication {
         val token = extractToken(request)
         val userId = jwtValidator.validateAndExtractMemberId(token)
-        
+
         log.debug { "[${request.requestURI}] JWT 토큰 검증 성공: userId=$userId" }
 
         // TODO: 커스텀 Authentication 토큰 객체 만들기
