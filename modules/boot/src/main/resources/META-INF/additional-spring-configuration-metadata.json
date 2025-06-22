@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "lifeful.security.jwt.expiration-time",
+      "type": "java.lang.String",
+      "description": "JWT 만료 시간"
+    },
+    {
+      "name": "lifeful.security.jwt.secret-key",
+      "type": "java.lang.String",
+      "description": "JWT 서명키"
+    }
+  ]
+}

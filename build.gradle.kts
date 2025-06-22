@@ -45,9 +45,10 @@ subprojects {
     }
 
     val dependencyGroups = mapOf(
-        "org.springdoc" to "2.8.8",
+        "org.springdoc" to "2.8.9",
         "io.kotest" to "5.9.0",
         "io.github.oshai" to "7.0.7",
+        "io.jsonwebtoken" to "0.12.5",
     )
 
     configurations.all {
@@ -113,6 +114,7 @@ configureByTypeHaving("api") {
         implementation("org.springframework.boot:spring-boot-starter-validation")
         implementation("org.springframework.boot:spring-boot-starter-web")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+        implementation("org.springframework.security:spring-security-core")
         runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
         runtimeOnly("org.springframework.modulith:spring-modulith-observability")
     }

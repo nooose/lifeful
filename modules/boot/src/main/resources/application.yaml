@@ -1,3 +1,9 @@
+lifeful:
+  security:
+    jwt:
+      secret-key: "4837e9ab8772c5db4e07758a35b14955"
+      expiration-time: 3h
+
 spring:
   application:
     name: lifeful

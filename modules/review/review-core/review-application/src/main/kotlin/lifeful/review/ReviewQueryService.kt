@@ -21,8 +21,10 @@ class ReviewQueryService(
         bookId: BookId,
         reviewId: ReviewId,
     ): ReviewQuery {
-        val review = (reviewRepository.findBy(bookId = bookId, reviewId = reviewId)
-            ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다."))
+        val review = (
+            reviewRepository.findBy(bookId = bookId, reviewId = reviewId)
+                ?: throw ReviewNotFoundException("후기($reviewId)를 찾을 수 없습니다.")
+        )
         val member = memberFinder.byId(MemberId(review.reviewerId.value))
             ?: throw IllegalStateException("사용자($reviewId)를 찾을 수 없습니다.")
         return ReviewQuery(

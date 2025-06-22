@@ -1,11 +1,11 @@
 package lifeful.review
 
 import java.net.URI
-import lifeful.security.currentMemberId
 import lifeful.shared.BookId
 import lifeful.shared.ReviewId
 import lifeful.shared.ReviewerId
 import org.springframework.http.ResponseEntity
+import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -25,11 +25,13 @@ internal class ReviewRestController(
     override fun review(
         @PathVariable bookId: BookId,
         @RequestBody request: ReviewAddRequest,
+        authentication: Authentication,
     ): ResponseEntity<Unit> {
+        val reviewerId = ReviewerId(authentication.principal as Long)
         val review =
             request.toDomain(
                 bookId = bookId,
-                reviewerId = ReviewerId(currentMemberId()),
+                reviewerId = reviewerId,
             )
 
         val reviewId = addReview.add(review)
@@ -60,11 +62,13 @@ internal class ReviewRestController(
         @PathVariable bookId: BookId,
         @PathVariable reviewId: ReviewId,
         @RequestBody request: ReviewEditRequest,
+        authentication: Authentication,
     ) {
+        val reviewerId = ReviewerId(authentication.principal as Long)
         modifyReview.edit(
             bookId = bookId,
             reviewId = reviewId,
-            reviewerId = ReviewerId(currentMemberId()),
+            reviewerId = reviewerId,
             rating = request.rating,
             comment = request.comment,
         )
