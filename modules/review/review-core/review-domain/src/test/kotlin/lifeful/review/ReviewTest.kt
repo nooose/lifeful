@@ -20,7 +20,7 @@ class ReviewTest : StringSpec({
 
         val otherReviewer = ReviewerId(2L)
 
-        shouldThrow<ReviewerMismatchException> {
+        shouldThrow<ReviewAccessDeniedException> {
             review.edit(
                 rating = ReviewRating.FIVE_STAR,
                 comment = "후기 내용",

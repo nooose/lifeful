@@ -38,7 +38,7 @@ data class Review(
 
     private fun checkOwner(reviewerId: ReviewerId) {
         if (reviewerId != this.reviewerId) {
-            throw ReviewerMismatchException("후기(${this.id})는 작성자만 수정할 수 있습니다.")
+            throw ReviewAccessDeniedException("후기(${this.id})는 작성자만 수정할 수 있습니다.")
         }
     }
 }
