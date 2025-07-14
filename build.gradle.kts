@@ -1,4 +1,6 @@
 import com.linecorp.support.project.multi.recipe.configureByTypeHaving
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 plugins {
     kotlin("jvm") version "1.9.25"
@@ -47,6 +49,9 @@ subprojects {
     val dependencyGroups = mapOf(
         "org.springdoc" to "2.8.9",
         "io.kotest" to "5.9.0",
+        "io.kotest.extensions" to "1.3.0",
+        "io.mockk" to "1.14.2",
+        "com.ninja-squad" to "4.0.2",
         "io.github.oshai" to "7.0.7",
         "io.jsonwebtoken" to "0.12.5",
     )
@@ -72,9 +77,42 @@ subprojects {
         implementation("io.github.oshai:kotlin-logging-jvm")
 
         testImplementation("org.springframework.boot:spring-boot-starter-test")
-        testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-        testImplementation("io.kotest:kotest-runner-junit5")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    }
+
+    testing {
+        suites {
+            val test by getting(JvmTestSuite::class)
+            val integrationTest by registering(JvmTestSuite::class)
+
+            withType<JvmTestSuite> {
+                useJUnitJupiter()
+
+                targets {
+                    all {
+                        dependencies {
+                            implementation(project())
+                            implementation("io.mockk:mockk")
+                            implementation("com.ninja-squad:springmockk")
+                            implementation("io.kotest:kotest-runner-junit5")
+                            implementation("io.kotest.extensions:kotest-extensions-spring")
+                            implementation(testFixtures(project(":modules:base")))
+                            runtimeOnly("org.junit.platform:junit-platform-launcher")
+                        }
+                        testTask.configure {
+                            shouldRunAfter(test)
+                            testLogging {
+                                events = mutableSetOf(TestLogEvent.FAILED)
+                                exceptionFormat = TestExceptionFormat.FULL
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    val integrationTestImplementation by configurations.getting {
+        extendsFrom(configurations.testImplementation.get())
     }
 }
 
