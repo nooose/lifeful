@@ -1,8 +1,8 @@
 package lifeful.shared
 
-import java.time.LocalDateTime
+import java.time.Instant
 
 interface BaseModel {
-    val createdAt: LocalDateTime
-    val modifiedAt: LocalDateTime
+    val createdAt: Instant
+    val modifiedAt: Instant
 }

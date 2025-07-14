@@ -1,0 +1,10 @@
+package lifeful.shared.id
+
+/**
+ * 사용자 식별자
+ * @author hd15807@gmail.com
+ */
+@JvmInline
+value class MemberId(
+    val value: Long = 0,
+)

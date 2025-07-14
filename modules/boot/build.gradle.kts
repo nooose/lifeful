@@ -7,9 +7,8 @@ tasks.named("jar") {
 }
 
 dependencies {
-    implementation(project(":modules:book:book-api"))
-    implementation(project(":modules:book:book-data:book-db"))
-    implementation(project(":modules:review:review-api"))
-    implementation(project(":modules:review:review-data:review-db"))
     implementation(project(":modules:member:member-api"))
+    implementation(project(":modules:workout:workout-api"))
+    implementation(project(":modules:workout:data:workout-jpa"))
+    implementation(project(":modules:security"))
 }

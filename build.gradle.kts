@@ -158,7 +158,7 @@ configureByTypeHaving("api") {
     }
 }
 
-configureByTypeHaving("db") {
+configureByTypeHaving("jpa") {
     apply(plugin = "org.jetbrains.kotlin.plugin.jpa")
 
     dependencies {
