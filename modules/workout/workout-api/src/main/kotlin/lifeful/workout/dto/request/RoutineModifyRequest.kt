@@ -12,7 +12,7 @@ data class RoutineModifyRequest(
     @field:NotBlank
     val name: String,
     @Schema(description = "루틴에 포함될 운동 목록")
-    val items: List<RoutineItemCreateRequest>
+    val items: List<RoutineItemCreateRequest>,
 ) {
     fun toCommand(loginMemberId: Long): RoutineModifyCommand {
         return RoutineModifyCommand(
@@ -21,9 +21,9 @@ data class RoutineModifyRequest(
             items = items.map {
                 RoutineItemCreateCommand(
                     exerciseId = it.exerciseId,
-                    itemOrder = it.order
+                    itemOrder = it.order,
                 )
-            }
+            },
         )
     }
 }

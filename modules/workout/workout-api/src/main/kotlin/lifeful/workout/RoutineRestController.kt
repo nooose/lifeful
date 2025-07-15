@@ -8,13 +8,18 @@ import lifeful.workout.dto.response.RoutineResponse
 import lifeful.workout.routine.command.RoutineCommandService
 import lifeful.workout.routine.query.RoutineQueryService
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1")
 class RoutineRestController(
     private val routineCommandService: RoutineCommandService,
-    private val routineQueryService: RoutineQueryService
+    private val routineQueryService: RoutineQueryService,
 ) : RoutineApi {
     @PostMapping("/routines")
     override fun createRoutine(

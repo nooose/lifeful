@@ -28,7 +28,10 @@ class RoutineCommandService(
         return routineRepository.save(routine)
     }
 
-    fun modifyRoutine(id: RoutineId, command: RoutineModifyCommand): Routine {
+    fun modifyRoutine(
+        id: RoutineId,
+        command: RoutineModifyCommand,
+    ): Routine {
         val routine = routineLookupService.getRoutine(id)
         val modifiedRoutine = routine.modify(
             name = command.name,

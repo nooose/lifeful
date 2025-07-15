@@ -8,5 +8,5 @@ data class RoutineItemCreateRequest(
     @Schema(description = "운동 종목 ID", example = "1")
     val exerciseId: ExerciseId,
     @Schema(description = "운동 순서", example = "1")
-    val order: Int
+    val order: Int,
 )

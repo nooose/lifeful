@@ -5,5 +5,5 @@ import lifeful.shared.id.MemberId
 data class RoutineModifyCommand(
     val memberId: MemberId,
     val name: String,
-    val items: List<RoutineItemCreateCommand>
+    val items: List<RoutineItemCreateCommand>,
 )

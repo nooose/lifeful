@@ -11,7 +11,7 @@ data class RoutineResponse(
     @Schema(description = "루틴 이름", example = "지옥 루틴")
     val name: String,
     @Schema(description = "루틴에 포함된 운동 목록")
-    val items: List<RoutineItemResponse>
+    val items: List<RoutineItemResponse>,
 ) {
     companion object {
         fun from(routine: Routine): RoutineResponse {
@@ -20,7 +20,7 @@ data class RoutineResponse(
                 name = routine.name,
                 items = routine.items.map {
                     RoutineItemResponse.from(it)
-                }
+                },
             )
         }
     }

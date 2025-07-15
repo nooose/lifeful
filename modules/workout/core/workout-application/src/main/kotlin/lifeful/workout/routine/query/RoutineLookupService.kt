@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 @Service
 class RoutineLookupService(
-    private val routineRepository: RoutineRepository
+    private val routineRepository: RoutineRepository,
 ) {
     fun getRoutine(routineId: RoutineId): Routine {
         return routineRepository.findById(id = routineId)

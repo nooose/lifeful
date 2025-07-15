@@ -13,7 +13,6 @@ import lifeful.workout.dto.response.RoutineResponse
     description = "운동 루틴 관련 API",
 )
 interface RoutineApi {
-
     @Operation(
         summary = "루틴 생성",
         description = "새로운 운동 루틴을 생성합니다.",
@@ -33,13 +32,12 @@ interface RoutineApi {
         loginMemberId: Long,
     )
 
-
     @Operation(
         summary = "루틴 조회",
         description = "특정 운동 루틴의 정보를 조회합니다.",
     )
     fun getRoutine(
-        id: Long,
+        routineId: Long,
         loginMemberId: Long,
     ): RoutineResponse
 }

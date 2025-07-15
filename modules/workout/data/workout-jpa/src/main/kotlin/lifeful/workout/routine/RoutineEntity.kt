@@ -1,6 +1,14 @@
 package lifeful.workout.routine
 
-import jakarta.persistence.*
+import jakarta.persistence.CascadeType
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+import jakarta.persistence.OrderBy
+import jakarta.persistence.Table
 import java.time.Instant
 import lifeful.shared.BaseModel
 import lifeful.shared.id.MemberId
@@ -25,7 +33,7 @@ class RoutineEntity(
         items.forEach { it.routine = this }
     }
 
-    fun update(that:  RoutineEntity) {
+    fun update(that: RoutineEntity) {
         this.items.clear()
         this.name = name
         this.items.addAll(that.items)
@@ -39,7 +47,7 @@ class RoutineEntity(
             name = this.name,
             items = this.items.map { it.toDomain() },
             createdAt = this.createdAt,
-            modifiedAt = this.modifiedAt
+            modifiedAt = this.modifiedAt,
         )
     }
 

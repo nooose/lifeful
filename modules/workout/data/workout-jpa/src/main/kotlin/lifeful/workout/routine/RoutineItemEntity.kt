@@ -1,6 +1,13 @@
 package lifeful.workout.routine
 
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.Table
 import lifeful.shared.id.ExerciseId
 
 @Table(name = "routine_item")
@@ -19,7 +26,7 @@ class RoutineItemEntity(
         return RoutineItem(
             id = this.id,
             exerciseId = this.exerciseId,
-            order = this.order
+            order = this.order,
         )
     }
 
