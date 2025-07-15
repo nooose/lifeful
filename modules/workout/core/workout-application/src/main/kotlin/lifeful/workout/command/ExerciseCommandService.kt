@@ -1,5 +1,6 @@
 package lifeful.workout.command
 
+import lifeful.shared.exception.DuplicateException
 import lifeful.shared.id.ExerciseId
 import lifeful.workout.Exercise
 import lifeful.workout.ExerciseNotFoundException
@@ -13,7 +14,7 @@ class ExerciseCommandService(
     private val repository: ExerciseRepository,
 ) {
     fun add(command: ExerciseCreateCommand) {
-        // TODO: 이름 중복 체크
+        validateDuplicateName(command.name)
         val exercise = Exercise(
             name = command.name,
             category = command.category,
@@ -26,7 +27,7 @@ class ExerciseCommandService(
         id: ExerciseId,
         command: ExerciseModifyCommand,
     ) {
-        // TODO: 이름 중복 체크
+        validateDuplicateName(command.name)
         val exercise = repository.findById(id)
             ?: throw ExerciseNotFoundException("운동 종목($id)을 찾을 수 없습니다.")
         val modifiedExercise = exercise.modify(
@@ -35,5 +36,11 @@ class ExerciseCommandService(
             muscleGroups = command.muscleGroups,
         )
         repository.update(modifiedExercise)
+    }
+
+    private fun validateDuplicateName(name: String) {
+        repository.findByName(name)?.let {
+            throw DuplicateException("중복된 운동 ${name}이(가) 존재합니다.")
+        }
     }
 }

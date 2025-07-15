@@ -21,11 +21,14 @@ class ExerciseRepositoryImpl(
     }
 
     override fun findAll(): List<Exercise> {
-        return jpaRepository.findAll()
-            .map { it.toDomain() }
+        return jpaRepository.findAll().map { it.toDomain() }
     }
 
     override fun findById(id: ExerciseId): Exercise? {
         return jpaRepository.findByIdOrNull(id)?.toDomain()
+    }
+
+    override fun findByName(name: String): Exercise? {
+        return jpaRepository.findByName(name)?.toDomain()
     }
 }

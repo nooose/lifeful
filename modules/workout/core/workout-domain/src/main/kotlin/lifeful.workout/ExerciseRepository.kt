@@ -10,4 +10,6 @@ interface ExerciseRepository {
     fun findAll(): List<Exercise>
 
     fun findById(id: ExerciseId): Exercise?
+
+    fun findByName(name: String): Exercise?
 }
