@@ -3,9 +3,9 @@ package lifeful.workout.dto.request
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
-import lifeful.workout.ExerciseCategory
-import lifeful.workout.MuscleGroup
-import lifeful.workout.command.ExerciseCreateCommand
+import lifeful.workout.exercise.ExerciseCategory
+import lifeful.workout.exercise.MuscleGroup
+import lifeful.workout.exercise.command.ExerciseCreateCommand
 
 @Schema(description = "운동 종목 추가 요청")
 data class ExerciseCreateRequest(

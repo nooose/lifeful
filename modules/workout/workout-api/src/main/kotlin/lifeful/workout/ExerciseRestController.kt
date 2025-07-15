@@ -2,11 +2,11 @@ package lifeful.workout
 
 import jakarta.validation.Valid
 import lifeful.shared.id.ExerciseId
-import lifeful.workout.command.ExerciseCommandService
 import lifeful.workout.dto.request.ExerciseCreateRequest
 import lifeful.workout.dto.request.ExerciseModifyRequest
 import lifeful.workout.dto.response.ExerciseResponse
-import lifeful.workout.query.ExerciseQueryService
+import lifeful.workout.exercise.command.ExerciseCommandService
+import lifeful.workout.exercise.query.ExerciseQueryService
 import org.springframework.web.bind.annotation.*
 
 @RestController

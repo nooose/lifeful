@@ -1,9 +1,9 @@
-package lifeful.workout.query
+package lifeful.workout.exercise.query
 
 import lifeful.shared.id.ExerciseId
-import lifeful.workout.Exercise
-import lifeful.workout.ExerciseNotFoundException
-import lifeful.workout.ExerciseRepository
+import lifeful.workout.exercise.Exercise
+import lifeful.workout.exercise.ExerciseNotFoundException
+import lifeful.workout.exercise.ExerciseRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

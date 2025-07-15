@@ -1,4 +1,4 @@
-package lifeful.workout
+package lifeful.workout.exercise
 
 enum class MuscleGroup(
     private val description: String,

@@ -5,9 +5,9 @@ import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
 import java.time.Instant
 import lifeful.shared.id.ExerciseId
-import lifeful.workout.Exercise
-import lifeful.workout.ExerciseCategory
-import lifeful.workout.MuscleGroup
+import lifeful.workout.exercise.Exercise
+import lifeful.workout.exercise.ExerciseCategory
+import lifeful.workout.exercise.MuscleGroup
 
 @Schema(description = "운동 종목 응답")
 data class ExerciseResponse(

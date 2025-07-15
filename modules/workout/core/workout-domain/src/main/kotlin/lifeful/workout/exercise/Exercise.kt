@@ -1,4 +1,4 @@
-package lifeful.workout
+package lifeful.workout.exercise
 
 import java.time.Instant
 import lifeful.shared.BaseModel

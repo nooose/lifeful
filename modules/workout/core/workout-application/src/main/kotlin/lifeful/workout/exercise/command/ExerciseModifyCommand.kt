@@ -1,7 +1,7 @@
-package lifeful.workout.command
+package lifeful.workout.exercise.command
 
-import lifeful.workout.ExerciseCategory
-import lifeful.workout.MuscleGroup
+import lifeful.workout.exercise.ExerciseCategory
+import lifeful.workout.exercise.MuscleGroup
 
 data class ExerciseModifyCommand(
     val name: String,

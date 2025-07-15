@@ -6,6 +6,7 @@ import jakarta.validation.ConstraintViolationException
 import lifeful.shared.exception.DomainIllegalStateException
 import lifeful.shared.exception.DuplicateException
 import lifeful.shared.exception.InvalidUserInputException
+import lifeful.shared.exception.ResourceNotFoundException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
@@ -222,6 +223,23 @@ class GlobalExceptionHandler {
         )
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse)
+    }
+
+    @ExceptionHandler(ResourceNotFoundException::class)
+    fun handleException(
+        ex: ResourceNotFoundException,
+        request: HttpServletRequest,
+    ): ResponseEntity<ApiErrorResponse> {
+        log.error(ex) { "리소스를 찾을 수 없습니다." }
+
+        val errorResponse = ApiErrorResponse(
+            status = HttpStatus.NOT_FOUND.value(),
+            error = HttpStatus.NOT_FOUND.reasonPhrase,
+            message = ex.message ?: "",
+            path = request.requestURI,
+        )
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
     }
 
     @ExceptionHandler(Exception::class)

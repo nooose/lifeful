@@ -1,4 +1,4 @@
-package lifeful.workout
+package lifeful.workout.exercise
 
 import lifeful.shared.id.ExerciseId
 import org.springframework.data.repository.findByIdOrNull
