@@ -10,6 +10,7 @@ plugins {
     kotlin("plugin.jpa") version "1.9.25" apply false
     id("org.jlleitschuh.gradle.ktlint") version "12.3.0"
     id("com.linecorp.build-recipe-plugin") version "1.1.1"
+    id("java-test-fixtures")
 }
 
 java {
@@ -37,6 +38,7 @@ subprojects {
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    apply(plugin = "java-test-fixtures")
 
     tasks.named("bootJar") {
         enabled = false
