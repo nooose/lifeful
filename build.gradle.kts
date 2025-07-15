@@ -131,7 +131,10 @@ configureByTypeHaving("kotlin") {
 configureByTypeHaving("boot") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter")
+        implementation("org.springframework.boot:spring-boot-starter-actuator")
         implementation("org.springframework.modulith:spring-modulith-starter-core")
+        runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
+        runtimeOnly("org.springframework.modulith:spring-modulith-observability")
 
         testImplementation("org.springframework.modulith:spring-modulith-starter-test")
     }
@@ -148,13 +151,10 @@ configureByTypeHaving("application") {
 configureByTypeHaving("api") {
     dependencies {
         implementation(project(":modules:support:api-doc"))
-        implementation("org.springframework.boot:spring-boot-starter-actuator")
         implementation("org.springframework.boot:spring-boot-starter-validation")
         implementation("org.springframework.boot:spring-boot-starter-web")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
         implementation("org.springframework.security:spring-security-core")
-        runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
-        runtimeOnly("org.springframework.modulith:spring-modulith-observability")
     }
 }
 

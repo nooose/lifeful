@@ -3,6 +3,9 @@ package lifeful.support
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.ConstraintViolationException
+import lifeful.shared.exception.DomainIllegalStateException
+import lifeful.shared.exception.DuplicateException
+import lifeful.shared.exception.InvalidUserInputException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
@@ -32,7 +35,7 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.BAD_REQUEST.value(),
-            error = "BAD_REQUEST",
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
             message = "입력값 검증에 실패했습니다.",
             path = request.requestURI,
             fields = fieldErrors,
@@ -54,7 +57,7 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.BAD_REQUEST.value(),
-            error = "BAD_REQUEST",
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
             message = "요청 파라미터 바인딩에 실패했습니다.",
             path = request.requestURI,
             fields = fieldErrors,
@@ -76,7 +79,7 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.BAD_REQUEST.value(),
-            error = "BAD_REQUEST",
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
             message = "제약 조건을 위반했습니다.",
             path = request.requestURI,
             fields = violations,
@@ -94,7 +97,7 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.METHOD_NOT_ALLOWED.value(),
-            error = "METHOD_NOT_ALLOWED",
+            error = HttpStatus.METHOD_NOT_ALLOWED.reasonPhrase,
             message = "지원하지 않는 HTTP 메서드입니다: ${ex.method}",
             path = request.requestURI,
         )
@@ -111,7 +114,7 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.NOT_FOUND.value(),
-            error = "NOT_FOUND",
+            error = HttpStatus.NOT_FOUND.reasonPhrase,
             message = "요청한 리소스를 찾을 수 없습니다.",
             path = request.requestURI,
         )
@@ -128,8 +131,8 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.BAD_REQUEST.value(),
-            error = "BAD_REQUEST",
-            message = "필수 요청 파라미터가 누락되었습니다: ${ex.parameterName}",
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
+            message = "필수 요청 ${ex.parameterName} 파라미터가 누락되었습니다.",
             path = request.requestURI,
         )
 
@@ -145,8 +148,8 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.BAD_REQUEST.value(),
-            error = "BAD_REQUEST",
-            message = "파라미터 타입이 올바르지 않습니다: ${ex.name}",
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
+            message = "${ex.name} 파라미터 타입이 올바르지 않습니다.",
             path = request.requestURI,
         )
 
@@ -162,12 +165,63 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.BAD_REQUEST.value(),
-            error = "BAD_REQUEST",
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
             message = "요청 본문을 읽을 수 없습니다.",
             path = request.requestURI,
         )
 
         return ResponseEntity.badRequest().body(errorResponse)
+    }
+
+    @ExceptionHandler(InvalidUserInputException::class)
+    fun handleException(
+        ex: InvalidUserInputException,
+        request: HttpServletRequest,
+    ): ResponseEntity<ApiErrorResponse> {
+        log.error(ex) { "예외 발생" }
+
+        val errorResponse = ApiErrorResponse(
+            status = HttpStatus.BAD_REQUEST.value(),
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
+            message = ex.message ?: "",
+            path = request.requestURI,
+        )
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
+    }
+
+    @ExceptionHandler(DomainIllegalStateException::class)
+    fun handleException(
+        ex: DomainIllegalStateException,
+        request: HttpServletRequest,
+    ): ResponseEntity<ApiErrorResponse> {
+        log.error(ex) { "예외 발생" }
+
+        val errorResponse = ApiErrorResponse(
+            status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            error = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
+            message = ex.message ?: "",
+            path = request.requestURI,
+        )
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)
+    }
+
+    @ExceptionHandler(DuplicateException::class)
+    fun handleException(
+        ex: DuplicateException,
+        request: HttpServletRequest,
+    ): ResponseEntity<ApiErrorResponse> {
+        log.error(ex) { "리소스 중복 예외 발생" }
+
+        val errorResponse = ApiErrorResponse(
+            status = HttpStatus.CONFLICT.value(),
+            error = HttpStatus.CONFLICT.reasonPhrase,
+            message = ex.message ?: "",
+            path = request.requestURI,
+        )
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse)
     }
 
     @ExceptionHandler(Exception::class)
@@ -179,7 +233,7 @@ class GlobalExceptionHandler {
 
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            error = "INTERNAL_SERVER_ERROR",
+            error = HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase,
             message = "서버 내부 오류가 발생했습니다.",
             path = request.requestURI,
         )
