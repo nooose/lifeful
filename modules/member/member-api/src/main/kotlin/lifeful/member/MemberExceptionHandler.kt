@@ -2,7 +2,7 @@ package lifeful.member
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.servlet.http.HttpServletRequest
-import lifeful.support.ApiErrorResponse
+import lifeful.shared.ApiErrorResponse
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -25,6 +25,8 @@ class MemberExceptionHandler {
             is MemberNotFoundException -> HttpStatus.NOT_FOUND
             is MemberAccessDeniedException -> HttpStatus.FORBIDDEN
             is MemberAuthenticationFailedException -> HttpStatus.UNAUTHORIZED
+            is MemberPasswordMisMatchException -> HttpStatus.FORBIDDEN
+            else -> HttpStatus.INTERNAL_SERVER_ERROR
         }
 
         val errorResponse = ApiErrorResponse(

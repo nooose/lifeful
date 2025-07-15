@@ -5,7 +5,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
 @Repository
-class ExerciseRepositoryImpl(
+internal class ExerciseRepositoryImpl(
     private val jpaRepository: ExerciseJpaRepository,
 ) : ExerciseRepository {
     override fun add(exercise: Exercise): Exercise {

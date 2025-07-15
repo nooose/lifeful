@@ -16,7 +16,7 @@ import lifeful.shared.id.RoutineId
 
 @Table(name = "routine")
 @Entity
-class RoutineEntity(
+internal class RoutineEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: RoutineId,
     val memberId: MemberId,

@@ -15,12 +15,8 @@ class MemberLoginService(
         val member = findMember(memberId)
             ?: throw MemberNotFoundException("사용자($memberId)를 찾을 수 없습니다.")
 
-        val memberPublicModel = MemberPublicModel(
-            id = member.id,
-            name = member.name,
-        )
         return memberTokenGenerator.generate(
-            member = memberPublicModel,
+            memberId = member.id,
             issuedAt = issuedAt,
         )
     }
@@ -28,7 +24,9 @@ class MemberLoginService(
     private fun findMember(memberId: MemberId): Member? {
         return Member(
             id = memberId,
-            name = memberId.value.toString(),
+            email = Email("test@test.com"),
+            nickname = "test",
+            passwordHash = "testPasswordHash",
         )
     }
 }

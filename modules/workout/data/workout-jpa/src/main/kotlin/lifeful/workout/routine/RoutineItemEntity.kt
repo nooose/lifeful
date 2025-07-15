@@ -12,7 +12,7 @@ import lifeful.shared.id.ExerciseId
 
 @Table(name = "routine_item")
 @Entity
-class RoutineItemEntity(
+internal class RoutineItemEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val exerciseId: ExerciseId,

@@ -1,7 +1,7 @@
 package lifeful.workout
 
 import io.swagger.v3.oas.annotations.tags.Tag
-import lifeful.support.RequiredAuthorization
+import lifeful.shared.RequiredAuthorization
 
 @RequiredAuthorization
 @Tag(

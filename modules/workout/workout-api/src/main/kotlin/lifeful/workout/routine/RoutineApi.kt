@@ -2,7 +2,7 @@ package lifeful.workout.routine
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
-import lifeful.support.RequiredAuthorization
+import lifeful.shared.RequiredAuthorization
 import lifeful.workout.routine.dto.request.RoutineCreateRequest
 import lifeful.workout.routine.dto.request.RoutineModifyRequest
 import lifeful.workout.routine.dto.response.RoutineResponse

@@ -3,7 +3,7 @@ package lifeful.member
 /**
  * 멤버 모듈의 최상위 예외 클래스
  */
-sealed class MemberException(
+open class MemberException(
     message: String,
     cause: Throwable? = null,
 ) : RuntimeException(message, cause) {
@@ -33,5 +33,13 @@ class MemberAuthenticationFailedException(
  */
 class MemberAccessDeniedException(
     message: String = "접근 권한이 없습니다.",
+    cause: Throwable? = null,
+) : MemberException(message, cause)
+
+/**
+ * 비밀번호 불일치 예외
+ */
+class MemberPasswordMisMatchException(
+    message: String = "비밀번호가 일치하지 않습니다.",
     cause: Throwable? = null,
 ) : MemberException(message, cause)

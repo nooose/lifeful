@@ -3,8 +3,8 @@ package lifeful.security
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import java.util.Date
-import lifeful.member.MemberPublicModel
 import lifeful.member.MemberTokenGenerator
+import lifeful.shared.id.MemberId
 import org.springframework.stereotype.Component
 
 /**
@@ -20,10 +20,10 @@ internal class JwtGenerator(
 
     // TODO: 토큰 쌍 반환
     override fun generate(
-        member: MemberPublicModel,
+        memberId: MemberId,
         issuedAt: Date,
     ): String {
-        val claims = Jwts.claims().subject(member.id.value.toString()).build()
+        val claims = Jwts.claims().subject(memberId.value.toString()).build()
         val expiration = Date(issuedAt.time + expirationDuration)
         val jwtBuilder = Jwts.builder()
             .header().type("JWT").and()

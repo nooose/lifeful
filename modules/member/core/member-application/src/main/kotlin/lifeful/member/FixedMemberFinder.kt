@@ -11,7 +11,7 @@ internal class FixedMemberFinder : MemberFinder {
         return ids.map {
             MemberPublicModel(
                 id = it,
-                name = it.toString(),
+                nickname = it.toString(),
             )
         }
     }
@@ -19,7 +19,7 @@ internal class FixedMemberFinder : MemberFinder {
     override fun byId(id: MemberId): MemberPublicModel? {
         return MemberPublicModel(
             id = id,
-            name = id.toString(),
+            nickname = id.toString(),
         )
     }
 }

@@ -1,4 +1,4 @@
-package lifeful.support
+package lifeful.shared
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import jakarta.servlet.http.HttpServletRequest
@@ -7,6 +7,8 @@ import lifeful.shared.exception.DomainIllegalStateException
 import lifeful.shared.exception.DuplicateException
 import lifeful.shared.exception.InvalidUserInputException
 import lifeful.shared.exception.ResourceNotFoundException
+import org.springframework.core.Ordered
+import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
@@ -19,8 +21,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 import org.springframework.web.servlet.NoHandlerFoundException
 
+@Order(Ordered.LOWEST_PRECEDENCE)
 @RestControllerAdvice
-class GlobalExceptionHandler {
+internal class GlobalExceptionHandler {
     private val log = KotlinLogging.logger {}
 
     @ExceptionHandler(MethodArgumentNotValidException::class)

@@ -2,8 +2,7 @@ package lifeful.workout.exercise
 
 import io.swagger.v3.oas.annotations.tags.Tag
 import lifeful.shared.id.ExerciseId
-import lifeful.support.RequiredAuthorization
-import lifeful.workout.exercise.ExerciseResponse
+import lifeful.shared.RequiredAuthorization
 
 @RequiredAuthorization
 @Tag(

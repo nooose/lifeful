@@ -7,7 +7,6 @@ import org.springframework.modulith.PackageInfo
     id = "workout",
     allowedDependencies = [
         "shared",
-        "support",
     ],
 )
 @PackageInfo

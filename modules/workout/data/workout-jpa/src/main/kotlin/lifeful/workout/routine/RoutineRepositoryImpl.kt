@@ -5,7 +5,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Repository
 
 @Repository
-class RoutineRepositoryImpl(
+internal class RoutineRepositoryImpl(
     private val routineJpaRepository: RoutineJpaRepository,
 ) : RoutineRepository {
     override fun save(routine: Routine): Routine {
