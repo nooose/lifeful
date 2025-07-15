@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 
 @Component
-class NoOpUserDetailService : UserDetailsService {
+internal class NoOpUserDetailService : UserDetailsService {
     override fun loadUserByUsername(username: String?): UserDetails? {
         return null
     }

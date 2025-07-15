@@ -5,7 +5,7 @@ import lifeful.member.PasswordEncoder
 import org.springframework.stereotype.Component
 
 @Component
-internal class PasswordEncoderImpl : PasswordEncoder {
+internal class PasswordHashEncoder : PasswordEncoder {
     override fun encode(rawPassword: String): String {
         return hash(rawPassword)
     }

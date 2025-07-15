@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 class PasswordEncoderImplTest : StringSpec({
 
     "비밀번호 인코딩 테스트" {
-        val encoder = PasswordEncoderImpl()
+        val encoder = PasswordHashEncoder()
 
         val rawPassword = "testPassword"
         val passwordHash = encoder.encode(rawPassword)
