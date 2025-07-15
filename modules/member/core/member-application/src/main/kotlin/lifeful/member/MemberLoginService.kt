@@ -6,15 +6,29 @@ import org.springframework.stereotype.Service
 
 @Service
 class MemberLoginService(
-    private val memberFinder: MemberFinder,
     private val memberTokenGenerator: MemberTokenGenerator,
 ) {
     fun getToken(
         memberId: MemberId,
         issuedAt: Date,
     ): String {
-        val member = memberFinder.byId(id = memberId)
+        val member = findMember(memberId)
             ?: throw MemberNotFoundException("사용자($memberId)를 찾을 수 없습니다.")
-        return memberTokenGenerator.generate(member, issuedAt = issuedAt)
+
+        val memberPublicModel = MemberPublicModel(
+            id = member.id,
+            name = member.name,
+        )
+        return memberTokenGenerator.generate(
+            member = memberPublicModel,
+            issuedAt = issuedAt,
+        )
+    }
+
+    private fun findMember(memberId: MemberId): Member? {
+        return Member(
+            id = memberId,
+            name = memberId.value.toString(),
+        )
     }
 }

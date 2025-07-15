@@ -26,7 +26,7 @@ class RoutineEntity(
     override var modifiedAt: Instant,
 ) : BaseModel {
     @OneToMany(mappedBy = "routine", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.EAGER)
-    @OrderBy("order ASC")
+    @OrderBy("itemOrder ASC")
     val items: MutableList<RoutineItemEntity> = items.toMutableList()
 
     init {

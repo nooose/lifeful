@@ -14,6 +14,7 @@ include(
     "modules:member:core:member-application",
     "modules:member:core:member-domain",
     "modules:member:member-api",
+    "modules:member:member-integration",
 )
 
 include(

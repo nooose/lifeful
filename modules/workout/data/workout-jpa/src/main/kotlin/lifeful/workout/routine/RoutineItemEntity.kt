@@ -16,7 +16,7 @@ class RoutineItemEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val exerciseId: ExerciseId,
-    val order: Int,
+    val itemOrder: Int,
 ) {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "routine_id")
@@ -26,7 +26,7 @@ class RoutineItemEntity(
         return RoutineItem(
             id = this.id,
             exerciseId = this.exerciseId,
-            order = this.order,
+            order = this.itemOrder,
         )
     }
 
@@ -35,7 +35,7 @@ class RoutineItemEntity(
             return RoutineItemEntity(
                 id = item.id,
                 exerciseId = item.exerciseId,
-                order = item.order,
+                itemOrder = item.order,
             )
         }
     }
