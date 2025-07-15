@@ -1,11 +1,11 @@
-package lifeful.workout
+package lifeful.workout.routine
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import lifeful.support.RequiredAuthorization
-import lifeful.workout.dto.request.RoutineCreateRequest
-import lifeful.workout.dto.request.RoutineModifyRequest
-import lifeful.workout.dto.response.RoutineResponse
+import lifeful.workout.routine.dto.request.RoutineCreateRequest
+import lifeful.workout.routine.dto.request.RoutineModifyRequest
+import lifeful.workout.routine.dto.response.RoutineResponse
 
 @RequiredAuthorization
 @Tag(

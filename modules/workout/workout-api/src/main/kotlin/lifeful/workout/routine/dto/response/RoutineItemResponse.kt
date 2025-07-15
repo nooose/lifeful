@@ -1,4 +1,4 @@
-package lifeful.workout.dto.response
+package lifeful.workout.routine.dto.response
 
 import io.swagger.v3.oas.annotations.media.Schema
 import lifeful.shared.id.ExerciseId

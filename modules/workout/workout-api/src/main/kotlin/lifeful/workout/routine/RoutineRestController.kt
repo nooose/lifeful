@@ -1,11 +1,11 @@
-package lifeful.workout
+package lifeful.workout.routine
 
 import jakarta.validation.Valid
 import lifeful.shared.id.RoutineId
-import lifeful.workout.dto.request.RoutineCreateRequest
-import lifeful.workout.dto.request.RoutineModifyRequest
-import lifeful.workout.dto.response.RoutineResponse
 import lifeful.workout.routine.command.RoutineCommandService
+import lifeful.workout.routine.dto.request.RoutineCreateRequest
+import lifeful.workout.routine.dto.request.RoutineModifyRequest
+import lifeful.workout.routine.dto.response.RoutineResponse
 import lifeful.workout.routine.query.RoutineQueryService
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping

@@ -1,13 +1,14 @@
-package lifeful.workout
+package lifeful.workout.exercise
 
 import jakarta.validation.Valid
 import lifeful.shared.id.ExerciseId
-import lifeful.workout.dto.request.ExerciseCreateRequest
-import lifeful.workout.dto.request.ExerciseModifyRequest
-import lifeful.workout.dto.response.ExerciseResponse
 import lifeful.workout.exercise.command.ExerciseCommandService
 import lifeful.workout.exercise.query.ExerciseQueryService
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class ExerciseRestController(

@@ -1,13 +1,10 @@
-package lifeful.workout.dto.response
+package lifeful.workout.exercise
 
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
 import java.time.Instant
 import lifeful.shared.id.ExerciseId
-import lifeful.workout.exercise.Exercise
-import lifeful.workout.exercise.ExerciseCategory
-import lifeful.workout.exercise.MuscleGroup
 
 @Schema(description = "운동 종목 응답")
 data class ExerciseResponse(
