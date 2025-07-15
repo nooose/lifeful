@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -29,7 +30,7 @@ class RoutineRestController(
         routineCommandService.createRoutine(command = request.toCommand(loginMemberId))
     }
 
-    @PostMapping("/routines/{routineId}")
+    @PutMapping("/routines/{routineId}")
     override fun modifyRoutine(
         @PathVariable routineId: Long,
         @RequestBody @Valid request: RoutineModifyRequest,
