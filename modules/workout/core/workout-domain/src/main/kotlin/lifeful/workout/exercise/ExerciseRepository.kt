@@ -11,5 +11,7 @@ interface ExerciseRepository {
 
     fun findById(id: ExerciseId): Exercise?
 
+    fun findByIds(ids: List<ExerciseId>): List<Exercise>
+
     fun findByName(name: String): Exercise?
 }

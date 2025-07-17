@@ -25,7 +25,12 @@ internal class ExerciseRepositoryImpl(
     }
 
     override fun findById(id: ExerciseId): Exercise? {
-        return jpaRepository.findByIdOrNull(id)?.toDomain()
+        return jpaRepository.findByIdOrNull(id.value)?.toDomain()
+    }
+
+    override fun findByIds(ids: List<ExerciseId>): List<Exercise> {
+        return jpaRepository.findAllById(ids.map { it.value })
+            .map { it.toDomain() }
     }
 
     override fun findByName(name: String): Exercise? {

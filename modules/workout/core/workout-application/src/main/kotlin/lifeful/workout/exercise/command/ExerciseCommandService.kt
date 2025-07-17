@@ -13,14 +13,14 @@ import org.springframework.transaction.annotation.Transactional
 class ExerciseCommandService(
     private val repository: ExerciseRepository,
 ) {
-    fun add(command: ExerciseCreateCommand) {
+    fun add(command: ExerciseCreateCommand): Exercise {
         validateDuplicateName(command.name)
         val exercise = Exercise(
             name = command.name,
             category = command.category,
             muscleGroups = command.muscleGroups,
         )
-        repository.add(exercise)
+        return repository.add(exercise)
     }
 
     fun modify(

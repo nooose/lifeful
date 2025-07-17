@@ -19,7 +19,7 @@ import lifeful.shared.id.ExerciseId
 @Entity
 internal class ExerciseEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: ExerciseId,
+    val id: Long,
     val name: String,
     @Enumerated(EnumType.STRING)
     val category: ExerciseCategory,
@@ -35,7 +35,7 @@ internal class ExerciseEntity(
 ) : BaseModel {
     fun toDomain(): Exercise {
         return Exercise(
-            id = id,
+            id = ExerciseId(id),
             name = name,
             category = category,
             muscleGroups = muscleGroups,
@@ -46,7 +46,7 @@ internal class ExerciseEntity(
     companion object {
         fun from(exercise: Exercise): ExerciseEntity {
             return ExerciseEntity(
-                id = exercise.id,
+                id = exercise.id.value,
                 name = exercise.name,
                 category = exercise.category,
                 muscleGroups = exercise.muscleGroups,

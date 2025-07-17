@@ -14,13 +14,13 @@ internal class RoutineRepositoryImpl(
     }
 
     override fun update(routine: Routine): Routine {
-        val existsRoutine = routineJpaRepository.findByIdOrNull(routine.id)
+        val existsRoutine = routineJpaRepository.findByIdOrNull(routine.id.value)
             ?: throw RoutineNotFoundException("운동 종목(${routine.id}을 찾을 수 없습니다.")
         existsRoutine.update(RoutineEntity.from(routine))
         return existsRoutine.toDomain()
     }
 
     override fun findById(id: RoutineId): Routine? {
-        return routineJpaRepository.findByIdOrNull(id)?.toDomain()
+        return routineJpaRepository.findByIdOrNull(id.value)?.toDomain()
     }
 }

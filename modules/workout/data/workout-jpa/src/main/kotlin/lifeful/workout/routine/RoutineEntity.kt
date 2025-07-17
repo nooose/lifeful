@@ -18,8 +18,8 @@ import lifeful.shared.id.RoutineId
 @Entity
 internal class RoutineEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: RoutineId,
-    val memberId: MemberId,
+    val id: Long,
+    val memberId: Long,
     var name: String,
     items: List<RoutineItemEntity>,
     override val createdAt: Instant,
@@ -42,8 +42,8 @@ internal class RoutineEntity(
 
     fun toDomain(): Routine {
         return Routine(
-            id = this.id,
-            memberId = this.memberId,
+            id = RoutineId(this.id),
+            memberId = MemberId(this.memberId),
             name = this.name,
             items = this.items.map { it.toDomain() },
             createdAt = this.createdAt,
@@ -54,8 +54,8 @@ internal class RoutineEntity(
     companion object {
         fun from(routine: Routine): RoutineEntity {
             return RoutineEntity(
-                id = routine.id,
-                memberId = routine.memberId,
+                id = routine.id.value,
+                memberId = routine.memberId.value,
                 name = routine.name,
                 items = routine.items.map {
                     RoutineItemEntity.of(it)

@@ -15,7 +15,7 @@ import lifeful.shared.id.ExerciseId
 internal class RoutineItemEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
-    val exerciseId: ExerciseId,
+    val exerciseId: Long,
     val itemOrder: Int,
 ) {
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,7 +25,7 @@ internal class RoutineItemEntity(
     fun toDomain(): RoutineItem {
         return RoutineItem(
             id = this.id,
-            exerciseId = this.exerciseId,
+            exerciseId = ExerciseId(this.exerciseId),
             order = this.itemOrder,
         )
     }
@@ -34,7 +34,7 @@ internal class RoutineItemEntity(
         fun of(item: RoutineItem): RoutineItemEntity {
             return RoutineItemEntity(
                 id = item.id,
-                exerciseId = item.exerciseId,
+                exerciseId = item.exerciseId.value,
                 itemOrder = item.order,
             )
         }
