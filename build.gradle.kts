@@ -150,6 +150,13 @@ configureByTypeHaving("application") {
     }
 }
 
+configureByTypeHaving("integration") {
+    dependencies {
+        implementation("org.springframework:spring-tx")
+        implementation("org.springframework:spring-context")
+    }
+}
+
 configureByTypeHaving("api") {
     dependencies {
         implementation(project(":modules:support:api-doc"))
@@ -166,6 +173,5 @@ configureByTypeHaving("jpa") {
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
         implementation("org.springframework.modulith:spring-modulith-starter-jpa")
-        runtimeOnly("com.h2database:h2")
     }
 }

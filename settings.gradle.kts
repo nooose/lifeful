@@ -23,3 +23,5 @@ include(
     "modules:workout:workout-jpa",
     "modules:workout:workout-api",
 )
+
+include("modules:batch:member-batch")

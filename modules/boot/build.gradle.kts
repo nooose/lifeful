@@ -11,4 +11,5 @@ dependencies {
     implementation(project(":modules:workout:workout-api"))
     implementation(project(":modules:workout:workout-jpa"))
     implementation(project(":modules:security"))
+    runtimeOnly("com.h2database:h2")
 }
