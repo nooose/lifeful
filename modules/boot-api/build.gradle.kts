@@ -2,10 +2,6 @@ tasks.named("bootJar") {
     enabled = true
 }
 
-tasks.named("jar") {
-    enabled = true
-}
-
 dependencies {
     implementation(project(":modules:member:member-api"))
     implementation(project(":modules:workout:workout-api"))

@@ -93,11 +93,11 @@ subprojects {
                     all {
                         dependencies {
                             implementation(project())
+                            implementation(testFixtures(project(":modules:base")))
                             implementation("io.mockk:mockk")
                             implementation("com.ninja-squad:springmockk")
                             implementation("io.kotest:kotest-runner-junit5")
                             implementation("io.kotest.extensions:kotest-extensions-spring")
-                            implementation(testFixtures(project(":modules:base")))
                             runtimeOnly("org.junit.platform:junit-platform-launcher")
                         }
                         testTask.configure {

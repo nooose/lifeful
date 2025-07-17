@@ -1,7 +1,8 @@
 rootProject.name = "lifeful"
 
 include(
-    "modules:boot",
+    "modules:boot-api",
+    "modules:boot-batch",
     "modules:base",
     "modules:security",
 )
@@ -23,5 +24,3 @@ include(
     "modules:workout:workout-jpa",
     "modules:workout:workout-api",
 )
-
-include("modules:batch:member-batch")
