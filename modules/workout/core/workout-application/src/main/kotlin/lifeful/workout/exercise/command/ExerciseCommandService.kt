@@ -20,7 +20,7 @@ class ExerciseCommandService(
             category = command.category,
             muscleGroups = command.muscleGroups,
         )
-        return repository.add(exercise)
+        return repository.save(exercise)
     }
 
     fun modify(
@@ -35,7 +35,7 @@ class ExerciseCommandService(
             category = command.category,
             muscleGroups = command.muscleGroups,
         )
-        repository.update(modifiedExercise)
+        repository.save(modifiedExercise)
     }
 
     private fun validateDuplicateName(name: String) {

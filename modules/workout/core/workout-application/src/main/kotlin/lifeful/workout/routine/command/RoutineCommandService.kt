@@ -47,7 +47,7 @@ class RoutineCommandService(
                 )
             },
         )
-        return routineRepository.update(modifiedRoutine)
+        return routineRepository.save(modifiedRoutine)
     }
 
     private fun validateExercise(ids: List<ExerciseId>) {

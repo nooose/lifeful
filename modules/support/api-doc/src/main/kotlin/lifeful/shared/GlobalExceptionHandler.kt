@@ -245,6 +245,23 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
     }
 
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleException(
+        ex: IllegalArgumentException,
+        request: HttpServletRequest,
+    ): ResponseEntity<ApiErrorResponse> {
+        log.error(ex) { ex.message }
+
+        val errorResponse = ApiErrorResponse(
+            status = HttpStatus.BAD_REQUEST.value(),
+            error = HttpStatus.BAD_REQUEST.reasonPhrase,
+            message = ex.message ?: "",
+            path = request.requestURI,
+        )
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
+    }
+
     @ExceptionHandler(Exception::class)
     fun handleException(
         ex: Exception,

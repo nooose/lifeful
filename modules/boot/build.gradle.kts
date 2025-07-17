@@ -9,6 +9,6 @@ tasks.named("jar") {
 dependencies {
     implementation(project(":modules:member:member-api"))
     implementation(project(":modules:workout:workout-api"))
-    implementation(project(":modules:workout:data:workout-jpa"))
+    implementation(project(":modules:workout:workout-jpa"))
     implementation(project(":modules:security"))
 }

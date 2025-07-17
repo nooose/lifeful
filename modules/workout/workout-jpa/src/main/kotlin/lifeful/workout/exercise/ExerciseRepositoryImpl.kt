@@ -8,13 +8,7 @@ import org.springframework.stereotype.Repository
 internal class ExerciseRepositoryImpl(
     private val jpaRepository: ExerciseJpaRepository,
 ) : ExerciseRepository {
-    override fun add(exercise: Exercise): Exercise {
-        val entity = ExerciseEntity.from(exercise)
-        jpaRepository.save(entity)
-        return entity.toDomain()
-    }
-
-    override fun update(exercise: Exercise): Exercise {
+    override fun save(exercise: Exercise): Exercise {
         val entity = ExerciseEntity.from(exercise)
         jpaRepository.save(entity)
         return entity.toDomain()

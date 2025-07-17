@@ -20,6 +20,6 @@ include(
 include(
     "modules:workout:core:workout-application",
     "modules:workout:core:workout-domain",
-    "modules:workout:data:workout-jpa",
+    "modules:workout:workout-jpa",
     "modules:workout:workout-api",
 )
