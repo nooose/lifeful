@@ -9,15 +9,19 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional(readOnly = true)
 @Service
-class ExerciseQueryService(
+internal class ExerciseQueryService(
     private val repository: ExerciseRepository,
-) {
-    fun byId(id: ExerciseId): Exercise {
-        return repository.findById(id)
+) : ExerciseFinder {
+    override fun get(id: ExerciseId): Exercise {
+        return repository.findById(id.value)
             ?: throw ExerciseNotFoundException("운동 종목($id)을 찾을 수 없습니다.")
     }
 
-    fun all(): List<Exercise> {
+    override fun get(ids: List<ExerciseId>): List<Exercise> {
+        return repository.findAllByIdIn(ids = ids.map { it.value })
+    }
+
+    override fun all(): List<Exercise> {
         return repository.findAll()
     }
 }

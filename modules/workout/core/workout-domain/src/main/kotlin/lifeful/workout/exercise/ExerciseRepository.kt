@@ -1,15 +1,15 @@
 package lifeful.workout.exercise
 
-import lifeful.shared.id.ExerciseId
+import org.springframework.data.repository.Repository
 
-interface ExerciseRepository {
+interface ExerciseRepository : Repository<Exercise, Long> {
     fun save(exercise: Exercise): Exercise
 
     fun findAll(): List<Exercise>
 
-    fun findById(id: ExerciseId): Exercise?
-
-    fun findByIds(ids: List<ExerciseId>): List<Exercise>
+    fun findById(id: Long): Exercise?
 
     fun findByName(name: String): Exercise?
+
+    fun findAllByIdIn(ids: List<Long>): List<Exercise>
 }

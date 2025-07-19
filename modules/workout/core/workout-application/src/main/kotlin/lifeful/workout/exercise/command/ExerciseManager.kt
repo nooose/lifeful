@@ -10,11 +10,11 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @Service
-class ExerciseCommandService(
+internal class ExerciseManager(
     private val repository: ExerciseRepository,
-) {
-    fun add(command: ExerciseCreateCommand): Exercise {
-        validateDuplicateName(command.name)
+) : ExerciseAdd, ExerciseModify {
+    override fun add(command: ExerciseCreateCommand): Exercise {
+        checkDuplicateName(command.name)
         val exercise = Exercise(
             name = command.name,
             category = command.category,
@@ -23,22 +23,22 @@ class ExerciseCommandService(
         return repository.save(exercise)
     }
 
-    fun modify(
+    override fun modify(
         id: ExerciseId,
         command: ExerciseModifyCommand,
-    ) {
-        validateDuplicateName(command.name)
-        val exercise = repository.findById(id)
+    ): Exercise {
+        checkDuplicateName(command.name)
+        val exercise = repository.findById(id.value)
             ?: throw ExerciseNotFoundException("운동 종목($id)을 찾을 수 없습니다.")
-        val modifiedExercise = exercise.modify(
+        exercise.modify(
             name = command.name,
             category = command.category,
             muscleGroups = command.muscleGroups,
         )
-        repository.save(modifiedExercise)
+        return repository.save(exercise)
     }
 
-    private fun validateDuplicateName(name: String) {
+    private fun checkDuplicateName(name: String) {
         repository.findByName(name)?.let {
             throw DuplicateException("중복된 운동 ${name}이(가) 존재합니다.")
         }

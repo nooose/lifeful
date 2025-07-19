@@ -43,14 +43,15 @@ internal class SecurityFilterChainConfig(
 
     companion object {
         val PERMIT_REQUESTS: RequestMatcher = RequestMatchers.anyOf(
+            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/api/v1/members"),
             PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/api/v1/auth/token"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/error"),
             PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health/**"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/.well-known/**"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/favicon.ico"),
             PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/swagger-ui.html"),
             PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/swagger-ui/**"),
             PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs/**"),
+            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/favicon.ico"),
+            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/.well-known/**"),
+            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/error"),
         )
     }
 }

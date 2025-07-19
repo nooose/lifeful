@@ -12,7 +12,6 @@ class MemberTest : StringSpec({
 
     beforeSpec {
         member = Member.register(
-            id = MemberId(1),
             email = Email("test@test.com"),
             nickname = "testUser",
             password = "testPassword",
@@ -32,19 +31,18 @@ class MemberTest : StringSpec({
     }
 
     "사용자를 생성한다." {
-        member.status shouldBe MemberStatus.PENDING
+        member.status shouldBe MemberStatus.ACTIVE
     }
 
     "활성화 테스트" {
-        val activateMember = member.activate()
+        member.activate()
 
-        activateMember.isActive.shouldBeTrue()
+        member.isActive.shouldBeTrue()
     }
 
     "비활성화 테스트" {
-        val activateMember = member.activate()
-        val deactivateMember = activateMember.deactivate()
+        member.deactivate()
 
-        deactivateMember.isActive.shouldBeFalse()
+        member.isActive.shouldBeFalse()
     }
 })

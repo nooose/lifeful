@@ -11,9 +11,6 @@ internal class AuthRestController(
 ) : AuthApi {
     @PostMapping("/api/v1/auth/token")
     override fun getToken(request: TokenRequest): String {
-        return memberLogin.getToken(
-            memberId = MemberId(request.memberId),
-            issuedAt = Date(),
-        )
+        return memberLogin.getToken(request.toCommand())
     }
 }

@@ -1,8 +1,7 @@
 package lifeful.member
 
-import lifeful.shared.exception.UnauthorizedException
-import java.util.Date
 import lifeful.shared.id.MemberId
+import java.util.Date
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 
@@ -14,34 +13,43 @@ internal class MemberService(
     private val passwordEncoder: PasswordEncoder,
 ) : MemberRegister, MemberLogin {
     override fun register(command: MemberRegisterCommand): Member {
-        val member = Member(
+        val member = Member.register(
             email = Email(command.email),
             nickname = command.nickname,
-            passwordHash = passwordEncoder.encode("testPasswordHash"),
+            password = command.password,
+            passwordEncoder = passwordEncoder,
         )
         val registeredMember = memberRepository.save(member)
-        eventPublisher.publishEvent(MemberRegisteredEvent(memberId = registeredMember.id))
+        eventPublisher.publishEvent(MemberRegisteredEvent(memberId = MemberId(registeredMember.id)))
         return registeredMember
     }
 
     override fun getToken(
-        memberId: MemberId,
-        issuedAt: Date,
+        command: MemberLoginCommand,
     ): String {
-        val member = findMember(memberId)
-            ?: throw MemberNotFoundException("사용자($memberId)를 찾을 수 없습니다.")
-
-        require(member.matchesPassword("testPassword", passwordEncoder)) {
-            throw UnauthorizedException("회원 정보가 일치하지 않습니다.")
-        }
+        val member = checkEmailAndPassword(command)
+        checkValidMember(member)
 
         return memberTokenGenerator.generate(
-            memberId = member.id,
-            issuedAt = issuedAt,
+            memberId = MemberId(member.id),
+            issuedAt = Date(),
         )
     }
 
-    private fun findMember(memberId: MemberId): Member? {
-        return memberRepository.findById(memberId)
+    private fun checkValidMember(member: Member) {
+        require(member.isActive) {
+            throw MemberAccessDeniedException("활성화 사용자가 아닙니다.")
+        }
+    }
+
+    private fun checkEmailAndPassword(command: MemberLoginCommand): Member {
+        val member = memberRepository.findByEmail(Email(command.email))
+            ?: throw MemberAuthenticationFailedException("회원 정보가 일치하지 않습니다.")
+
+        require(member.matchesPassword(command.password, passwordEncoder)) {
+            throw MemberAuthenticationFailedException("회원 정보가 일치하지 않습니다.")
+        }
+
+        return member
     }
 }

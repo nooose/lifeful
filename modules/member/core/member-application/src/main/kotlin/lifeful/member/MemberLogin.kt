@@ -1,11 +1,8 @@
 package lifeful.member
 
-import lifeful.shared.id.MemberId
-import java.util.Date
-
+/**
+ * 회원 로그인 유즈케이스
+ */
 interface MemberLogin {
-    fun getToken(
-        memberId: MemberId,
-        issuedAt: Date,
-    ): String
+    fun getToken(command: MemberLoginCommand): String
 }

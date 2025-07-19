@@ -2,22 +2,22 @@ package lifeful.workout.routine.command
 
 import lifeful.shared.id.ExerciseId
 import lifeful.shared.id.RoutineId
-import lifeful.workout.exercise.query.ExerciseLookupService
+import lifeful.workout.exercise.query.ExerciseFinder
 import lifeful.workout.routine.Routine
 import lifeful.workout.routine.RoutineItem
 import lifeful.workout.routine.RoutineRepository
-import lifeful.workout.routine.query.RoutineLookupService
+import lifeful.workout.routine.query.RoutineFinder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @Service
-class RoutineCommandService(
+internal class RoutineManager(
     private val routineRepository: RoutineRepository,
-    private val routineLookupService: RoutineLookupService,
-    private val exerciseLookupService: ExerciseLookupService,
-) {
-    fun createRoutine(command: RoutineCreateCommand): Routine {
+    private val routineFinder: RoutineFinder,
+    private val exerciseFinder: ExerciseFinder,
+) : RoutineCreate, RoutineModify {
+    override fun create(command: RoutineCreateCommand): Routine {
         validateExercise(command.items.map { it.exerciseId })
         val routine = Routine(
             memberId = command.memberId,
@@ -25,25 +25,25 @@ class RoutineCommandService(
             items = command.items.map {
                 RoutineItem(
                     exerciseId = it.exerciseId,
-                    order = it.itemOrder,
+                    itemOrder = it.itemOrder,
                 )
             },
         )
         return routineRepository.save(routine)
     }
 
-    fun modifyRoutine(
+    override fun modify(
         id: RoutineId,
         command: RoutineModifyCommand,
     ): Routine {
         validateExercise(command.items.map { it.exerciseId })
-        val routine = routineLookupService.getRoutine(id)
+        val routine = routineFinder.get(id)
         val modifiedRoutine = routine.modify(
             name = command.name,
             items = command.items.map {
                 RoutineItem(
                     exerciseId = it.exerciseId,
-                    order = it.itemOrder,
+                    itemOrder = it.itemOrder,
                 )
             },
         )
@@ -51,9 +51,9 @@ class RoutineCommandService(
     }
 
     private fun validateExercise(ids: List<ExerciseId>) {
-        val idToExercise = exerciseLookupService.byIds(ids).associateBy { it.id }
+        val idToExercise = exerciseFinder.get(ids).associateBy { it.id }
         ids.forEach { exerciseId ->
-            idToExercise[exerciseId] ?: throw IllegalArgumentException("유효하지 않은 운동 종목($exerciseId)입니다.")
+            idToExercise[exerciseId.value] ?: throw IllegalArgumentException("유효하지 않은 운동 종목($exerciseId)입니다.")
         }
     }
 }

@@ -15,7 +15,7 @@ data class RoutineItemResponse(
         fun from(item: RoutineItem): RoutineItemResponse {
             return RoutineItemResponse(
                 exerciseId = item.exerciseId,
-                order = item.order,
+                order = item.itemOrder,
             )
         }
     }

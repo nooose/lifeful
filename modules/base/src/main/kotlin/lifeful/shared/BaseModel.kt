@@ -4,5 +4,5 @@ import java.time.Instant
 
 interface BaseModel {
     val createdAt: Instant
-    val modifiedAt: Instant
+    var modifiedAt: Instant
 }

@@ -1,7 +1,6 @@
 package lifeful.member
 
-data class MemberRegisterCommand(
-    val nickname: String,
+data class MemberLoginCommand(
     val email: String,
     val password: String,
 )

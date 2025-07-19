@@ -9,7 +9,7 @@ import lifeful.shared.id.ExerciseId
 @Schema(description = "운동 종목 응답")
 data class ExerciseResponse(
     @Schema(description = "운동 종목 ID")
-    val id: ExerciseId,
+    val id: Long,
     @Schema(description = "운동 종목 이름")
     @field:NotBlank
     val name: String,

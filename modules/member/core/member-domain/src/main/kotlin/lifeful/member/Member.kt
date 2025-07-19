@@ -1,31 +1,34 @@
 package lifeful.member
 
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
 import java.time.Instant
 import lifeful.shared.BaseModel
 import lifeful.shared.id.MemberId
 
-data class Member(
+@Entity
+class Member(
     val email: Email,
-    val nickname: String,
-    val passwordHash: String,
-    val status: MemberStatus = MemberStatus.PENDING,
-    val id: MemberId = MemberId(),
+    var nickname: String,
+    var passwordHash: String,
+    var status: MemberStatus = MemberStatus.ACTIVE,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0L,
     override val createdAt: Instant = Instant.now(),
-    override val modifiedAt: Instant = createdAt,
+    override var modifiedAt: Instant = createdAt,
 ) : BaseModel {
     val isActive: Boolean
         get() = status == MemberStatus.ACTIVE
 
-    fun activate(): Member {
-        require(status == MemberStatus.PENDING) { "PENDING 상태가 아닙니다." }
-
-        return copy(status = MemberStatus.ACTIVE)
+    fun activate() {
+        this.status = MemberStatus.ACTIVE
     }
 
-    fun deactivate(): Member {
+    fun deactivate() {
         require(status == MemberStatus.ACTIVE) { "ACTIVE 상태가 아닙니다." }
-
-        return copy(status = MemberStatus.DEACTIVATED)
+        this.status = MemberStatus.DEACTIVATED
     }
 
     fun matchesPassword(
@@ -38,22 +41,18 @@ data class Member(
     fun changePassword(
         rawPassword: String,
         passwordEncoder: PasswordEncoder,
-    ): Member {
-        return copy(
-            passwordHash = passwordEncoder.encode(rawPassword),
-        )
+    ) {
+        this.passwordHash = passwordEncoder.encode(rawPassword)
     }
 
     companion object {
         fun register(
-            id: MemberId,
             email: Email,
             nickname: String,
             password: String,
             passwordEncoder: PasswordEncoder,
         ): Member {
             return Member(
-                id = id,
                 email = email,
                 nickname = nickname,
                 passwordHash = passwordEncoder.encode(password),

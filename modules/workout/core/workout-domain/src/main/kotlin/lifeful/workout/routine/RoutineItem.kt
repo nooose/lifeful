@@ -1,9 +1,10 @@
 package lifeful.workout.routine
 
+import jakarta.persistence.Embeddable
 import lifeful.shared.id.ExerciseId
 
+@Embeddable
 data class RoutineItem(
     val exerciseId: ExerciseId,
-    val order: Int,
-    val id: Long = 0L,
+    val itemOrder: Int,
 )

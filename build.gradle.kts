@@ -146,12 +146,13 @@ configureByTypeHaving("application") {
     dependencies {
         implementation("org.springframework.modulith:spring-modulith-starter-core")
         implementation("org.springframework.modulith:spring-modulith-events-api")
-        implementation("org.springframework:spring-tx")
+        implementation("org.springframework.data:spring-data-commons")
     }
 }
 
 configureByTypeHaving("integration") {
     dependencies {
+        implementation("org.springframework.data:spring-data-commons")
         implementation("org.springframework:spring-tx")
         implementation("org.springframework:spring-context")
     }
