@@ -4,6 +4,7 @@ tasks.named("bootJar") {
 
 dependencies {
     implementation(project(":modules:member:member-api"))
+    implementation(project(":modules:member:member-jpa"))
     implementation(project(":modules:workout:workout-api"))
     implementation(project(":modules:workout:workout-jpa"))
     implementation(project(":modules:security"))

@@ -5,11 +5,11 @@ import lifeful.shared.BaseModel
 import lifeful.shared.id.MemberId
 
 data class Member(
-    val id: MemberId,
     val email: Email,
     val nickname: String,
     val passwordHash: String,
     val status: MemberStatus = MemberStatus.PENDING,
+    val id: MemberId = MemberId(),
     override val createdAt: Instant = Instant.now(),
     override val modifiedAt: Instant = createdAt,
 ) : BaseModel {

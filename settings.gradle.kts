@@ -24,3 +24,5 @@ include(
     "modules:workout:workout-jpa",
     "modules:workout:workout-api",
 )
+include("modules:member:member-jpa")
+findProject(":modules:member:member-jpa")?.name = "member-jpa"

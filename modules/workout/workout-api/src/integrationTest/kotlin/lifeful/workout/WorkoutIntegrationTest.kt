@@ -2,6 +2,8 @@ package lifeful.workout
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.extensions.spring.SpringTestExtension
+import io.kotest.extensions.spring.SpringTestLifecycleMode
 import io.kotest.matchers.shouldBe
 import lifeful.base.IntegrationTest
 import lifeful.shared.id.ExerciseId
@@ -21,6 +23,8 @@ class WorkoutIntegrationTest(
     private val routineCommandService: RoutineCommandService,
     private val routineQueryService: RoutineQueryService,
 ) : BehaviorSpec({
+    extension(SpringTestExtension(SpringTestLifecycleMode.Root))
+
     Given("운동 종목을 추가하고") {
         val exercise = exerciseCommandService.add(
             command = ExerciseCreateCommand(

@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 internal class AuthRestController(
-    private val memberLoginService: MemberLoginService,
+    private val memberLogin: MemberLogin,
 ) : AuthApi {
     @PostMapping("/api/v1/auth/token")
     override fun getToken(request: TokenRequest): String {
-        return memberLoginService.getToken(
+        return memberLogin.getToken(
             memberId = MemberId(request.memberId),
             issuedAt = Date(),
         )

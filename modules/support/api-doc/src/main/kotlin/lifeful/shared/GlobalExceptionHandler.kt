@@ -7,6 +7,7 @@ import lifeful.shared.exception.DomainIllegalStateException
 import lifeful.shared.exception.DuplicateException
 import lifeful.shared.exception.InvalidUserInputException
 import lifeful.shared.exception.ResourceNotFoundException
+import lifeful.shared.exception.UnauthorizedException
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
@@ -243,6 +244,21 @@ internal class GlobalExceptionHandler {
         )
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
+    }
+
+    @ExceptionHandler(UnauthorizedException::class)
+    fun handleException(
+        ex: UnauthorizedException,
+        request: HttpServletRequest,
+    ): ResponseEntity<ApiErrorResponse> {
+        val errorResponse = ApiErrorResponse(
+            status = HttpStatus.UNAUTHORIZED.value(),
+            error = HttpStatus.UNAUTHORIZED.reasonPhrase,
+            message = ex.message ?: "",
+            path = request.requestURI,
+        )
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse)
     }
 
     @ExceptionHandler(IllegalArgumentException::class)
