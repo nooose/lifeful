@@ -1,7 +1,6 @@
 package lifeful.shared
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import jakarta.servlet.http.HttpServletRequest
 import jakarta.validation.ConstraintViolationException
 import lifeful.shared.exception.DomainIllegalStateException
 import lifeful.shared.exception.DuplicateException
@@ -9,7 +8,6 @@ import lifeful.shared.exception.InvalidUserInputException
 import lifeful.shared.exception.ResourceNotFoundException
 import lifeful.shared.exception.UnauthorizedException
 import org.springframework.core.Ordered
-import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
@@ -17,20 +15,18 @@ import org.springframework.validation.BindException
 import org.springframework.web.HttpRequestMethodNotSupportedException
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.MissingServletRequestParameterException
-import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 import org.springframework.web.servlet.NoHandlerFoundException
 
-@Order(Ordered.LOWEST_PRECEDENCE)
-@RestControllerAdvice
+@org.springframework.core.annotation.Order(org.springframework.core.Ordered.LOWEST_PRECEDENCE)
+@org.springframework.web.bind.annotation.RestControllerAdvice
 internal class GlobalExceptionHandler {
     private val log = KotlinLogging.logger {}
 
-    @ExceptionHandler(MethodArgumentNotValidException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleMethodArgumentNotValidException(
         ex: MethodArgumentNotValidException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.warn(ex) { "[${request.requestURI}] 유효성 검증 실패: ${ex.message}" }
 
@@ -49,10 +45,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse)
     }
 
-    @ExceptionHandler(BindException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(BindException::class)
     fun handleBindException(
         ex: BindException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.warn(ex) { "[${request.requestURI}] 바인딩 오류: ${ex.message}" }
 
@@ -71,10 +67,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse)
     }
 
-    @ExceptionHandler(ConstraintViolationException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(ConstraintViolationException::class)
     fun handleConstraintViolationException(
         ex: ConstraintViolationException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.warn(ex) { "[${request.requestURI}] 제약 조건 위반: ${ex.message}" }
 
@@ -93,10 +89,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse)
     }
 
-    @ExceptionHandler(HttpRequestMethodNotSupportedException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(HttpRequestMethodNotSupportedException::class)
     fun handleHttpRequestMethodNotSupportedException(
         ex: HttpRequestMethodNotSupportedException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.warn(ex) { "[${request.requestURI}] 지원하지 않는 HTTP 메서드: ${ex.method}" }
 
@@ -110,10 +106,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorResponse)
     }
 
-    @ExceptionHandler(NoHandlerFoundException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(NoHandlerFoundException::class)
     fun handleNoHandlerFoundException(
         ex: NoHandlerFoundException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.warn(ex) { "[${request.requestURI}] 핸들러를 찾을 수 없음" }
 
@@ -127,10 +123,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
     }
 
-    @ExceptionHandler(MissingServletRequestParameterException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(MissingServletRequestParameterException::class)
     fun handleMissingServletRequestParameterException(
         ex: MissingServletRequestParameterException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.warn(ex) { "[${request.requestURI}] 필수 파라미터 누락: ${ex.parameterName}" }
 
@@ -144,10 +140,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse)
     }
 
-    @ExceptionHandler(MethodArgumentTypeMismatchException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentTypeMismatchException::class)
     fun handleMethodArgumentTypeMismatchException(
         ex: MethodArgumentTypeMismatchException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.warn(ex) { "[${request.requestURI}] 파라미터 타입 불일치: ${ex.name}" }
 
@@ -161,10 +157,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse)
     }
 
-    @ExceptionHandler(HttpMessageNotReadableException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(HttpMessageNotReadableException::class)
     fun handleHttpMessageNotReadableException(
         ex: HttpMessageNotReadableException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.warn(ex) { "[${request.requestURI}] HTTP 메시지를 읽을 수 없음" }
 
@@ -178,10 +174,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errorResponse)
     }
 
-    @ExceptionHandler(InvalidUserInputException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(InvalidUserInputException::class)
     fun handleException(
         ex: InvalidUserInputException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.error(ex) { "예외 발생" }
 
@@ -195,10 +191,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
     }
 
-    @ExceptionHandler(DomainIllegalStateException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(DomainIllegalStateException::class)
     fun handleException(
         ex: DomainIllegalStateException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.error(ex) { "예외 발생" }
 
@@ -212,10 +208,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse)
     }
 
-    @ExceptionHandler(DuplicateException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(DuplicateException::class)
     fun handleException(
         ex: DuplicateException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.error(ex) { "리소스 중복 예외 발생" }
 
@@ -229,10 +225,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse)
     }
 
-    @ExceptionHandler(ResourceNotFoundException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(ResourceNotFoundException::class)
     fun handleException(
         ex: ResourceNotFoundException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.error(ex) { "리소스를 찾을 수 없습니다." }
 
@@ -246,10 +242,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse)
     }
 
-    @ExceptionHandler(UnauthorizedException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(UnauthorizedException::class)
     fun handleException(
         ex: UnauthorizedException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         val errorResponse = ApiErrorResponse(
             status = HttpStatus.UNAUTHORIZED.value(),
@@ -261,10 +257,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse)
     }
 
-    @ExceptionHandler(IllegalArgumentException::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(IllegalArgumentException::class)
     fun handleException(
         ex: IllegalArgumentException,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.error(ex) { ex.message }
 
@@ -278,10 +274,10 @@ internal class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse)
     }
 
-    @ExceptionHandler(Exception::class)
+    @org.springframework.web.bind.annotation.ExceptionHandler(Exception::class)
     fun handleException(
         ex: Exception,
-        request: HttpServletRequest,
+        request: jakarta.servlet.http.HttpServletRequest,
     ): ResponseEntity<ApiErrorResponse> {
         log.error(ex) { "[${request.requestURI}] 예상치 못한 오류 발생" }
 

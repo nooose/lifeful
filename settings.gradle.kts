@@ -9,6 +9,7 @@ include(
 
 include(
     "modules:support:api-doc",
+    "modules:support:api-common",
 )
 
 include(
@@ -21,8 +22,5 @@ include(
 include(
     "modules:workout:core:workout-application",
     "modules:workout:core:workout-domain",
-    "modules:workout:workout-jpa",
     "modules:workout:workout-api",
 )
-include("modules:member:member-jpa")
-findProject(":modules:member:member-jpa")?.name = "member-jpa"

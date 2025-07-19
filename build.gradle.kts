@@ -161,6 +161,7 @@ configureByTypeHaving("integration") {
 configureByTypeHaving("api") {
     dependencies {
         implementation(project(":modules:support:api-doc"))
+        implementation(project(":modules:support:api-common"))
         implementation("org.springframework.boot:spring-boot-starter-validation")
         implementation("org.springframework.boot:spring-boot-starter-web")
         implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

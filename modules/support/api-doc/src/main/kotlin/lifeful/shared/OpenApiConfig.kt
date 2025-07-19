@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration
         ),
 )
 @Configuration(proxyBeanMethods = false)
-class OpenApiConfig {
+internal class OpenApiConfig {
     companion object {
         const val BEARER_AUTH = "bearerAuth"
     }
