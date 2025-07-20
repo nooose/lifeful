@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @Service
-class MemberQueryService(
+internal class MemberQueryService(
     private val memberRepository: MemberRepository,
 ) : MemberFinder {
     override fun find(email: Email): Member? {

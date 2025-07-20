@@ -18,9 +18,11 @@ open class BaseAggregateRootEntity<T : AbstractAggregateRoot<T>>(
     createdAt: Instant = Instant.now(),
     modifiedAt: Instant = createdAt,
 ) : AbstractAggregateRoot<T>() {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = id
     val createdAt: Instant = createdAt
+
     @field:LastModifiedDate
     var modifiedAt: Instant = modifiedAt
 

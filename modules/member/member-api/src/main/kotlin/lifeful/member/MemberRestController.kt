@@ -20,7 +20,9 @@ class MemberRestController(
     }
 
     @PostMapping("/api/v1/members/{memberId}:deactivate")
-    override fun deactivate(@PathVariable memberId: Long) {
+    override fun deactivate(
+        @PathVariable memberId: Long,
+    ) {
         memberRegister.deactivate(MemberId(memberId))
     }
 }
