@@ -13,6 +13,8 @@ import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.ProblemDetail
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.core.AuthenticationException
 import org.springframework.validation.BindException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -68,6 +70,16 @@ internal class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(ForbiddenException::class)
     fun handle(ex: ForbiddenException): ProblemDetail {
         return getProblemDetail(HttpStatus.FORBIDDEN, ex)
+    }
+
+    @ExceptionHandler(AccessDeniedException::class)
+    fun handle(ex: AccessDeniedException): ProblemDetail {
+        return getProblemDetail(HttpStatus.FORBIDDEN, ex)
+    }
+
+    @ExceptionHandler(AuthenticationException::class)
+    fun handle(ex: AuthenticationException): ProblemDetail {
+        return getProblemDetail(HttpStatus.UNAUTHORIZED, ex)
     }
 
     @ExceptionHandler(Exception::class)

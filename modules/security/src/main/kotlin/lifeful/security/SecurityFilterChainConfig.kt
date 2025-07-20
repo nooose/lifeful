@@ -16,7 +16,8 @@ import org.springframework.security.web.util.matcher.RequestMatchers
 @Configuration(proxyBeanMethods = false)
 internal class SecurityFilterChainConfig(
     private val jwtValidator: JwtValidator,
-    private val jwtAuthenticationEntryPoint: AuthenticationEntryPoint,
+    private val customEntryPoint: AuthenticationEntryPoint,
+    private val customAccessDeniedHandler: CustomAccessDeniedHandler,
 ) {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -30,13 +31,14 @@ internal class SecurityFilterChainConfig(
                 disable()
             }
             exceptionHandling {
-                authenticationEntryPoint = jwtAuthenticationEntryPoint
+                authenticationEntryPoint = customEntryPoint
+                accessDeniedHandler = customAccessDeniedHandler
             }
             authorizeHttpRequests {
                 authorize(PERMIT_REQUESTS, permitAll)
                 authorize("/api/v1/**", authenticated)
             }
-            addFilterBefore<AuthorizationFilter>(JwtFilter(PERMIT_REQUESTS, jwtValidator, jwtAuthenticationEntryPoint))
+            addFilterBefore<AuthorizationFilter>(JwtFilter(PERMIT_REQUESTS, jwtValidator))
         }
         return http.build()
     }
