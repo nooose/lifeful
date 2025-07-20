@@ -1,33 +1,33 @@
 package lifeful.member
 
+import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import java.time.Instant
-import lifeful.shared.BaseModel
+import jakarta.persistence.FetchType
+import jakarta.persistence.OneToOne
+import lifeful.shared.model.BaseEntity
 
 @Entity
-class Member(
+class Member private constructor(
     val email: Email,
     var nickname: String,
     var passwordHash: String,
+    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "member")
+    val detail: MemberDetail,
     var status: MemberStatus = MemberStatus.ACTIVE,
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0L,
-    override val createdAt: Instant = Instant.now(),
-    override var modifiedAt: Instant = createdAt,
-) : BaseModel {
+) : BaseEntity() {
     val isActive: Boolean
         get() = status == MemberStatus.ACTIVE
 
     fun activate() {
+        require(status == MemberStatus.ACTIVE) { "DEACTIVATE 상태가 아닙니다." }
         this.status = MemberStatus.ACTIVE
+        detail.activate()
     }
 
     fun deactivate() {
         require(status == MemberStatus.ACTIVE) { "ACTIVE 상태가 아닙니다." }
         this.status = MemberStatus.DEACTIVATED
+        detail.deactivate()
     }
 
     fun matchesPassword(
@@ -51,11 +51,15 @@ class Member(
             password: String,
             passwordEncoder: PasswordEncoder,
         ): Member {
-            return Member(
+            val detail = MemberDetail()
+            val member = Member(
                 email = email,
                 nickname = nickname,
                 passwordHash = passwordEncoder.encode(password),
+                detail = detail,
             )
+            detail.member = member
+            return member
         }
     }
 }

@@ -6,12 +6,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
-import java.time.Instant
-import lifeful.shared.BaseModel
+import lifeful.shared.model.BaseEntity
 
 @Entity
 class Exercise(
@@ -19,11 +15,7 @@ class Exercise(
     @Enumerated(EnumType.STRING)
     var category: ExerciseCategory,
     muscleGroups: Set<MuscleGroup>,
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0L,
-    override val createdAt: Instant = Instant.now(),
-    override var modifiedAt: Instant = createdAt,
-) : BaseModel {
+) : BaseEntity() {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
