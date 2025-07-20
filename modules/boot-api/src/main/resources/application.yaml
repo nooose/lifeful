@@ -1,7 +1,7 @@
 lifeful:
   security:
     jwt:
-      secret-key: "4837e9ab8772c5db4e07758a35b14955"
+      secret-key: ${JWT_KEY:4837e9ab8772c5db4e07758a35b14955}
       expiration-time: 12h
 
 spring:
@@ -11,6 +11,8 @@ spring:
   jpa:
     open-in-view: false
     show-sql: true
+    hibernate:
+      ddl-auto: update
 
 springdoc:
   swagger-ui:

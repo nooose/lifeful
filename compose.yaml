@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: lifeful
+      MYSQL_USER: user
+      MYSQL_ROOT_PASSWORD: securepassword
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"

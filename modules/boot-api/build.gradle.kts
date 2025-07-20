@@ -6,5 +6,6 @@ dependencies {
     implementation(project(":modules:member:member-api"))
     implementation(project(":modules:workout:workout-api"))
     implementation(project(":modules:security"))
-    runtimeOnly("com.h2database:h2")
+    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+    runtimeOnly("com.mysql:mysql-connector-j")
 }
