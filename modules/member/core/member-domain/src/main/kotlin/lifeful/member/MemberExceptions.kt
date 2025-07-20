@@ -1,7 +1,11 @@
 package lifeful.member
 
+import lifeful.shared.exception.ForbiddenException
+import lifeful.shared.exception.ResourceNotFoundException
+import lifeful.shared.exception.UnauthorizedException
+
 /**
- * 멤버 모듈의 최상위 예외 클래스
+ * 회원 모듈의 최상위 예외 클래스
  */
 open class MemberException(
     message: String,
@@ -13,33 +17,22 @@ open class MemberException(
 }
 
 /**
- * 멤버를 찾을 수 없는 예외
+ * 회원을 찾을 수 없는 예외
  */
 class MemberNotFoundException(
-    message: String = "멤버를 찾을 수 없습니다.",
-    cause: Throwable? = null,
-) : MemberException(message, cause)
+    message: String = "회원을 찾을 수 없습니다.",
+) : ResourceNotFoundException(message)
 
 /**
- * 멤버 인증 실패 예외
+ * 회원 인증 실패 예외
  */
 class MemberAuthenticationFailedException(
-    message: String = "멤버 인증에 실패했습니다.",
-    cause: Throwable? = null,
-) : MemberException(message, cause)
+    message: String = "회원 인증에 실패했습니다.",
+) : UnauthorizedException(message)
 
 /**
- * 멤버 권한 부족 예외
+ * 회원 권한 부족 예외
  */
 class MemberAccessDeniedException(
     message: String = "접근 권한이 없습니다.",
-    cause: Throwable? = null,
-) : MemberException(message, cause)
-
-/**
- * 비밀번호 불일치 예외
- */
-class MemberPasswordMisMatchException(
-    message: String = "비밀번호가 일치하지 않습니다.",
-    cause: Throwable? = null,
-) : MemberException(message, cause)
+) : ForbiddenException(message)
