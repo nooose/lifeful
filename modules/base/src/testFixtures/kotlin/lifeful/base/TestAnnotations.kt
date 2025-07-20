@@ -10,3 +10,10 @@ import org.springframework.transaction.annotation.Transactional
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class IntegrationTest
+
+@Transactional
+@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
+@SpringBootTest
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class AcceptanceTest

@@ -1,7 +1,6 @@
 package lifeful.member
 
-import java.util.Date
-import lifeful.shared.id.MemberId
+import lifeful.member.command.MemberLogin
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
 

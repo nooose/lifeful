@@ -99,6 +99,7 @@ subprojects {
                             implementation("io.kotest:kotest-runner-junit5")
                             implementation("io.kotest.extensions:kotest-extensions-spring")
                             runtimeOnly("org.junit.platform:junit-platform-launcher")
+                            runtimeOnly("com.h2database:h2")
                         }
                         testTask.configure {
                             shouldRunAfter(test)

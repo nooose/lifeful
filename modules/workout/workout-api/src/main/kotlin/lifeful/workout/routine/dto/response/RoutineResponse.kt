@@ -1,7 +1,6 @@
 package lifeful.workout.routine.dto.response
 
 import io.swagger.v3.oas.annotations.media.Schema
-import lifeful.shared.id.RoutineId
 import lifeful.workout.routine.Routine
 
 @Schema(description = "루틴 응답")

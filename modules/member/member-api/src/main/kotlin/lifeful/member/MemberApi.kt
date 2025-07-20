@@ -3,7 +3,6 @@ package lifeful.member
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 
-
 @Tag(
     name = "회원 API",
     description = "회원 관련 API",

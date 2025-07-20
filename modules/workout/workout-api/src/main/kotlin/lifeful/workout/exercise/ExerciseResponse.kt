@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotEmpty
 import java.time.Instant
-import lifeful.shared.id.ExerciseId
 
 @Schema(description = "운동 종목 응답")
 data class ExerciseResponse(

@@ -1,18 +1,33 @@
-package lifeful.member
+package lifeful.member.command
 
+import lifeful.member.Email
+import lifeful.member.Member
+import lifeful.member.MemberAccessDeniedException
+import lifeful.member.MemberAuthenticationFailedException
+import lifeful.member.MemberRegisteredEvent
+import lifeful.member.MemberRepository
+import lifeful.member.MemberTokenGenerator
+import lifeful.member.PasswordEncoder
+import lifeful.member.query.MemberFinder
+import lifeful.shared.exception.DuplicateException
 import lifeful.shared.id.MemberId
 import java.util.Date
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @Service
-internal class MemberService(
+internal class MemberManager(
     private val memberRepository: MemberRepository,
     private val memberTokenGenerator: MemberTokenGenerator,
     private val eventPublisher: ApplicationEventPublisher,
     private val passwordEncoder: PasswordEncoder,
+    private val memberFinder: MemberFinder,
 ) : MemberRegister, MemberLogin {
     override fun register(command: MemberRegisterCommand): Member {
+        checkDuplicateEmail(command)
+
         val member = Member.register(
             email = Email(command.email),
             nickname = command.nickname,
@@ -20,13 +35,28 @@ internal class MemberService(
             passwordEncoder = passwordEncoder,
         )
         val registeredMember = memberRepository.save(member)
+
         eventPublisher.publishEvent(MemberRegisteredEvent(memberId = MemberId(registeredMember.id)))
         return registeredMember
     }
 
-    override fun getToken(
-        command: MemberLoginCommand,
-    ): String {
+    override fun deactivate(memberId: MemberId) {
+        val member = memberFinder.get(memberId)
+
+        member.deactivate()
+
+        memberRepository.save(member)
+    }
+
+    private fun checkDuplicateEmail(command: MemberRegisterCommand) {
+        val requestEmail = Email(command.email)
+        val existsMember = memberFinder.find(requestEmail)
+        require(existsMember == null) {
+            throw DuplicateException("중복된 이메일이 존재합니다.")
+        }
+    }
+
+    override fun getToken(command: MemberLoginCommand): String {
         val member = checkEmailAndPassword(command)
         checkValidMember(member)
 

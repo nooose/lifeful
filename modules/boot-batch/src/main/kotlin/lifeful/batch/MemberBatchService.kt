@@ -8,7 +8,6 @@ val log = KotlinLogging.logger {}
 
 @Service
 class MemberBatchService {
-
     @Scheduled(fixedRate = 1_000)
     fun batch() {
         log.info { "사용자 배치 처리 로직" }

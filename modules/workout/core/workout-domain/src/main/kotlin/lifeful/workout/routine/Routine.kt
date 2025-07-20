@@ -12,7 +12,6 @@ import java.time.Instant
 import lifeful.shared.BaseModel
 import lifeful.shared.id.MemberId
 
-
 @Entity
 class Routine(
     val memberId: MemberId,

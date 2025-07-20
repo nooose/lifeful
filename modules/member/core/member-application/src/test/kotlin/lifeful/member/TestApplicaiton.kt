@@ -1,9 +1,9 @@
-package lifeful.workout
+package lifeful.member
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = ["lifeful.member"])
 class TestApplication
 
 fun main(args: Array<String>) {

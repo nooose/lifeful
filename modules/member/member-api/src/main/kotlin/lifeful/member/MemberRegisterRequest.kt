@@ -3,6 +3,7 @@ package lifeful.member
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
+import lifeful.member.command.MemberRegisterCommand
 
 @Schema(description = "회원 가입 요청")
 data class MemberRegisterRequest(

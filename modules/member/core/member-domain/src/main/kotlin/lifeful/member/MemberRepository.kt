@@ -7,6 +7,8 @@ import org.springframework.data.repository.Repository
  */
 interface MemberRepository : Repository<Member, Long> {
     fun save(member: Member): Member
+
     fun findById(id: Long): Member?
+
     fun findByEmail(email: Email): Member?
 }

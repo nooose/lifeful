@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import java.time.Instant
 import lifeful.shared.BaseModel
-import lifeful.shared.id.MemberId
 
 @Entity
 class Member(

@@ -12,7 +12,6 @@ import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import java.time.Instant
 import lifeful.shared.BaseModel
-import lifeful.shared.id.ExerciseId
 
 @Entity
 class Exercise(

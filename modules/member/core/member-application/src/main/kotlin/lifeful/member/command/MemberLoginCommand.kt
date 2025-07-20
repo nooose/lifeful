@@ -1,4 +1,4 @@
-package lifeful.member
+package lifeful.member.command
 
 data class MemberLoginCommand(
     val email: String,
