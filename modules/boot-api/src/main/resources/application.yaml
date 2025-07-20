@@ -19,3 +19,11 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: method
     doc-expansion: none
+
+
+openfga:
+  api-url: localhost:8081
+  store-id: lifeful-store
+  authorization-model-id: lifeful-model
+  credentials:
+    method: none

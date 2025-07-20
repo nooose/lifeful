@@ -24,3 +24,5 @@ include(
     "modules:workout:core:workout-domain",
     "modules:workout:workout-api",
 )
+
+include("modules:zanzibar")

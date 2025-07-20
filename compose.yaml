@@ -1,6 +1,7 @@
 services:
   mysql:
     image: mysql:latest
+    container_name: mysql
     environment:
       MYSQL_DATABASE: lifeful
       MYSQL_USER: user
@@ -8,3 +9,66 @@ services:
       MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - "lifeful"
+
+  migrate:
+    depends_on:
+      mysql:
+        condition: service_healthy
+    image: openfga/openfga:latest
+    container_name: migrate
+    environment:
+      - OPENFGA_DATASTORE_ENGINE=mysql
+      - OPENFGA_DATASTORE_URI=user:password@tcp(mysql:3306)/lifeful
+    command: migrate
+    networks:
+      - lifeful
+
+  openfga:
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    image: openfga/openfga:latest
+    container_name: openfga
+    command: run
+    environment:
+      - OPENFGA_DATASTORE_ENGINE=mysql
+      - OPENFGA_DATASTORE_URI=user:password@tcp(mysql:3306)/lifeful
+      - OPENFGA_DATASTORE_MAX_OPEN_CONNS=100
+      - OPENFGA_PLAYGROUND_ENABLED=false
+    networks:
+      - lifeful
+    ports:
+      - "8090:8080" #http
+      - "8081:8081" #grpc
+      - "2112:2112" #prometheus metrics
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "/usr/local/bin/grpc_health_probe",
+          "-addr=openfga:8081"
+        ]
+      interval: 5s
+      timeout: 30s
+      retries: 3
+
+  init-model:
+    image: openfga/cli:latest
+    container_name: init-model
+    depends_on:
+      openfga:
+        condition: service_healthy
+    volumes:
+      - ./schema.fga:/schema.fga
+    entrypoint:
+      - fga store create --name="lifeful-store"
+
+networks:
+  lifeful:
