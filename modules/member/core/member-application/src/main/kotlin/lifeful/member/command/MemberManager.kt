@@ -1,5 +1,6 @@
 package lifeful.member.command
 
+import java.util.Date
 import lifeful.member.Email
 import lifeful.member.Member
 import lifeful.member.MemberAccessDeniedException
@@ -11,7 +12,6 @@ import lifeful.member.PasswordEncoder
 import lifeful.member.query.MemberFinder
 import lifeful.shared.exception.DuplicateException
 import lifeful.shared.id.MemberId
-import java.util.Date
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -74,9 +74,8 @@ internal class MemberManager(
 
     private fun checkEmailAndPassword(command: MemberLoginCommand): Member {
         val member = memberRepository.findByEmail(Email(command.email))
-            ?: throw MemberAuthenticationFailedException("회원 정보가 일치하지 않습니다.")
 
-        require(member.matchesPassword(command.password, passwordEncoder)) {
+        require(member != null && member.matchesPassword(command.password, passwordEncoder)) {
             throw MemberAuthenticationFailedException("회원 정보가 일치하지 않습니다.")
         }
 

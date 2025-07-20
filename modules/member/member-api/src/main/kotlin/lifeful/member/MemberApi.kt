@@ -10,7 +10,11 @@ import io.swagger.v3.oas.annotations.tags.Tag
 interface MemberApi {
     @Operation(
         summary = "회원 가입",
-        description = "임시 기능",
     )
     fun register(request: MemberRegisterRequest)
+
+    @Operation(
+        summary = "회원 비활성화",
+    )
+    fun deactivate(memberId: Long)
 }

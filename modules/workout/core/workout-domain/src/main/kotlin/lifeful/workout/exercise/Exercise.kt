@@ -7,7 +7,7 @@ import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
-import lifeful.shared.model.BaseEntity
+import lifeful.shared.model.BaseAggregateRootEntity
 
 @Entity
 class Exercise(
@@ -15,7 +15,7 @@ class Exercise(
     @Enumerated(EnumType.STRING)
     var category: ExerciseCategory,
     muscleGroups: Set<MuscleGroup>,
-) : BaseEntity() {
+) : BaseAggregateRootEntity<Exercise>() {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(

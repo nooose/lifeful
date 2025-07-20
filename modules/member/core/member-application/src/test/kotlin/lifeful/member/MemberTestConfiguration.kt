@@ -1,9 +1,10 @@
 package lifeful.member
 
+import java.util.Date
+import lifeful.base.TestEvents
 import lifeful.shared.id.MemberId
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
-import java.util.Date
 
 @TestConfiguration
 class MemberTestConfiguration {
@@ -27,5 +28,10 @@ class MemberTestConfiguration {
                 encodedPassword: String,
             ): Boolean = "${rawPassword}Hash" == encodedPassword
         }
+    }
+
+    @Bean
+    fun testEvents(): TestEvents {
+        return TestEvents()
     }
 }

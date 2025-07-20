@@ -6,14 +6,14 @@ import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
 import lifeful.shared.id.MemberId
-import lifeful.shared.model.BaseEntity
+import lifeful.shared.model.BaseAggregateRootEntity
 
 @Entity
 class Routine(
     val memberId: MemberId,
     var name: String,
     items: List<RoutineItem>,
-) : BaseEntity() {
+) : BaseAggregateRootEntity<Routine>() {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
         name = "routine_item",

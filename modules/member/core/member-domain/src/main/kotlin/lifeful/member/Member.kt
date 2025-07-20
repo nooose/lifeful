@@ -4,7 +4,8 @@ import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.OneToOne
-import lifeful.shared.model.BaseEntity
+import lifeful.shared.id.MemberId
+import lifeful.shared.model.BaseAggregateRootEntity
 
 @Entity
 class Member private constructor(
@@ -14,7 +15,7 @@ class Member private constructor(
     @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "member")
     val detail: MemberDetail,
     var status: MemberStatus = MemberStatus.ACTIVE,
-) : BaseEntity() {
+) : BaseAggregateRootEntity<Member>() {
     val isActive: Boolean
         get() = status == MemberStatus.ACTIVE
 
@@ -28,6 +29,7 @@ class Member private constructor(
         require(status == MemberStatus.ACTIVE) { "ACTIVE 상태가 아닙니다." }
         this.status = MemberStatus.DEACTIVATED
         detail.deactivate()
+        registerEvent(MemberDeactivatedEvent(memberId = MemberId(id)))
     }
 
     fun matchesPassword(
