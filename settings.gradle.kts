@@ -20,7 +20,7 @@ include(
 )
 
 include(
-    "modules:workout:core:workout-application",
-    "modules:workout:core:workout-domain",
-    "modules:workout:workout-api",
+    "modules:health:core:health-application",
+    "modules:health:core:health-domain",
+    "modules:health:health-api",
 )
