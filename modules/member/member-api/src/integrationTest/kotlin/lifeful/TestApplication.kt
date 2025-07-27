@@ -7,7 +7,7 @@ import org.springframework.boot.runApplication
     scanBasePackages = [
         "lifeful.member",
         "lifeful.shared",
-    ]
+    ],
 )
 class TestApplication
 

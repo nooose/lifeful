@@ -2,7 +2,9 @@ package lifeful.member
 
 import jakarta.validation.Valid
 import lifeful.member.command.MemberRegister
+import lifeful.member.query.MemberFinder
 import lifeful.shared.id.MemberId
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class MemberRestController(
     private val memberRegister: MemberRegister,
+    private val memberFinder: MemberFinder,
 ) : MemberApi {
     @PostMapping("/api/v1/members")
     override fun register(
@@ -24,5 +27,10 @@ class MemberRestController(
         @PathVariable memberId: Long,
     ) {
         memberRegister.deactivate(MemberId(memberId))
+    }
+
+    @GetMapping("/api/v1/members")
+    override fun findAll(): List<MemberResponse> {
+        return memberFinder.findAll().map { MemberResponse.from(it) }
     }
 }

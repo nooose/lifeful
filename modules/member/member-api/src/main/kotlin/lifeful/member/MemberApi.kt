@@ -17,4 +17,9 @@ interface MemberApi {
         summary = "회원 비활성화",
     )
     fun deactivate(memberId: Long)
+
+    @Operation(
+        summary = "회원 목록 조회",
+    )
+    fun findAll(): List<MemberResponse>
 }

@@ -8,4 +8,6 @@ interface MemberFinder {
     fun find(email: Email): Member?
 
     fun get(id: MemberId): Member
+
+    fun findAll(): List<Member>
 }

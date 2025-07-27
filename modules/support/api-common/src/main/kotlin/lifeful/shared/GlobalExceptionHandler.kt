@@ -33,7 +33,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             MethodArgumentTypeMismatchException::class,
             InvalidUserInputException::class,
             IllegalArgumentException::class,
-        ]
+        ],
     )
     fun handleBadRequest(ex: Exception): ProblemDetail {
         return getProblemDetail(HttpStatus.BAD_REQUEST, ex)
@@ -42,23 +42,19 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     @ExceptionHandler(
         value = [
             ResourceNotFoundException::class,
-        ]
+        ],
     )
     fun handleNotFound(ex: Exception): ProblemDetail {
         return getProblemDetail(HttpStatus.NOT_FOUND, ex)
     }
 
     @ExceptionHandler(DomainIllegalStateException::class)
-    fun handle(
-        ex: DomainIllegalStateException,
-    ): ProblemDetail {
+    fun handle(ex: DomainIllegalStateException): ProblemDetail {
         return getProblemDetail(HttpStatus.INTERNAL_SERVER_ERROR, ex)
     }
 
     @ExceptionHandler(DuplicateException::class)
-    fun handle(
-        ex: DuplicateException,
-    ): ProblemDetail {
+    fun handle(ex: DuplicateException): ProblemDetail {
         return getProblemDetail(HttpStatus.CONFLICT, ex)
     }
 

@@ -7,5 +7,6 @@ import org.springframework.data.repository.Repository
  */
 interface WorkoutRepository : Repository<Workout, Long> {
     fun save(workout: Workout): Workout
+
     fun findById(id: Long): Workout?
 }

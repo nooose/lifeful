@@ -33,7 +33,7 @@ class Workout(
             WorkoutItemRecord(
                 exerciseId = exerciseId,
                 order = order,
-            )
+            ),
         )
     }
 

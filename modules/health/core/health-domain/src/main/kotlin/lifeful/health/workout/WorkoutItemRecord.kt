@@ -20,14 +20,17 @@ class WorkoutItemRecord(
     @JoinColumn(name = "workout_item_record_id")
     val sets: MutableList<SetRecord> = sets.toMutableList()
 
-    fun addSet(weight: Double, repetitions: Int) {
+    fun addSet(
+        weight: Double,
+        repetitions: Int,
+    ) {
         val order = (this.sets.maxOfOrNull { it.order } ?: 0) + 1
         this.sets.add(
             SetRecord(
                 weight = weight,
                 repetitions = repetitions,
                 order = order,
-            )
+            ),
         )
     }
 }

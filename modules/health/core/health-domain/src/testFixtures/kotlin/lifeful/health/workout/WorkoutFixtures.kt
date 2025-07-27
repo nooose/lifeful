@@ -11,31 +11,34 @@ object WorkoutFixtures {
         memberId: Long = 1L,
         routineId: Long = 1L,
         items: List<WorkoutItemRecord> = emptyList(),
-    ): Workout = Workout(
-        memberId = MemberId(memberId),
-        routineId = RoutineId(routineId),
-        items = items,
-    )
+    ): Workout =
+        Workout(
+            memberId = MemberId(memberId),
+            routineId = RoutineId(routineId),
+            items = items,
+        )
 
     fun workoutItemRecord(
         exerciseId: ExerciseId = ExerciseId(1L),
         sets: List<SetRecord> = emptyList(),
         order: Int = 1,
-    ): WorkoutItemRecord = WorkoutItemRecord(
-        exerciseId = exerciseId,
-        sets = sets,
-        order = order,
-    )
+    ): WorkoutItemRecord =
+        WorkoutItemRecord(
+            exerciseId = exerciseId,
+            sets = sets,
+            order = order,
+        )
 
     fun routine(
         memberId: Long = 1L,
         name: String = "테스트 루틴",
         items: List<RoutineItem> = listOf(routineItem()),
-    ): Routine = Routine(
-        memberId = MemberId(memberId),
-        name = name,
-        items = items,
-    )
+    ): Routine =
+        Routine(
+            memberId = MemberId(memberId),
+            name = name,
+            items = items,
+        )
 
     fun routineItem(
         exerciseId: ExerciseId = ExerciseId(1L),

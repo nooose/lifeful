@@ -23,14 +23,14 @@ class ExerciseRestControllerTest(
     private val finder: ExerciseFinder,
 ) : StringSpec({
 
-    "운동 종목 추가 API 테스트" {
-        every { finder.all() } returns emptyList()
+        "운동 종목 추가 API 테스트" {
+            every { finder.all() } returns emptyList()
 
-        Assertions.assertThat(
-            mockMvcTester.get()
-                .uri("/api/v1/exercises")
-                .contentType(MediaType.APPLICATION_JSON)
-                .exchange()
-        ).hasStatusOk()
-    }
-})
+            Assertions.assertThat(
+                mockMvcTester.get()
+                    .uri("/api/v1/exercises")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .exchange(),
+            ).hasStatusOk()
+        }
+    })

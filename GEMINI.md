@@ -18,7 +18,7 @@ Readful 프로젝트는 헥사고날 아키텍처(Hexagonal Architecture)와 도
   - `*-application` 모듈 (예: `member-application`, `health-application`)
   - **Command**: 시스템의 상태를 변경하는 작업을 담당합니다. (예: `MemberRegisterCommand`, `ExerciseCreateCommand`)
   - **Query**: 시스템의 상태를 조회하는 작업을 담당합니다. (예: `MemberFinder`, `ExerciseQueryService`)
-  - `Service`는 도메인 객체들을 사용하여 비즈니스 로직을 오케스트레이션하고, 트랜잭션 관리 등 애플리케이션 로직을 처리합니다.
+  - `Service`는 도메인 객체들을 사용하여 비즈니스 로직을 오케스트레이션하고, 트랜잭션 관리 등 애플리케이션 로직을 처리합니다. **이때, `Service`는 외부 모듈에 노출되는 인터페이스를 통해 기능을 제공하고, 실제 구현체는 `internal` 키워드를 사용하여 모듈 내부로 가시성을 제한해야 합니다.**
 - **Adapter Layer**: 외부 세계와의 상호작용을 담당합니다. 이 계층은 외부 기술에 의존하며, 비즈니스 로직의 변경 없이 외부 기술을 교체할 수 있도록 설계되었습니다.
   - **Inbound Adapter**: 외부의 요청을 내부로 전달합니다.
     - `*-api` 모듈 (예: `member-api`, `health-api`): REST API를 제공합니다. 현재는 REST API를 사용하지만, gRPC 등 다른 프로토콜로 변경하더라도 `Application` 및 `Domain` 레이어에 영향을 주지 않고 `api` 모듈만 수정하여 대응할 수 있습니다.
@@ -232,6 +232,45 @@ class Member(val id: Long, var status: MemberStatus) {
 예를 들어, 일반적인 `updateMember` 함수 대신 `changeMemberPassword` 또는 `updateMemberProfile`과 같이 더 구체적인 함수를 가질 수 있습니다. 이 접근 방식은 코드의 의도를 명확히 하고 시스템의 동작을 더 쉽게 추론할 수 있도록 돕습니다.
 
 유즈케이스가 여러 단계를 포함하는 경우, 이를 더 작고 `private`한 함수로 분할하는 것이 좋습니다. 이렇게 하면 가독성이 향상되고 복잡성을 관리하는 데 도움이 됩니다. 각 `private` 함수는 유즈케이스의 특정 단계에 해당해야 합니다. 이는 DDD에서 강조하는 '유비쿼터스 언어'를 코드에 반영하고, 비즈니스 의도를 명확히 드러내는 데 기여합니다.
+
+#### 객체 생성 컨벤션
+
+객체 생성 시에는 생성자의 역할을 명확히 하고, 다양한 생성 시나리오에 대응하기 위해 정적 팩토리 함수(Static Factory Method)를 적극적으로 활용합니다.
+
+-   **주 생성자(Primary Constructor)**: 객체의 핵심 필드에 직접적으로 대응하는 생성자로 사용합니다. 이는 객체의 기본적인 상태를 초기화하는 데 집중합니다.
+-   **정적 팩토리 함수 (`companion object`)**: 주 생성자 외에 다른 객체를 받거나, 여러 파라미터를 조합하여 객체를 생성해야 하는 경우, `companion object` 내부에 정적 팩토리 함수를 정의하여 사용합니다. 이를 통해 생성의 의도를 명확히 드러내고, 유연한 객체 생성을 가능하게 합니다.
+
+- 일반적인 정적 팩토리 함수 네이밍
+  - **단일 파라미터**: 다른 단일 객체로부터 변환하여 생성하는 경우, 일반적으로 `from` 접두사를 사용합니다.
+      ```kotlin
+      // 예시: Member 도메인 객체로부터 MemberResponse DTO 생성
+      data class MemberResponse(...) {
+          companion object {
+              fun from(member: Member): MemberResponse {
+                  return MemberResponse(
+                      id = member.id,
+                      email = member.email,
+                      status = member.status,
+                  )
+              }
+          }
+      }
+      ```
+  - **다수 파라미터**: 여러 파라미터를 조합하여 객체를 생성하는 경우, 일반적으로 `of` 접두사를 사용합니다.
+      ```kotlin
+      // 예시: 여러 파라미터로부터 MemberRegisterCommand 생성
+      data class MemberRegisterCommand(...) {
+          companion object {
+              fun of(email: String, password: String, name: String): MemberRegisterCommand {
+                  return MemberRegisterCommand(
+                      email = Email(email),
+                      password = Password(password),
+                      name = name,
+                  )
+              }
+          }
+      }
+      ```
 
 ## 3. 실행 및 테스트
 

@@ -21,4 +21,8 @@ internal class MemberQueryService(
         return memberRepository.findById(id.value)
             ?: throw MemberNotFoundException("회원($id)을 찾을 수 없습니다.")
     }
+
+    override fun findAll(): List<Member> {
+        return memberRepository.findAll()
+    }
 }

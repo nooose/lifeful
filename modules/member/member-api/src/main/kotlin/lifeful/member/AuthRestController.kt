@@ -11,7 +11,9 @@ class AuthRestController(
     private val memberLogin: MemberLogin,
 ) : AuthApi {
     @PostMapping("/api/v1/auth/token")
-    override fun getToken(@RequestBody @Valid request: TokenRequest): String {
+    override fun getToken(
+        @RequestBody @Valid request: TokenRequest,
+    ): String {
         return memberLogin.getToken(request.toCommand())
     }
 }
