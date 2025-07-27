@@ -10,9 +10,10 @@ Readful 프로젝트는 헥사고날 아키텍처(Hexagonal Architecture)와 도
 
 헥사고날 아키텍처는 핵심 로직(Domain)을 외부 기술(Adapter)로부터 분리하여 유연하고 테스트하기 쉬운 구조를 만드는 것을 목표로 합니다.
 
-- **Domain Layer (Core)**: 순수한 도메인 로직을 담고 있으며, 외부 세계에 대한 의존성이 없는 것을 원칙으로 합니다. 하지만 실용적인 관점에서 JPA 어노테이션(@Entity, @Id 등)을 사용하여 도메인 객체와 데이터베이스 테이블 매핑을 함께 정의하고 있습니다.
+- **Domain Layer (Core)**: 순수한 도메인 로직을 담고 있으며, 외부 기술(예: 데이터베이스, 외부 API)에 대한 의존성이 없는 것을 원칙으로 합니다. 다만, 실용적인 관점에서 JPA 어노테이션(@Entity, @Id 등)을 사용하여 도메인 객체와 데이터베이스 테이블 매핑을 함께 정의하고 있습니다. 이는 도메인 모델의 영속성을 위한 최소한의 기술적 결합으로 간주합니다.
   - `*-domain` 모듈 (예: `member-domain`, `health-domain`)
-  - `Aggregate`, `Entity`, `Value Object`, `Repository Interface`, `Domain Event` 등이 위치합니다.
+  - `Aggregate`, `Entity`, `Repository Interface`, `Domain Event` 등이 위치합니다.
+  - **Value Object**: 값 객체는 고유 식별자가 없으며, 속성들의 값을 통해 동등성을 판단합니다. 불변(immutable)이어야 하며, 특정 도메인 개념을 표현하고 해당 값에 대한 유효성 검사 로직을 포함합니다. 예를 들어, `Email` 값 객체는 이메일 주소의 유효성을 자체적으로 검증합니다.
 - **Application Layer (Core)**: Domain Layer를 사용하여 실제 사용 사례(Use Case)를 구현하며, **CQRS(Command Query Responsibility Segregation)** 패턴을 적용합니다.
   - `*-application` 모듈 (예: `member-application`, `health-application`)
   - **Command**: 시스템의 상태를 변경하는 작업을 담당합니다. (예: `MemberRegisterCommand`, `ExerciseCreateCommand`)
@@ -57,9 +58,7 @@ readful/
 
 - **`boot-api`, `boot-batch`**: 각각 API 서버와 배치 애플리케이션의 실행 진입점(main 함수) 역할을 하는 모듈입니다. 이처럼 여러 실행 가능한 모듈을 하나의 모노레포에서 관리함으로써, 별도의 Git 레포지토리로 분리하지 않고도 `member`, `health`와 같은 공통 도메인 및 비즈니스 로직을 다양한 애플리케이션에서 효율적으로 재사용할 수 있습니다.
 - **`base`**: `BaseEntity`, 커스텀 `Exception`, 공통 ID 클래스 등 프로젝트 전반에서 사용되는 기반 코드를 포함합니다.
-  - `common` 지옥에 빠지지 않도록 주의해서 설계한다.
-    - '공통'이란 이유로 아무거나 모아두면 공통이 아니라 쓰레기통이 된다.
-    - 필요하다면, 공통이 아니라 재사용 가능한 모듈로 명확히 이름붙이자.
+  - **주의**: '공통'이라는 이유로 무분별하게 코드를 추가하여 '공통 모듈 지옥(Common Module Hell)'에 빠지지 않도록 주의해야 합니다. 재사용 가능한 모듈은 명확한 목적과 이름을 가져야 합니다.
 - **`security`**: 인증/인가 등 보안 관련 어댑터
 - **`support`**: `api-common` (공통 응답 포맷, `GlobalExceptionHandler` 등), `api-doc` (API 문서 자동화) 등 프로젝트의 주요 관심사는 아니지만 개발에 필요한 부가 기능들을 제공합니다.
 - **도메인 모듈 ( `member`, `health` 등)**: 각 비즈니스 도메인을 독립적인 모듈로 구성합니다. 각 도메인 모듈은 `core`(`domain`, `application`), `api`, `integration`, `storage`, `client`, `infrastructure` 등으로 세분화될 수 있습니다.
@@ -97,7 +96,7 @@ readful/
       ```
   3.  **의존성 역전**: 이를 통해 `member-domain`은 `security` 모듈이나 `BCryptPasswordEncoder`에 대해 전혀 알지 못한 채, 오직 자신이 정의한 `PasswordEncoder` 포트에만 의존하게 됩니다. 이것이 바로 의존성 역전 원칙(DIP)입니다.
 
-- **인터페이스와 구현체 분리**: 외부 모듈에 기능을 제공할 때는 인터페이스(`public`)를 사용하고, 실제 구현체는 `internal` 키워드를 사용하여 모듈 내부로 가시성을 제한합니다. 이를 통해 외부 모듈은 구현체의 상세 내용에 의존하지 않고 인터페이스에만 의존하게 되어 결합도를 낮출 수 있습니다.
+- **인터페이스와 구현체 분리**: 외부 모듈에 기능을 제공할 때는 인터페이스(Port)를 사용하고, 실제 구현체는 `internal` 키워드를 사용하여 모듈 내부로 가시성을 제한합니다. 이를 통해 외부 모듈은 구현체의 상세 내용에 의존하지 않고 인터페이스에만 의존하게 되어 결합도를 낮출 수 있습니다. 이는 모듈 간의 느슨한 결합을 유지하고, 특정 구현 기술에 대한 의존성을 줄이는 핵심적인 방법입니다.
 
   ```kotlin
   // member-application 모듈
@@ -122,21 +121,35 @@ readful/
 
 ## 2. 개발 컨벤션
 
-### 2.1. 네이밍 컨벤션
-
+### 2.1. 네이밍/함수 컨벤션
 - **Package**: 소문자와 `.`를 사용합니다. (예: `lifeful.member.domain`)
 - **Function/Variable**: camelCase를 사용합니다. (예: `registerMember`, `memberId`)
+- **함수 네이밍**:
+  - `findXxx`: 결과가 존재하지 않을 수 있는 경우 (null 반환 가능성).
+  - `getXxx`: 결과가 항상 존재한다고 가정하는 경우 (null이 아닌 값 반환, 없으면 예외 발생).
+- **Map 변수명**: `keyToValue` 형식으로 사용합니다. (예: `idToMember`, `noToCompany`, `keyToNames`)
+- **컬렉션 변수명**: 복수형을 사용합니다. (예: `members`, `companies`, `names`)
 - **DTO (Data Transfer Object)**
-  - **Request/Response**: `api` 모듈에서는 `XxxRequest`, `XxxResponse` 형식을 사용합니다. (예: `MemberRegisterRequest`, `MemberResponse`)
-  - **Command/Query**: `core` 레이어에서는, `XxxCommand`, `XxxQuery` 형식을 사용합니다. (예: `MemberRegisterCommand`, `MemberDetailQuery`)
+  - **API 계층**: `XxxRequest`, `XxxResponse` 형식을 사용합니다. (예: `MemberRegisterRequest`, `MemberResponse`)
+  - **애플리케이션 계층**: `XxxCommand`, `XxxQuery` 형식을 사용합니다. (예: `MemberRegisterCommand`, `MemberDetailQuery`)
+  - **데이터 반환 규칙**:
+    - `application` 모듈은 가능한 한 도메인 모델을 반환해야 합니다.
+    - `api` 모듈은 `application` 모듈에서 반환된 도메인 모델을 `XxxResponse` DTO로 변환하는 역할을 담당합니다.
+    - 만약 도메인 모델만으로 데이터 조회가 불충분한 경우, `application` 모듈 내에 조회를 위한 `XxxQuery` DTO를 정의할 수 있습니다. 이 경우에도 `api` 모듈에서 최종적으로 `XxxResponse`로 변환해야 합니다. 이 규칙은 `application` 계층이 외부 기술(API 응답 형식)에 의존하지 않도록 하여 계층 간의 결합도를 낮추고 유연성을 높이는 데 중요합니다.
 
 ### 2.2. API 개발 컨벤션
 
 `api` 모듈은 다음과 같은 컨벤션을 따릅니다.
 
-- **인터페이스와 구현체 분리**: API 명세와 실제 구현을 분리하여 가독성과 유지보수성을 높입니다.
-  - **`XxxApi` 인터페이스**: SpringDoc 애너테이션(`@Tag`, `@Operation` 등)을 사용하여 API 문서를 명세합니다. 이 인터페이스는 순수하게 문서화만을 담당하며, 실제 로직은 포함하지 않습니다.
-  - **`XxxRestController` 클래스**: `XxxApi` 인터페이스를 구현하며, `@RestController` 애너테이션을 사용하여 실제 HTTP 요청을 처리하는 로직을 담당합니다.
+- **RESTful API 설계**: HTTP API는 RESTful 원칙을 따라야 합니다. 이는 자원(Resource) 중심의 URL 설계, HTTP 메서드(GET, POST, PUT, DELETE 등)의 적절한 사용, 상태 비저장(Stateless) 통신 등을 포함합니다.
+  - **예시**:
+    - 회원 목록 조회: `GET /api/v1/members`
+    - 특정 회원 조회: `GET /api/v1/members/{memberId}`
+    - 회원 등록: `POST /api/v1/members`
+    - 회원 정보 수정: `PUT /api/v1/members/{memberId}`
+    - 회원 삭제: `DELETE /api/v1/members/{memberId}`
+
+- **인터페이스와 구현체 분리**: API 명세와 실제 구현을 분리하여 가독성과 유지보수성을 높입니다. `XxxApi` 인터페이스는 SpringDoc 애너테이션(`@Tag`, `@Operation` 등)을 사용하여 API 문서를 명세하며, 순수하게 문서화만을 담당합니다. 실제 로직은 `XxxRestController` 클래스에서 `XxxApi` 인터페이스를 구현하여 처리합니다.
 
   ```kotlin
   // MemberApi.kt - API 문서화 인터페이스
@@ -175,19 +188,18 @@ readful/
 ### 2.5. 도메인 모델 컨벤션
 
 #### 풍부한 도메인 모델 (Rich Domain Model)
-우리는 데이터와 해당 데이터에 대한 비즈니스 로직을 모두 포함하는 풍부한 도메인 모델(Rich Domain Model)을 만드는 것을 목표로 합니다. 
-> 도메인 객체가 단순히 getter와 setter를 가진 데이터 컨테이너에 불과하고 비즈니스 로직이 서비스 클래스에 배치되는 빈약한 도메인 모델(Anemic Domain Model)과는 대조됩니다.
+우리는 데이터와 해당 데이터에 대한 비즈니스 로직을 모두 포함하는 **풍부한 도메인 모델(Rich Domain Model)**을 만드는 것을 목표로 합니다. 이는 도메인 객체가 단순히 getter와 setter를 가진 데이터 컨테이너에 불과하고 비즈니스 로직이 서비스 클래스에 배치되는 **빈약한 도메인 모델(Anemic Domain Model)**과는 대조됩니다.
 
-이러한 접근 방식은 도메인 로직이 외부 의존성으로부터 분리되어 있어, 단위 테스트를 작성하기 매우 용이하게 만듭니다.
+이러한 접근 방식은 도메인 로직이 외부 의존성으로부터 분리되어 있어, 단위 테스트를 작성하기 매우 용이하게 만듭니다. 외부 의존성이 없으므로, 도메인 모델의 비즈니스 로직을 테스트할 때 별도의 Mocking이나 복잡한 환경 설정 없이 순수하게 단위 테스트를 수행할 수 있습니다.
 
 예를 들어, `Member` 클래스는 회원에 대한 정보뿐만 아니라 비밀번호 변경 또는 계정 비활성화와 같이 회원이 수행할 수 있는 작업에 대한 로직도 포함해야 합니다.
 
 **빈약한 도메인 모델 (피해야 할 것)**
 ```kotlin
-// 빈약한 Member 클래스
+// 빈약한 Member 클래스: 데이터만 가짐
 class Member(val id: Long, var status: MemberStatus)
 
-// 도메인 객체 외부에 있는 로직
+// 도메인 객체 외부에 있는 로직: 비즈니스 로직이 서비스에 분산됨
 class MemberService {
   fun deactivate(member: Member) {
     // ... 비즈니스 로직
@@ -198,28 +210,26 @@ class MemberService {
 
 **풍부한 도메인 모델 (권장)**
 ```kotlin
-// 비즈니스 로직을 포함한 풍부한 Member 클래스
+// 풍부한 Member 클래스: 데이터와 비즈니스 로직을 함께 가짐
 class Member(val id: Long, var status: MemberStatus) {
   fun deactivate() {
-    // ... 검증 및 도메인 로직
+    // ... 검증 및 도메인 로직: 객체 스스로 상태 변경 로직을 가짐
     this.status = MemberStatus.DEACTIVATED
   }
 }
 ```
 
 #### Setter 사용 지양
-도메인 객체의 무결성과 캡슐화를 유지하기 위해 public setter 사용을 지양해야 합니다. 객체의 상태를 외부에서 직접 수정하는 대신, 비즈니스 액션을 나타내는 메서드를 사용해야 합니다.
+도메인 객체의 무결성과 캡슐화를 유지하기 위해 public setter 사용을 지양해야 합니다. 객체의 상태를 외부에서 직접 수정하는 대신, 비즈니스 액션을 나타내는 함수를 사용해야 합니다.
 
 예를 들어, `member.setStatus(DEACTIVATED)` 대신 `member.deactivate()`와 같은 함수를 사용해야 합니다. 이 접근 방식은 유효성 검사 및 기타 비즈니스 규칙을 도메인 객체 자체에 포함시켜 객체가 항상 일관된 상태를 유지하도록 보장합니다.
 
 #### 유즈케이스 중심의 액션
-애플리케이션 계층에서는 메서드 이름을 해당 메서드가 나타내는 비즈니스 유즈케이스에 따라 명명하도록 노력해야 합니다. 이렇게 하면 개발자와 도메인 전문가 모두에게 코드를 더 읽기 쉽고 이해하기 쉽게 만들 수 있습니다.
+애플리케이션 계층에서는 함수 이름을 해당 함수가 나타내는 비즈니스 유즈케이스에 따라 명명하도록 노력해야 합니다. 이렇게 하면 개발자와 도메인 전문가 모두에게 코드를 더 읽기 쉽고 이해하기 쉽게 만들 수 있습니다.
 
-예를 들어, 일반적인 `updateMember` 메서드 대신 `changeMemberPassword` 또는 `updateMemberProfile`과 같이 더 구체적인 메서드를 가질 수 있습니다. 이 접근 방식은 코드의 의도를 명확히 하고 시스템의 동작을 더 쉽게 추론할 수 있도록 돕습니다.
+예를 들어, 일반적인 `updateMember` 함수 대신 `changeMemberPassword` 또는 `updateMemberProfile`과 같이 더 구체적인 함수를 가질 수 있습니다. 이 접근 방식은 코드의 의도를 명확히 하고 시스템의 동작을 더 쉽게 추론할 수 있도록 돕습니다.
 
-유즈케이스가 여러 단계를 포함하는 경우, 이를 더 작고 private한 메서드로 분할하는 것이 좋습니다. 이렇게 하면 가독성이 향상되고 복잡성을 관리하는 데 도움이 됩니다. 각 private 메서드는 유즈케이스의 특정 단계에 해당해야 합니다.
-
-이러한 컨벤션을 따르면 비즈니스 도메인과 일치하는 보다 견고하고 유지보수 가능한 시스템을 만들 수 있습니다.
+유즈케이스가 여러 단계를 포함하는 경우, 이를 더 작고 `private`한 함수로 분할하는 것이 좋습니다. 이렇게 하면 가독성이 향상되고 복잡성을 관리하는 데 도움이 됩니다. 각 `private` 함수는 유즈케이스의 특정 단계에 해당해야 합니다. 이는 DDD에서 강조하는 '유비쿼터스 언어'를 코드에 반영하고, 비즈니스 의도를 명확히 드러내는 데 기여합니다.
 
 ## 3. 실행 및 테스트
 
