@@ -24,7 +24,7 @@ internal class MemberManager(
     private val eventPublisher: ApplicationEventPublisher,
     private val passwordEncoder: PasswordEncoder,
     private val memberFinder: MemberFinder,
-) : MemberRegister, MemberLogin {
+) : MemberRegister, MemberLogin, MemberChangeNickname {
     override fun register(command: MemberRegisterCommand): Member {
         checkDuplicateEmail(command)
 
@@ -80,5 +80,11 @@ internal class MemberManager(
         require(member.isActive) {
             throw MemberAccessDeniedException("활성화 사용자가 아닙니다.")
         }
+    }
+
+    override fun changeNickname(command: MemberChangeNicknameCommand) {
+        val member = memberFinder.get(command.memberId)
+        member.changeNickname(command.newNickname)
+        memberRepository.save(member)
     }
 }

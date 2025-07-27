@@ -46,6 +46,11 @@ class Member private constructor(
         this.passwordHash = passwordEncoder.encode(rawPassword)
     }
 
+    fun changeNickname(newNickname: String) {
+        require(isActive) { throw MemberAccessDeniedException("활성화 사용자가 아닙니다.") }
+        this.nickname = newNickname
+    }
+
     companion object {
         fun register(
             email: Email,

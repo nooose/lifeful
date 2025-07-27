@@ -22,4 +22,12 @@ interface MemberApi {
         summary = "회원 목록 조회",
     )
     fun findAll(): List<MemberResponse>
+
+    @Operation(
+        summary = "회원 닉네임 변경",
+    )
+    fun changeNickname(
+        memberId: Long,
+        request: MemberChangeNicknameRequest,
+    )
 }
