@@ -159,7 +159,7 @@ configureByTypeHaving("integration") {
     }
 }
 
-configureByTypeHaving("api") {
+configureByTypeHaving("mvc") {
     dependencies {
         implementation(project(":modules:support:api-doc"))
         implementation(project(":modules:support:api-common"))

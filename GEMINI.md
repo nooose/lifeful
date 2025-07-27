@@ -4,13 +4,13 @@
 
 ## 1. 아키텍처
 
-Readful 프로젝트는 **헥사고날 아키텍처(Hexagonal Architecture)**와 **도메인 주도 설계(Domain-Driven Design, DDD)**의 원칙을 따르는 현대적인 **모노레포 멀티 모듈 아키텍처**를 채택하고 있습니다.
+Readful 프로젝트는 헥사고날 아키텍처(Hexagonal Architecture)와 도메인 주도 설계(Domain-Driven Design, DDD)의 원칙을 따르는 현대적인 **모노레포 멀티 모듈 아키텍처**를 채택하고 있습니다.
 
 ### 1.1. 헥사고날 아키텍처
 
 헥사고날 아키텍처는 핵심 로직(Domain)을 외부 기술(Adapter)로부터 분리하여 유연하고 테스트하기 쉬운 구조를 만드는 것을 목표로 합니다.
 
-- **Domain Layer (Core)**: 순수한 비즈니스 로직을 담고 있으며, 외부 세계에 대한 의존성이 없는 것을 원칙으로 합니다. 하지만 실용적인 관점에서 JPA 어노테이션(@Entity, @Id 등)을 사용하여 도메인 객체와 데이터베이스 테이블 매핑을 함께 정의하고 있습니다.
+- **Domain Layer (Core)**: 순수한 도메인 로직을 담고 있으며, 외부 세계에 대한 의존성이 없는 것을 원칙으로 합니다. 하지만 실용적인 관점에서 JPA 어노테이션(@Entity, @Id 등)을 사용하여 도메인 객체와 데이터베이스 테이블 매핑을 함께 정의하고 있습니다.
   - `*-domain` 모듈 (예: `member-domain`, `health-domain`)
   - `Aggregate`, `Entity`, `Value Object`, `Repository Interface`, `Domain Event` 등이 위치합니다.
 - **Application Layer (Core)**: Domain Layer를 사용하여 실제 사용 사례(Use Case)를 구현하며, **CQRS(Command Query Responsibility Segregation)** 패턴을 적용합니다.
@@ -34,7 +34,8 @@ Readful 프로젝트는 **헥사고날 아키텍처(Hexagonal Architecture)**와
 ```
 readful/
 ├── modules/
-│   ├── boot-api              # Spring Boot 애플리케이션 실행 모듈
+│   ├── boot-batch            # Spring Boot Batch 서버 실행 모듈
+│   ├── boot-api              # Spring Boot API 서버 실행 모듈
 │   ├── base                  # 모든 모듈에서 공통으로 사용하는 기반 코드 (ID, Entity, Exception 등)
 │   ├── security              # 인증/인가 등 보안 관련 모듈
 │   ├── support/              # 프로젝트 지원 모듈
@@ -171,6 +172,55 @@ readful/
   - `fix(health): 운동 기록 조회 시 발생하는 버그 수정`
   - `docs(readme): 프로젝트 실행 방법 업데이트`
 
+### 2.5. 도메인 모델 컨벤션
+
+#### 풍부한 도메인 모델 (Rich Domain Model)
+우리는 데이터와 해당 데이터에 대한 비즈니스 로직을 모두 포함하는 풍부한 도메인 모델(Rich Domain Model)을 만드는 것을 목표로 합니다. 
+> 도메인 객체가 단순히 getter와 setter를 가진 데이터 컨테이너에 불과하고 비즈니스 로직이 서비스 클래스에 배치되는 빈약한 도메인 모델(Anemic Domain Model)과는 대조됩니다.
+
+이러한 접근 방식은 도메인 로직이 외부 의존성으로부터 분리되어 있어, 단위 테스트를 작성하기 매우 용이하게 만듭니다.
+
+예를 들어, `Member` 클래스는 회원에 대한 정보뿐만 아니라 비밀번호 변경 또는 계정 비활성화와 같이 회원이 수행할 수 있는 작업에 대한 로직도 포함해야 합니다.
+
+**빈약한 도메인 모델 (피해야 할 것)**
+```kotlin
+// 빈약한 Member 클래스
+class Member(val id: Long, var status: MemberStatus)
+
+// 도메인 객체 외부에 있는 로직
+class MemberService {
+  fun deactivate(member: Member) {
+    // ... 비즈니스 로직
+    member.status = MemberStatus.DEACTIVATED
+  }
+}
+```
+
+**풍부한 도메인 모델 (권장)**
+```kotlin
+// 비즈니스 로직을 포함한 풍부한 Member 클래스
+class Member(val id: Long, var status: MemberStatus) {
+  fun deactivate() {
+    // ... 검증 및 도메인 로직
+    this.status = MemberStatus.DEACTIVATED
+  }
+}
+```
+
+#### Setter 사용 지양
+도메인 객체의 무결성과 캡슐화를 유지하기 위해 public setter 사용을 지양해야 합니다. 객체의 상태를 외부에서 직접 수정하는 대신, 비즈니스 액션을 나타내는 메서드를 사용해야 합니다.
+
+예를 들어, `member.setStatus(DEACTIVATED)` 대신 `member.deactivate()`와 같은 함수를 사용해야 합니다. 이 접근 방식은 유효성 검사 및 기타 비즈니스 규칙을 도메인 객체 자체에 포함시켜 객체가 항상 일관된 상태를 유지하도록 보장합니다.
+
+#### 유즈케이스 중심의 액션
+애플리케이션 계층에서는 메서드 이름을 해당 메서드가 나타내는 비즈니스 유즈케이스에 따라 명명하도록 노력해야 합니다. 이렇게 하면 개발자와 도메인 전문가 모두에게 코드를 더 읽기 쉽고 이해하기 쉽게 만들 수 있습니다.
+
+예를 들어, 일반적인 `updateMember` 메서드 대신 `changeMemberPassword` 또는 `updateMemberProfile`과 같이 더 구체적인 메서드를 가질 수 있습니다. 이 접근 방식은 코드의 의도를 명확히 하고 시스템의 동작을 더 쉽게 추론할 수 있도록 돕습니다.
+
+유즈케이스가 여러 단계를 포함하는 경우, 이를 더 작고 private한 메서드로 분할하는 것이 좋습니다. 이렇게 하면 가독성이 향상되고 복잡성을 관리하는 데 도움이 됩니다. 각 private 메서드는 유즈케이스의 특정 단계에 해당해야 합니다.
+
+이러한 컨벤션을 따르면 비즈니스 도메인과 일치하는 보다 견고하고 유지보수 가능한 시스템을 만들 수 있습니다.
+
 ## 3. 실행 및 테스트
 
 ### 3.1. 실행 방법
@@ -197,8 +247,9 @@ readful/
 ## 4. 기술 스택
 
 - **Language**: Kotlin 1.9.25, Java 21
-- **Framework**: Spring Boot 3.5.3, Spring Modulith
+- **Framework**: Spring Boot 3.5.3
 - **Build Tool**: Gradle
+- **Dev Tool**: Docker Compose, Spring Modulith
 - **Database**: MySQL, H2 (for test)
 - **ORM**: Spring Data JPA (Hibernate)
 - **Testing**: Kotest, MockK
