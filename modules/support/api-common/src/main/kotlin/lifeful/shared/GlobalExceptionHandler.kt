@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @Order(Ordered.LOWEST_PRECEDENCE)
 @RestControllerAdvice
-internal class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
+class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
     private val log = KotlinLogging.logger {}
 
     @ExceptionHandler(

@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
     name = "인증 API",
     description = "인증 관련 API",
 )
-internal interface AuthApi {
+interface AuthApi {
     @Operation(
         summary = "토큰 발급",
         description = "임시 기능",

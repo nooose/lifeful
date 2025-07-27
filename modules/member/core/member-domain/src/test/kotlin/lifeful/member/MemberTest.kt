@@ -14,18 +14,7 @@ class MemberTest : StringSpec({
             email = Email("test@test.com"),
             nickname = "testUser",
             password = "testPassword",
-            passwordEncoder = object : PasswordEncoder {
-                override fun encode(rawPassword: String): String {
-                    return rawPassword
-                }
-
-                override fun matches(
-                    rawPassword: String,
-                    encodedPassword: String,
-                ): Boolean {
-                    return true
-                }
-            },
+            passwordEncoder = TestPasswordEncoder(),
         )
     }
 

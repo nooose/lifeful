@@ -29,11 +29,11 @@ class MemberManagerTest(
     }
 
     Given("기존 이메일이 가입되어있고") {
-        memberRegister.register(MemberFixtures.registerFixtures(email = "test@test.com"))
+        memberRegister.register(MemberCommandFixtures.registerFixture(email = "test@test.com"))
         When("같은 이메일로 회원가입을 요청하면") {
             Then("예외를 던진다.") {
                 shouldThrow<DuplicateException> {
-                    memberRegister.register(MemberFixtures.registerFixtures(email = "test@test.com"))
+                    memberRegister.register(MemberCommandFixtures.registerFixture(email = "test@test.com"))
                 }
             }
         }
@@ -41,7 +41,7 @@ class MemberManagerTest(
 
     Given("회원 가입 후") {
         val member = memberRegister.register(
-            MemberFixtures.registerFixtures(
+            MemberCommandFixtures.registerFixture(
                 email = "test@test.com",
                 password = "test",
             ),
@@ -101,7 +101,7 @@ class MemberManagerTest(
 
     Given("회원 가입을 하면") {
         val member = memberRegister.register(
-            MemberFixtures.registerFixtures(
+            MemberCommandFixtures.registerFixture(
                 email = "test@test.com",
                 password = "test",
             ),

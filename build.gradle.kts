@@ -104,7 +104,7 @@ subprojects {
                         testTask.configure {
                             shouldRunAfter(test)
                             testLogging {
-                                events = mutableSetOf(TestLogEvent.FAILED)
+                                events = mutableSetOf(TestLogEvent.PASSED, TestLogEvent.FAILED)
                                 exceptionFormat = TestExceptionFormat.FULL
                             }
                         }

@@ -40,20 +40,20 @@ internal class MemberManager(
         return registeredMember
     }
 
-    override fun deactivate(memberId: MemberId) {
-        val member = memberFinder.get(memberId)
-
-        member.deactivate()
-
-        memberRepository.save(member)
-    }
-
     private fun checkDuplicateEmail(command: MemberRegisterCommand) {
         val requestEmail = Email(command.email)
         val existsMember = memberFinder.find(requestEmail)
         require(existsMember == null) {
             throw DuplicateException("중복된 이메일이 존재합니다.")
         }
+    }
+
+    override fun deactivate(memberId: MemberId) {
+        val member = memberFinder.get(memberId)
+
+        member.deactivate()
+
+        memberRepository.save(member)
     }
 
     override fun getToken(command: MemberLoginCommand): String {
@@ -66,12 +66,6 @@ internal class MemberManager(
         )
     }
 
-    private fun checkValidMember(member: Member) {
-        require(member.isActive) {
-            throw MemberAccessDeniedException("활성화 사용자가 아닙니다.")
-        }
-    }
-
     private fun checkEmailAndPassword(command: MemberLoginCommand): Member {
         val member = memberRepository.findByEmail(Email(command.email))
 
@@ -80,5 +74,11 @@ internal class MemberManager(
         }
 
         return member
+    }
+
+    private fun checkValidMember(member: Member) {
+        require(member.isActive) {
+            throw MemberAccessDeniedException("활성화 사용자가 아닙니다.")
+        }
     }
 }

@@ -1,4 +1,4 @@
-package lifeful.member
+package lifeful.health
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

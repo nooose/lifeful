@@ -1,9 +1,14 @@
-package lifeful.member
+package lifeful
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
-@SpringBootApplication
+@SpringBootApplication(
+    scanBasePackages = [
+        "lifeful.member",
+        "lifeful.shared",
+    ]
+)
 class TestApplication
 
 fun main(args: Array<String>) {
