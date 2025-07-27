@@ -25,3 +25,7 @@
 ```
 - 기본 포트: 8080
 - Swagger 문서: http://localhost:8080/swagger-ui/index.html
+
+## 문서
+- [도메인 설계](docs/domain.md)
+- [개발 가이드](GEMINI.md)

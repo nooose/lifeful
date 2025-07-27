@@ -237,6 +237,9 @@ class Member(val id: Long, var status: MemberStatus) {
 
 본 프로젝트는 각 레이어의 특성에 맞는 테스트 전략을 사용합니다.
 
+> - `integrationTest`: 통합 테스트를 위해 다른 모듈을 의존할 수 있는 테스트 영역
+> - `test`: 해당 모듈만을 위한 단위 테스트 영역 
+
 - **Domain Layer (`*-domain`)**: 외부 의존성이 없는 순수한 단위 테스트를 지향합니다. Kotest와 MockK를 사용하여 비즈니스 로직을 검증합니다.
 - **Application Layer (`*-application`)**: Mockk를 사용하여 단위 테스트를 지향합니다. 필요하다면 `@SpringBootTest`를 사용하여 실제 Spring Context를 로드하고, Service 레이어의 통합 테스트를 진행합니다.
 - **Adapter Layer (`*-api`)**
