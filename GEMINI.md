@@ -168,6 +168,8 @@ readful/
   }
   ```
 
+- **DTO 문서화**: `api` 모듈에서 사용되는 `XxxRequest`, `XxxResponse` DTO 규격에는 SpringDoc 애너테이션(`@Schema`, `@Parameter` 등)을 사용하여 문서화를 필수로 명시해야 합니다. 이는 API 명세를 명확하게 하고 클라이언트 개발자가 API를 쉽게 이해하고 사용할 수 있도록 돕습니다.
+
 ### 2.3. 코딩 스타일
 
 - **Kotlin Style Guide**: [Kotlin 공식 스타일 가이드](https://kotlinlang.org/docs/coding-conventions.html)를 따릅니다.
@@ -237,7 +239,8 @@ class Member(val id: Long, var status: MemberStatus) {
 
 1.  **요구사항**: Java 21, Docker
 2.  **데이터베이스 실행**: `docker-compose up -d`
-3.  **애플리케이션 실행**: `./gradlew :modules:boot-api:bootRun`
+3.  **API 서버 실행**: `./gradlew :modules:boot-api:bootRun`
+4.  **API 서버 빌드**: `./gradlew :modules:boot-api:bootJar`
 
 ### 3.2. 테스트 전략
 
@@ -268,3 +271,12 @@ class Member(val id: Long, var status: MemberStatus) {
 - **Testing**: Kotest, MockK
 - **API Docs**: SpringDoc (OpenAPI 3.0)
 - **Security**: Spring Security, JWT
+
+## 5. 에이전트 상호작용 규칙 (Agent Interaction Rules)
+
+이 문서는 Readful 프로젝트의 개발을 돕는 에이전트가 반드시 준수해야 할 규칙을 명시합니다.
+
+- **한국어 답변**: 모든 답변은 반드시 한국어로만 제공되어야 합니다.
+- **아키텍처 준수**: 코드를 작성하거나 수정할 때, Readful 프로젝트의 헥사고날 아키텍처 및 모듈 간 의존성 규칙을 **절대 위반해서는 안 됩니다.** 기존 아키텍처를 철저히 분석하고 이해한 후 변경을 제안해야 합니다.
+- **선 제안 후 구현**: 코드 변경이나 파일 생성 등 실제 작업을 수행하기 전에, 반드시 변경 사항에 대한 계획을 사용자에게 먼저 제안하고 승인을 받은 후에 진행해야 합니다. 이는 사용자의 의도를 명확히 확인하고 불필요한 변경을 방지하기 위함입니다.
+- **기존 코드 삭제 금지**: 기존 코드를 삭제하거나 주석 처리하는 것은 금지되어 있습니다. 필요하다면 변경 사항은 항상 새로운 코드로 추가하거나 수정하는 방식으로 진행해야 합니다.
