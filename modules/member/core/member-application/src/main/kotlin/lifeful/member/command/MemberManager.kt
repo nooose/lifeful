@@ -34,8 +34,12 @@ internal class MemberManager(
             password = command.password,
             passwordEncoder = passwordEncoder,
         )
-        val registeredMember = memberRepository.save(member)
 
+        return saveNewMember(member)
+    }
+
+    private fun saveNewMember(member: Member): Member {
+        val registeredMember = memberRepository.save(member)
         eventPublisher.publishEvent(MemberRegisteredEvent(memberId = MemberId(registeredMember.id)))
         return registeredMember
     }
@@ -48,6 +52,7 @@ internal class MemberManager(
         }
     }
 
+    @Transactional
     override fun deactivate(memberId: MemberId) {
         val member = memberFinder.get(memberId)
 
@@ -82,6 +87,7 @@ internal class MemberManager(
         }
     }
 
+    @Transactional
     override fun changeNickname(command: MemberChangeNicknameCommand) {
         val member = memberFinder.get(command.memberId)
         member.changeNickname(command.newNickname)

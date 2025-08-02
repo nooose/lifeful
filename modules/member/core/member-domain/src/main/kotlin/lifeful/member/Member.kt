@@ -1,6 +1,7 @@
 package lifeful.member
 
 import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.OneToOne
@@ -9,6 +10,7 @@ import lifeful.shared.model.BaseAggregateRootEntity
 
 @Entity
 class Member private constructor(
+    @Column(unique = true)
     val email: Email,
     var nickname: String,
     var passwordHash: String,

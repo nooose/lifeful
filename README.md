@@ -20,11 +20,36 @@
 | docs     | 문서 수정                  | docs: README에 커밋 규칙 추가         |
 
 ## 실행 방법
-```bash
-./gradlew bootRun
-```
-- 기본 포트: 8080
-- Swagger 문서: http://localhost:8080/swagger-ui/index.html
+
+### 요구사항
+- Java 21 / Kotlin
+- Docker
+
+### 실행
+    ```bash
+    ./gradlew :modules:boot-api:bootRun
+    ```
+-   **API 서버 포트**: `8080`
+-   **Swagger API 문서**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+---
+
+## 모니터링 및 부하 테스트
+
+애플리케이션의 성능을 관찰하고 부하 테스트를 수행할 수 있습니다.
+
+### k6
+  ```bash
+  # macOS (Homebrew)
+  brew install k6
+  
+  k6 run load-tests/script.js
+  ```
+
+### Grafana
+- **URL**: [http://localhost:3000](http://localhost:3000)
+- **계정**: `admin` / `admin`
+- Prometheus 데이터 소스(http://promethus:9090) 적용 
 
 ## 문서
 - [도메인 설계](docs/domain.md)

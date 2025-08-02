@@ -8,7 +8,7 @@ import lifeful.shared.id.MemberId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 internal class MemberQueryService(
     private val memberRepository: MemberRepository,

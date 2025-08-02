@@ -8,6 +8,11 @@ spring:
   application:
     name: lifeful
 
+  datasource:
+    hikari:
+      maximum-pool-size: 100
+      minimum-idle: 100
+
   jpa:
     open-in-view: false
     show-sql: true
@@ -19,3 +24,13 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: method
     doc-expansion: none
+
+management:
+  otlp:
+    metrics:
+      export:
+        url: http://localhost:4318/v1/metrics
+        step: 15s
+  metrics:
+    tags:
+      application: ${spring.application.name}

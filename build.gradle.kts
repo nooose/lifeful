@@ -138,6 +138,7 @@ configureByTypeHaving("boot") {
         implementation("org.springframework.modulith:spring-modulith-starter-core")
         runtimeOnly("org.springframework.modulith:spring-modulith-actuator")
         runtimeOnly("org.springframework.modulith:spring-modulith-observability")
+        implementation("io.micrometer:micrometer-registry-otlp")
 
         testImplementation("org.springframework.modulith:spring-modulith-starter-test")
     }
@@ -147,6 +148,7 @@ configureByTypeHaving("application") {
     dependencies {
         implementation("org.springframework.modulith:spring-modulith-starter-core")
         implementation("org.springframework.modulith:spring-modulith-events-api")
+        implementation("org.springframework.modulith:spring-modulith-events-core")
         implementation("org.springframework.data:spring-data-commons")
     }
 }
