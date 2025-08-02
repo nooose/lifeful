@@ -4,9 +4,9 @@ import org.springframework.modulith.ApplicationModule
 import org.springframework.modulith.PackageInfo
 
 @ApplicationModule(
-    id = "workout",
+    displayName = "건강(health)",
     allowedDependencies = [
-        "shared",
+        "member",
     ],
 )
 @PackageInfo

@@ -1,11 +1,12 @@
-package lifeful.shared
+package lifeful.event
 
 import org.springframework.modulith.ApplicationModule
 import org.springframework.modulith.PackageInfo
 
 @ApplicationModule(
-    displayName = "공유(shared)",
-    type = ApplicationModule.Type.OPEN,
+    displayName = "이벤트(event)",
+    allowedDependencies = [
+    ],
 )
 @PackageInfo
 class ModuleMetadata

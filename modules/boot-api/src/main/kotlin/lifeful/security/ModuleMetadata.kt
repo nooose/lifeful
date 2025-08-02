@@ -1,11 +1,13 @@
-package lifeful.shared
+package lifeful.security
 
 import org.springframework.modulith.ApplicationModule
 import org.springframework.modulith.PackageInfo
 
 @ApplicationModule(
-    displayName = "공유(shared)",
-    type = ApplicationModule.Type.OPEN,
+    displayName = "보안(security)",
+    allowedDependencies = [
+        "member",
+    ],
 )
 @PackageInfo
 class ModuleMetadata

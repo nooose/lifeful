@@ -5,6 +5,7 @@ tasks.named("bootJar") {
 dependencies {
     implementation(project(":modules:member:member-api"))
     implementation(project(":modules:health:health-api"))
+    implementation(project(":modules:admin:admin-api"))
     implementation(project(":modules:security"))
     developmentOnly("org.springframework.boot:spring-boot-docker-compose")
     runtimeOnly("com.mysql:mysql-connector-j")

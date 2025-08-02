@@ -15,6 +15,7 @@ class ModuleTest : StringSpec({
     "모듈 문서화" {
         Documenter(modules)
             .writeModulesAsPlantUml()
-            .writeIndividualModulesAsPlantUml()
+            .writeModuleCanvases()
+            .writeAggregatingDocument()
     }
 })

@@ -87,6 +87,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         status: HttpStatus,
         ex: Exception,
     ): ProblemDetail {
+        log.error(ex) { ex.message }
         val problemDetail = ProblemDetail.forStatusAndDetail(status, ex.message ?: "알 수 없는 오류가 발생했습니다.")
         problemDetail.setProperty("timestamp", Instant.now().toString())
         problemDetail.setProperty("exception", ex.javaClass.simpleName)

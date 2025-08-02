@@ -1,11 +1,13 @@
-package lifeful.shared
+package lifeful.admin
 
 import org.springframework.modulith.ApplicationModule
 import org.springframework.modulith.PackageInfo
 
 @ApplicationModule(
-    displayName = "공유(shared)",
-    type = ApplicationModule.Type.OPEN,
+    displayName = "관리자(admin)",
+    allowedDependencies = [
+        "event",
+    ],
 )
 @PackageInfo
 class ModuleMetadata
