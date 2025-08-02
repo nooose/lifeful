@@ -9,7 +9,7 @@ import org.springframework.modulith.Modulith
 @Modulith(
     sharedModules = [
         "shared",
-    ]
+    ],
 )
 @SpringBootApplication
 class LifefulApplication

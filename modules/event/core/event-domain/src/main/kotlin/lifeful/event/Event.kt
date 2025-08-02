@@ -9,8 +9,8 @@ data class Event(
     val completedAt: Instant?,
     val publishedAt: Instant,
     val payload: Any,
+    val payloadType: String,
 ) {
-
     val isCompleted: Boolean
         get() = completedAt != null
 }

@@ -32,5 +32,5 @@ include(
 )
 
 include(
-    "modules:admin:admin-api"
+    "modules:admin:admin-api",
 )

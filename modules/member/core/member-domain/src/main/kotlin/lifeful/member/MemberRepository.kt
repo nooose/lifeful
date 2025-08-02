@@ -13,4 +13,6 @@ interface MemberRepository : Repository<Member, Long> {
     fun findByEmail(email: Email): Member?
 
     fun findAll(): List<Member>
+
+    fun findAllByIdIn(ids: List<Long>): List<Member>
 }

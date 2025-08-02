@@ -1,11 +1,12 @@
 package lifeful.health.exercise
 
 import jakarta.validation.Valid
-import lifeful.shared.id.ExerciseId
 import lifeful.health.exercise.command.ExerciseAdd
 import lifeful.health.exercise.command.ExerciseModify
 import lifeful.health.exercise.query.ExerciseFinder
+import lifeful.shared.id.ExerciseId
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -35,8 +36,8 @@ class ExerciseRestController(
 
     @PutMapping("/api/v1/exercises/{exerciseId}")
     override fun modifyExercise(
-        exerciseId: ExerciseId,
-        request: ExerciseModifyRequest,
+        @PathVariable exerciseId: ExerciseId,
+        @RequestBody @Valid request: ExerciseModifyRequest,
     ) {
         modifyExercise.modify(exerciseId, request.toCommand())
     }

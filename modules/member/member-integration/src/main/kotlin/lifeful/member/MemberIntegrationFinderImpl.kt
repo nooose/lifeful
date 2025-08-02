@@ -1,5 +1,6 @@
 package lifeful.member
 
+import lifeful.member.query.MemberFinder
 import lifeful.shared.id.MemberId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -7,22 +8,22 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true)
 @Service
 internal class MemberIntegrationFinderImpl(
-    private val memberFinder: MemberIntegrationFinder,
+    private val memberFinder: MemberFinder,
 ) : MemberIntegrationFinder {
     override fun all(ids: List<MemberId>): List<MemberPublicModel> {
-        return memberFinder.all(ids)
+        return memberFinder.findAll(ids)
             .map {
                 MemberPublicModel(
-                    id = it.id,
+                    id = MemberId(it.id),
                     nickname = it.nickname,
                 )
             }
     }
 
     override fun byId(id: MemberId): MemberPublicModel? {
-        return memberFinder.byId(id)?.let {
+        return memberFinder.get(id).let {
             MemberPublicModel(
-                id = it.id,
+                id = MemberId(it.id),
                 nickname = it.nickname,
             )
         }

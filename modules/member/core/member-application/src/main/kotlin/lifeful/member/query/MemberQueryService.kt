@@ -25,4 +25,8 @@ internal class MemberQueryService(
     override fun findAll(): List<Member> {
         return memberRepository.findAll()
     }
+
+    override fun findAll(ids: List<MemberId>): List<Member> {
+        return memberRepository.findAllByIdIn(ids.map { it.value })
+    }
 }

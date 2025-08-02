@@ -18,6 +18,8 @@ data class EventResponse(
     @Schema(description = "발행된 시간")
     val publishedAt: Instant,
     @Schema(description = "이벤트 페이로드")
+    val payloadType: String,
+    @Schema(description = "이벤트 페이로드 타입")
     val payload: Any,
 ) {
     companion object {
@@ -28,6 +30,7 @@ data class EventResponse(
                 completedAt = event.completedAt,
                 publishedAt = event.publishedAt,
                 payload = event.payload,
+                payloadType = event.payloadType,
             )
         }
     }

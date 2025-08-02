@@ -10,4 +10,6 @@ interface MemberFinder {
     fun get(id: MemberId): Member
 
     fun findAll(): List<Member>
+
+    fun findAll(ids: List<MemberId>): List<Member>
 }
