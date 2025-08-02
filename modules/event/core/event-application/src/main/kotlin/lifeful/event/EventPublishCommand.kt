@@ -1,6 +1,6 @@
 package lifeful.event
 
 data class EventPublishCommand(
-    val payload: Any,
+    val eventPayload: Any,
     val listenerId: String,
 )
