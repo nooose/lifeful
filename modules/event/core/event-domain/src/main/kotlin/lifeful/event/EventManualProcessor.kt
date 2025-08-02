@@ -3,7 +3,7 @@ package lifeful.event
 import java.util.UUID
 
 interface EventManualProcessor {
-    fun resubmit(eventId: UUID)
+    fun publish(command: EventPublishCommand): Event
 
-    fun publish(command: EventPublishCommand): EventRecord
+    fun resubmit(eventId: UUID)
 }

@@ -13,18 +13,19 @@ internal class EventManualModulithProcessor(
     private val eventPublicationRepository: EventPublicationRepository,
     private val mapper: EventObjectMapper,
 ) : EventManualProcessor {
-    override fun resubmit(eventId: UUID) {
-        publication.resubmitIncompletePublications {
-            it.identifier == eventId
-        }
-    }
-
-    override fun publish(command: EventPublishCommand): EventRecord {
+    override fun publish(command: EventPublishCommand): Event {
         val event = TargetEventPublication.of(
             command.eventPayload,
             PublicationTargetIdentifier.of(command.listenerId),
         )
         val publishedTargetEvent = eventPublicationRepository.create(event)
+        resubmit(publishedTargetEvent.identifier)
         return mapper.toDomain(publishedTargetEvent)
+    }
+
+    override fun resubmit(eventId: UUID) {
+        publication.resubmitIncompletePublications {
+            it.identifier == eventId
+        }
     }
 }

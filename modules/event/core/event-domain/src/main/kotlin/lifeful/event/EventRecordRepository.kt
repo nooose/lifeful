@@ -1,7 +1,11 @@
 package lifeful.event
 
-interface EventRecordRepository {
-    fun findFailedEvents(): List<EventRecord>
+import java.util.UUID
 
-    fun findSuccessEvents(): List<EventRecord>
+interface EventRecordRepository {
+    fun findFailedEvents(): List<Event>
+
+    fun findSuccessEvents(): List<Event>
+
+    fun findFailedEvent(id: UUID): Event?
 }

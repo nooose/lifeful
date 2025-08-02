@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import io.swagger.v3.oas.annotations.media.Schema
 import java.time.Instant
 import java.util.UUID
-import lifeful.event.EventRecord
+import lifeful.event.Event
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Schema(description = "이벤트 응답")
@@ -23,7 +23,7 @@ data class EventResponse(
     val payload: Any,
 ) {
     companion object {
-        fun from(event: EventRecord): EventResponse {
+        fun from(event: Event): EventResponse {
             return EventResponse(
                 uuid = event.uuid,
                 listenerId = event.listenerId,
