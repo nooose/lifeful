@@ -29,6 +29,7 @@ include(
 include(
     "modules:event:core:event-application",
     "modules:event:core:event-domain",
+    "modules:event:event-infra",
 )
 
 include(

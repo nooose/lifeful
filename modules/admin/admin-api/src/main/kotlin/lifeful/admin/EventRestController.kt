@@ -46,7 +46,7 @@ class EventRestController(
         @RequestBody @Valid request: EventPublishRequest,
     ): ResponseEntity<Unit> {
         val command = EventPublishCommand(
-            payload = convertPayload(request.payloadType, request.payload),
+            eventPayload = convertPayload(request.payloadType, request.payload),
             listenerId = request.listenerId,
         )
 

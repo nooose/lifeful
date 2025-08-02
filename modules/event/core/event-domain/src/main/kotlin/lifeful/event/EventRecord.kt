@@ -3,7 +3,7 @@ package lifeful.event
 import java.time.Instant
 import java.util.UUID
 
-data class Event(
+data class EventRecord(
     val uuid: UUID,
     val listenerId: String,
     val completedAt: Instant?,
