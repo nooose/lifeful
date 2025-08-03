@@ -2,6 +2,25 @@
 
 기록을 통해 스스로를 돌아보고, 반복적인 활동 속 인사이트를 발견할 수 있도록 돕습니다.
 
+# 기술 스택
+- Language: Kotlin 1.9.25, Java 21
+- Framework: Spring Boot 3.5.3
+- Build Tool: Gradle
+- Dev Tool: Docker Compose, Spring Modulith
+- Database: MySQL, H2 (for test)
+- ORM: Spring Data JPA, Kotlin-JDSL
+- Test: Kotest, MockK
+- API Docs: SpringDoc (OpenAPI 3.0)
+- Security: Spring Security, JWT
+
+# 문서
+- [도메인 설계](docs/domain.md)
+- [개발 가이드](GEMINI.md)
+- 아키텍처 다이어그램
+  - ![모듈 컴포넌트 구조](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/nooose/lifeful/refs/heads/main/docs/components.puml)
+  - [모듈 컴포넌트 상세](docs/all-docs.adoc)
+
+
 ## 커밋 메시지 포맷
 ```
 <type>(optional scope): <subject>
@@ -39,21 +58,14 @@
 애플리케이션의 성능을 관찰하고 부하 테스트를 수행할 수 있습니다.
 
 ### k6
-  ```bash
-  # macOS (Homebrew)
-  brew install k6
+```bash
+# macOS (Homebrew)
+brew install k6
   
-  k6 run load-tests/script.js
-  ```
+k6 run load-tests/script.js
+```
 
 ### Grafana
 - **URL**: [http://localhost:3000](http://localhost:3000)
 - **계정**: `admin` / `admin`
 - Prometheus 데이터 소스(http://promethus:9090) 적용 
-
-## 문서
-- [도메인 설계](docs/domain.md)
-- [개발 가이드](GEMINI.md)
-- 아키텍처 다이어그램
-  - [모듈 컴포넌트 구조](docs/components.puml)
-  - [모듈 컴포넌트 상세](docs/all-docs.adoc)
