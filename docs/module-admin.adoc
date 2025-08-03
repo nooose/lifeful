@@ -1,0 +1,12 @@
+[%autowidth.stretch, cols="h,a"]
+|===
+|Base package
+|`lifeful.admin`
+|Spring components
+|_Controllers_
+
+* `l.a.EventApi` (via `l.a.EventRestController`)
+|Bean references
+|* `l.e.EventFinder` (in 이벤트(event))
+* `l.e.EventProcessor` (in 이벤트(event))
+|===

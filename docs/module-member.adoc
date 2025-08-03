@@ -1,0 +1,23 @@
+[%autowidth.stretch, cols="h,a"]
+|===
+|Base package
+|`lifeful.member`
+|Spring components
+|_Controllers_
+
+* `l.m.AuthApi` (via `l.m.AuthRestController`)
+* `l.m.MemberApi` (via `l.m.MemberRestController`)
+
+_Services_
+
+* `l.m.MemberIntegrationFinder` (via `l.m.MemberIntegrationFinderImpl`)
+
+_Repositories_
+
+* `l.m.MemberRepository`
+|Aggregate roots
+|* `l.m.Member`
+|Events listened to
+|* `l.m.MemberRegisteredEvent` (async) 
+* `l.m.MemberRegisteredEvent` (async) 
+|===

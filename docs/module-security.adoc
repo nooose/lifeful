@@ -1,0 +1,18 @@
+[%autowidth.stretch, cols="h,a"]
+|===
+|Base package
+|`lifeful.security`
+|Spring components
+|_Configuration properties_
+
+* `l.s.JwtProperties`
+
+_Others_
+
+* `l.s.CustomAccessDeniedHandler`
+* `l.s.CustomAuthenticationEntryPoint`
+* `l.s.JwtGenerator`
+* `l.s.JwtValidator`
+* `l.s.SecurePasswordEncoder`
+* `l.s.SecurityFilterChainConfig`
+|===

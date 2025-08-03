@@ -1,0 +1,12 @@
+[%autowidth.stretch, cols="h,a"]
+|===
+|Base package
+|`lifeful.shared`
+|Spring components
+|* `l.s.GlobalExceptionHandler`
+* `l.s.OpenApiConfig`
+* `l.s.advice.Tx`
+* `l.s.advice.TxAdvice`
+* `l.s.config.AsyncConfig`
+* `l.s.config.JpaAuditConfig`
+|===

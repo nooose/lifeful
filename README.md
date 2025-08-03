@@ -54,3 +54,6 @@
 ## 문서
 - [도메인 설계](docs/domain.md)
 - [개발 가이드](GEMINI.md)
+- 아키텍처 다이어그램
+  - [모듈 컴포넌트 구조](docs/components.puml)
+  - [모듈 컴포넌트 상세](docs/all-docs.adoc)

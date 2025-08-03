@@ -1,0 +1,24 @@
+== LifefulApplication
+plantuml::components.puml[,,format=svg]
+
+== Base
+include::module-base.adoc[]
+
+== 이벤트(event)
+include::module-event.adoc[]
+
+== 공유(shared)
+include::module-shared.adoc[]
+
+== 관리자(admin)
+include::module-admin.adoc[]
+
+== 회원(member)
+include::module-member.adoc[]
+
+== 건강(health)
+include::module-health.adoc[]
+
+== 보안(security)
+include::module-security.adoc[]
+

@@ -2,14 +2,15 @@ package lifeful.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.HttpMethod
+import org.springframework.http.HttpMethod.GET
+import org.springframework.http.HttpMethod.POST
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.access.intercept.AuthorizationFilter
-import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher.withDefaults
 import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.security.web.util.matcher.RequestMatchers
 
@@ -45,15 +46,15 @@ internal class SecurityFilterChainConfig(
 
     companion object {
         val PERMIT_REQUESTS: RequestMatcher = RequestMatchers.anyOf(
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/api/v1/members"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/api/v1/auth/token"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/actuator/health/**"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/swagger-ui.html"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/swagger-ui/**"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/v3/api-docs/**"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/favicon.ico"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/.well-known/**"),
-            PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.GET, "/error"),
+            withDefaults().matcher(POST, "/api/v1/members"),
+            withDefaults().matcher(POST, "/api/v1/auth/token"),
+            withDefaults().matcher(GET, "/actuator/health/**"),
+            withDefaults().matcher(GET, "/swagger-ui.html"),
+            withDefaults().matcher(GET, "/swagger-ui/**"),
+            withDefaults().matcher(GET, "/v3/api-docs/**"),
+            withDefaults().matcher(GET, "/favicon.ico"),
+            withDefaults().matcher(GET, "/.well-known/**"),
+            withDefaults().matcher(GET, "/error"),
         )
     }
 }

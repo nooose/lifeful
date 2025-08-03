@@ -1,0 +1,18 @@
+[%autowidth.stretch, cols="h,a"]
+|===
+|Base package
+|`lifeful.event`
+|Spring components
+|_Services_
+
+* `l.e.EventProcessor`, `l.e.EventFinder` (via `l.e.EventService`)
+
+_Repositories_
+
+* `l.e.EventRecordRepository` (via `l.e.EventRecordModulithRepository`)
+
+_Others_
+
+* `l.e.EventManualProcessor` (via `l.e.EventManualModulithProcessor`)
+* `l.e.EventObjectMapper`
+|===

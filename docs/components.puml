@@ -1,0 +1,28 @@
+@startuml
+set separator none
+title LifefulApplication
+
+top to bottom direction
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+Container_Boundary("LifefulApplication.LifefulApplication_boundary", "LifefulApplication", $tags="") {
+  Component(LifefulApplication.LifefulApplication.이벤트event, "이벤트(event)", $techn="Module", $descr="", $tags="", $link="")
+  Component(LifefulApplication.LifefulApplication.공유shared, "공유(shared)", $techn="Module", $descr="", $tags="", $link="")
+  Component(LifefulApplication.LifefulApplication.관리자admin, "관리자(admin)", $techn="Module", $descr="", $tags="", $link="")
+  Component(LifefulApplication.LifefulApplication.회원member, "회원(member)", $techn="Module", $descr="", $tags="", $link="")
+  Component(LifefulApplication.LifefulApplication.건강health, "건강(health)", $techn="Module", $descr="", $tags="", $link="")
+  Component(LifefulApplication.LifefulApplication.보안security, "보안(security)", $techn="Module", $descr="", $tags="", $link="")
+}
+
+Rel(LifefulApplication.LifefulApplication.회원member, LifefulApplication.LifefulApplication.공유shared, "depends on", $techn="", $tags="", $link="")
+Rel(LifefulApplication.LifefulApplication.건강health, LifefulApplication.LifefulApplication.회원member, "listens to", $techn="", $tags="", $link="")
+Rel(LifefulApplication.LifefulApplication.건강health, LifefulApplication.LifefulApplication.공유shared, "depends on", $techn="", $tags="", $link="")
+Rel(LifefulApplication.LifefulApplication.관리자admin, LifefulApplication.LifefulApplication.공유shared, "depends on", $techn="", $tags="", $link="")
+Rel(LifefulApplication.LifefulApplication.관리자admin, LifefulApplication.LifefulApplication.이벤트event, "uses", $techn="", $tags="", $link="")
+Rel(LifefulApplication.LifefulApplication.보안security, LifefulApplication.LifefulApplication.회원member, "depends on", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+@enduml

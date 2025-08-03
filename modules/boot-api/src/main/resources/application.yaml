@@ -19,6 +19,9 @@ spring:
     hibernate:
       ddl-auto: update
 
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+
 springdoc:
   swagger-ui:
     tags-sorter: alpha
