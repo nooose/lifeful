@@ -45,11 +45,11 @@
 - Docker
 
 ### 실행
-    ```bash
-    ./gradlew :modules:boot-api:bootRun
-    ```
--   **API 서버 포트**: `8080`
--   **Swagger API 문서**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+```bash
+./gradlew :modules:boot-api:bootRun
+```
+- **API 서버 포트**: `8080`
+- **Swagger API 문서**: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
 ---
 
@@ -61,7 +61,6 @@
 ```bash
 # macOS (Homebrew)
 brew install k6
-  
 k6 run load-tests/script.js
 ```
 
