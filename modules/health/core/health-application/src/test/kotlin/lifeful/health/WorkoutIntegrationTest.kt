@@ -6,9 +6,6 @@ import io.kotest.extensions.spring.SpringTestExtension
 import io.kotest.extensions.spring.SpringTestLifecycleMode
 import io.kotest.matchers.shouldBe
 import lifeful.base.IntegrationTest
-import lifeful.shared.id.ExerciseId
-import lifeful.shared.id.MemberId
-import lifeful.shared.id.RoutineId
 import lifeful.health.exercise.ExerciseCategory
 import lifeful.health.exercise.MuscleGroup
 import lifeful.health.exercise.command.ExerciseAdd
@@ -17,7 +14,12 @@ import lifeful.health.routine.command.RoutineCreate
 import lifeful.health.routine.command.RoutineCreateCommand
 import lifeful.health.routine.command.RoutineItemCreateCommand
 import lifeful.health.routine.query.RoutineFinder
+import lifeful.shared.id.ExerciseId
+import lifeful.shared.id.MemberId
+import lifeful.shared.id.RoutineId
+import org.springframework.context.annotation.Import
 
+@Import(WorkoutTestConfiguration::class)
 @IntegrationTest
 class WorkoutIntegrationTest(
     private val exerciseAdd: ExerciseAdd,
