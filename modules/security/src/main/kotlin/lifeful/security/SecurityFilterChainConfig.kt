@@ -48,7 +48,7 @@ internal class SecurityFilterChainConfig(
         val PERMIT_REQUESTS: RequestMatcher = RequestMatchers.anyOf(
             withDefaults().matcher(POST, "/api/v1/members"),
             withDefaults().matcher(POST, "/api/v1/auth/token"),
-            withDefaults().matcher(GET, "/actuator/health/**"),
+            withDefaults().matcher(GET, "/actuator/**"),
             withDefaults().matcher(GET, "/swagger-ui.html"),
             withDefaults().matcher(GET, "/swagger-ui/**"),
             withDefaults().matcher(GET, "/v3/api-docs/**"),

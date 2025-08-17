@@ -19,6 +19,11 @@ spring:
     hibernate:
       ddl-auto: update
 
+  data:
+    redis:
+      host: redis
+      port: 6379
+
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 
@@ -27,8 +32,13 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: method
     doc-expansion: none
+  show-actuator: true
 
 management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, caches, openapi, metrics
   otlp:
     metrics:
       export:

@@ -7,6 +7,7 @@ import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.FetchType
 import jakarta.persistence.JoinColumn
+import java.time.Instant
 import lifeful.shared.model.BaseAggregateRootEntity
 
 @Entity
@@ -15,7 +16,14 @@ class Exercise(
     @Enumerated(EnumType.STRING)
     var category: ExerciseCategory,
     muscleGroups: Set<MuscleGroup>,
-) : BaseAggregateRootEntity<Exercise>() {
+    id: Long = 0L,
+    createdAt: Instant = Instant.now(),
+    modifiedAt: Instant = createdAt,
+) : BaseAggregateRootEntity<Exercise>(
+    id = id,
+    createdAt = createdAt,
+    modifiedAt = modifiedAt,
+) {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(

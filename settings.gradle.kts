@@ -10,6 +10,7 @@ include(
 include(
     "modules:support:api-doc",
     "modules:support:api-common",
+    "modules:support:redis",
 )
 
 include(
@@ -23,6 +24,7 @@ include(
 include(
     "modules:health:core:health-application",
     "modules:health:core:health-domain",
+    "modules:health:health-infra",
     "modules:health:health-api",
 )
 

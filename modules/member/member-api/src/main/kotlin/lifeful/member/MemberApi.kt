@@ -2,6 +2,7 @@ package lifeful.member
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import lifeful.shared.RequiredAuthorization
 
 @Tag(
     name = "회원 API",
@@ -13,16 +14,19 @@ interface MemberApi {
     )
     fun register(request: MemberRegisterRequest)
 
+    @RequiredAuthorization
     @Operation(
         summary = "회원 비활성화",
     )
     fun deactivate(memberId: Long)
 
+    @RequiredAuthorization
     @Operation(
         summary = "회원 목록 조회",
     )
     fun findAll(): List<MemberResponse>
 
+    @RequiredAuthorization
     @Operation(
         summary = "회원 닉네임 변경",
     )

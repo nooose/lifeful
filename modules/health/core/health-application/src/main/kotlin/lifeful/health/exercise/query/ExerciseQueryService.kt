@@ -1,9 +1,10 @@
 package lifeful.health.exercise.query
 
-import lifeful.shared.id.ExerciseId
 import lifeful.health.exercise.Exercise
+import lifeful.health.exercise.ExerciseCacheRepository
 import lifeful.health.exercise.ExerciseNotFoundException
 import lifeful.health.exercise.ExerciseRepository
+import lifeful.shared.id.ExerciseId
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 internal class ExerciseQueryService(
     private val repository: ExerciseRepository,
+    private val cacheRepository: ExerciseCacheRepository,
 ) : ExerciseFinder {
     override fun get(id: ExerciseId): Exercise {
         return repository.findById(id.value)
@@ -22,6 +24,12 @@ internal class ExerciseQueryService(
     }
 
     override fun all(): List<Exercise> {
-        return repository.findAll()
+        val cachedExercises = cacheRepository.getAll()
+        if (cachedExercises.isEmpty()) {
+            val exercises = repository.findAll()
+            cacheRepository.putAll(exercises)
+            return exercises
+        }
+        return cachedExercises
     }
 }
