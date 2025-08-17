@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository
 internal class ExerciseRedisRepository(
     private val crudRepository: ExerciseCrudRepository,
 ) : ExerciseCacheRepository {
-
     override fun putAll(exercises: List<Exercise>) {
         crudRepository.deleteAll()
         if (exercises.isEmpty()) return

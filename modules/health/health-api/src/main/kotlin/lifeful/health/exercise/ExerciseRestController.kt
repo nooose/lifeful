@@ -26,7 +26,9 @@ class ExerciseRestController(
     }
 
     @GetMapping("/api/v1/exercises/{exerciseId}")
-    override fun getExercise(@PathVariable id: ExerciseId): ExerciseResponse {
+    override fun getExercise(
+        @PathVariable id: ExerciseId,
+    ): ExerciseResponse {
         return ExerciseResponse.from(finder.get(id))
     }
 

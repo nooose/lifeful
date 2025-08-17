@@ -20,10 +20,10 @@ class Exercise(
     createdAt: Instant = Instant.now(),
     modifiedAt: Instant = createdAt,
 ) : BaseAggregateRootEntity<Exercise>(
-    id = id,
-    createdAt = createdAt,
-    modifiedAt = modifiedAt,
-) {
+        id = id,
+        createdAt = createdAt,
+        modifiedAt = modifiedAt,
+    ) {
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(

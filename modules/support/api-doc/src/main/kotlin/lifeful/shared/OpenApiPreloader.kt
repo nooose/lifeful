@@ -18,7 +18,7 @@ internal class OpenApiPreloader(
     fun preload(event: ApplicationReadyEvent) {
         val serverPort = serverProperties.port ?: 8080
         val docPath = springDocProperties.apiDocs.path
-        val openApiUrl = "http://localhost:$serverPort/${docPath}"
+        val openApiUrl = "http://localhost:$serverPort/$docPath"
         restClient.get()
             .uri(openApiUrl)
             .retrieve()
