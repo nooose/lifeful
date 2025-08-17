@@ -1,9 +1,6 @@
-package lifeful.health
+package lifeful.health.exercise
 
 import java.time.Instant
-import lifeful.health.exercise.Exercise
-import lifeful.health.exercise.ExerciseCategory
-import lifeful.health.exercise.MuscleGroup
 import org.springframework.data.annotation.Id
 import org.springframework.data.redis.core.RedisHash
 

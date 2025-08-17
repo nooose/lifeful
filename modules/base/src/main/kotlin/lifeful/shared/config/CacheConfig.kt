@@ -1,8 +1,5 @@
 package lifeful.shared.config
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.EnableCaching
 import org.springframework.context.annotation.Bean
@@ -17,7 +14,8 @@ import org.springframework.data.redis.serializer.StringRedisSerializer
 @EnableCaching
 @Configuration
 internal class CacheConfig(
-    private val objectMapper: ObjectMapper,
+    private val stringSerializer: StringRedisSerializer,
+    private val valueSerializer: GenericJackson2JsonRedisSerializer,
 ) {
     @Bean
     fun redisCacheManager(redisConnectionFactory: RedisConnectionFactory): CacheManager {
@@ -30,16 +28,8 @@ internal class CacheConfig(
     }
 
     private fun redisCacheConfiguration(): RedisCacheConfiguration {
-        val cacheObjectMapper = objectMapper.copy().apply {
-            val ptv = BasicPolymorphicTypeValidator.builder()
-                .allowIfBaseType(Any::class.java)
-                .build()
-            activateDefaultTyping(ptv, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY)
-        }
-
-        val jacksonSerializer = GenericJackson2JsonRedisSerializer(cacheObjectMapper)
-        val keySerializerPair = fromSerializer(StringRedisSerializer())
-        val valueSerializerPair = fromSerializer(jacksonSerializer)
+        val keySerializerPair = fromSerializer(stringSerializer)
+        val valueSerializerPair = fromSerializer(valueSerializer)
 
         return RedisCacheConfiguration
             .defaultCacheConfig()

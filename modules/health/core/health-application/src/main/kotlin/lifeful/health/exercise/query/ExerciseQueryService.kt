@@ -25,11 +25,12 @@ internal class ExerciseQueryService(
 
     override fun all(): List<Exercise> {
         val cachedExercises = cacheRepository.getAll()
-        if (cachedExercises.isEmpty()) {
-            val exercises = repository.findAll()
-            cacheRepository.putAll(exercises)
-            return exercises
+        if (cachedExercises.isNotEmpty()) {
+            return cachedExercises
         }
-        return cachedExercises
+
+        val exercises = repository.findAll()
+        cacheRepository.putAll(exercises)
+        return exercises
     }
 }

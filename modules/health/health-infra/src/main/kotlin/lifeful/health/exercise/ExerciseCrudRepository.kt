@@ -1,4 +1,4 @@
-package lifeful.health
+package lifeful.health.exercise
 
 import org.springframework.data.repository.CrudRepository
 

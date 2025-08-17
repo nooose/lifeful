@@ -7,7 +7,7 @@
 - Framework: Spring Boot 3.5.3
 - Build Tool: Gradle
 - Dev Tool: Docker Compose, Spring Modulith
-- Database: MySQL, H2 (for test)
+- Database: MySQL, Redis, H2 (for test)
 - ORM: Spring Data JPA, Kotlin-JDSL
 - Test: Kotest, MockK
 - API Docs: SpringDoc (OpenAPI 3.0)
