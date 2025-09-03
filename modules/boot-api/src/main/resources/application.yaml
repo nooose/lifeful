@@ -6,7 +6,7 @@ lifeful:
 
 spring:
   application:
-    name: lifeful
+    name: lifeful-api
 
   datasource:
     hikari:
