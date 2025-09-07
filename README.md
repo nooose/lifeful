@@ -4,14 +4,16 @@
 
 # 기술 스택
 - Language: Kotlin 1.9.25, Java 21
-- Framework: Spring Boot 3.5.3
+- Framework: Spring Boot 3.5.5
 - Build Tool: Gradle
 - Dev Tool: Docker Compose, Spring Modulith
 - Database: MySQL, Redis, H2 (for test)
 - ORM: Spring Data JPA, Kotlin-JDSL
 - Test: Kotest, MockK
+- API: Spring Web
 - API Docs: SpringDoc (OpenAPI 3.0)
 - Security: Spring Security, JWT
+- Batch: Spring Batch
 
 # 문서
 - [도메인 설계](docs/domain.md)
