@@ -19,11 +19,12 @@ class TestBatchService(
     private val transactionManager: PlatformTransactionManager,
 ) {
     @Bean
-    fun simulationJob(): Job {
+    fun simulationJob(randomStep: Step, validator: RandomParameterValidator): Job {
         return JobBuilder("simulationJob", jobRepository)
+            .validator(validator)
             .start(startStep())
             .next(processStep())
-            .next(randomStep())
+            .next(randomStep)
             .next(completeStep())
             .build()
     }
@@ -51,22 +52,11 @@ class TestBatchService(
     }
 
     @Bean
-    fun randomStep(): Step {
+    fun randomStep(randomTasklet: RandomTasklet): Step {
         return StepBuilder("randomStep", jobRepository)
-            .tasklet(
-                { contribution, chunkContext ->
-                    val random = (0..100).random()
-                    log.info { "랜덤 생성 코드: $random" }
-
-                    if (random < 50) {
-                        RepeatStatus.CONTINUABLE
-                    } else {
-                        RepeatStatus.FINISHED
-                    }
-                }, transactionManager)
+            .tasklet(randomTasklet, transactionManager)
             .build()
     }
-
 
     @Bean
     fun completeStep(): Step {
