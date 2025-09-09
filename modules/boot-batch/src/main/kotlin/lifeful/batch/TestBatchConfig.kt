@@ -1,9 +1,12 @@
 package lifeful.batch
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import lifeful.batch.listener.MonitorJobExecutionListener
+import lifeful.batch.listener.MonitorStepExecutionListener
 import org.springframework.batch.core.Job
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.job.builder.JobBuilder
+import org.springframework.batch.core.listener.ExecutionContextPromotionListener
 import org.springframework.batch.core.repository.JobRepository
 import org.springframework.batch.core.step.builder.StepBuilder
 import org.springframework.batch.repeat.RepeatStatus
@@ -14,14 +17,19 @@ import org.springframework.transaction.PlatformTransactionManager
 val log = KotlinLogging.logger {}
 
 @Configuration
-class TestBatchService(
+class TestBatchConfig(
     private val jobRepository: JobRepository,
     private val transactionManager: PlatformTransactionManager,
 ) {
     @Bean
-    fun simulationJob(randomStep: Step, validator: RandomParameterValidator): Job {
+    fun simulationJob(
+        randomStep: Step,
+        validator: RandomParameterValidator,
+        jobListener: MonitorJobExecutionListener,
+    ): Job {
         return JobBuilder("simulationJob", jobRepository)
             .validator(validator)
+            .listener(jobListener)
             .start(startStep())
             .next(processStep())
             .next(randomStep)
@@ -35,9 +43,19 @@ class TestBatchService(
             .tasklet(
                 { contribution, chunkContext ->
                     log.info { "배치 시작" }
+
+                    val stepContext = contribution.stepExecution.executionContext
+                    stepContext.put("promotion", "promoted")
                     RepeatStatus.FINISHED
                 }, transactionManager)
+            .listener(promotionListener())
             .build()
+    }
+
+    fun promotionListener(): ExecutionContextPromotionListener {
+        val listener = ExecutionContextPromotionListener()
+        listener.setKeys(arrayOf("promotion"))
+        return listener
     }
 
     @Bean
@@ -52,9 +70,13 @@ class TestBatchService(
     }
 
     @Bean
-    fun randomStep(randomTasklet: RandomTasklet): Step {
+    fun randomStep(
+        randomTasklet: RandomTasklet,
+        stepListener: MonitorStepExecutionListener,
+    ): Step {
         return StepBuilder("randomStep", jobRepository)
             .tasklet(randomTasklet, transactionManager)
+            .listener(stepListener)
             .build()
     }
 

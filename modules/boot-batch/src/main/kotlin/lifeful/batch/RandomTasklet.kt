@@ -14,13 +14,19 @@ class RandomTasklet(
     @Value("#{jobParameters['id']}" )
     val id: String,
     @Value("#{jobParameters['max']}")
-    val max: Int,
+    val max: Long,
+    @Value("#{jobExecutionContext['code']}")
+    val code: String,
+    @Value("#{jobExecutionContext['promotion']}")
+    val promotion: String,
 ) : Tasklet {
     override fun execute(
         contribution: StepContribution,
         chunkContext: ChunkContext
     ): RepeatStatus {
         log.info { "ID: $id" }
+        log.info { "Code: $code" }
+        log.info { "Promotion: $promotion" }
         val random = (0..max).random()
         log.info { "랜덤 생성 코드: $random" }
 
